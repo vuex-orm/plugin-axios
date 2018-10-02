@@ -1,0 +1,4 @@
+/node_modules
+yarn-error.log
+vuex-orm-axios*.tgz
+coverage
