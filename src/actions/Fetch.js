@@ -23,9 +23,7 @@ export default class Fetch extends Action {
           data,
         });
       })
-      .catch(error => {
-        commit('onError', error)
-      })
+      .catch(error => commit('onError', error))
 
     return request;
   }

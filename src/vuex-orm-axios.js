@@ -47,23 +47,23 @@ export default class VuexOrmAxios {
       return entity;
     });
 
-    context.components.Model.$fetch = async function (config = {}) {
+    context.components.Model.$fetch = function (config = {}) {
       return this.dispatch('$fetch', config);
     };
 
-    context.components.Model.$get = async function (config = {}) {
+    context.components.Model.$get = function (config = {}) {
       return this.dispatch('$get', config);
     };
 
-    context.components.Model.$create = async function (config = {}) {
+    context.components.Model.$create = function (config = {}) {
       return this.dispatch('$create', config);
     };
 
-    context.components.Model.$update = async function (config = {}) {
+    context.components.Model.$update = function (config = {}) {
       return this.dispatch('$update', config);
     };
 
-    context.components.Model.$delete = async function (config = {}) {
+    context.components.Model.$delete = function (config = {}) {
       return this.dispatch('$delete', config);
     };
   }
