@@ -37,4 +37,14 @@ export default class Context {
   static getInstance() {
     return this.instance;
   }
+
+  /**
+   * Get Model from State
+   * @param {object} state
+   */
+  getModelFromState(state) {
+    return _.find(this.database.entities, {
+      name: state.$name
+    }).model;
+  }
 }

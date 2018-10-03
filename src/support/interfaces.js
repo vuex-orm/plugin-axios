@@ -163,3 +163,107 @@ export const VuexOrmPluginConfig = {
    */
   http: AxiosRequestConfig
 };
+
+export const ModuleConfig = {
+  /**
+   * Vuex Default Getters
+   */
+  getters: {
+    loading: state => state.loading,
+    errors: state => state.errors,
+  },
+
+  /**
+   * Vuex Default Mutations
+   */
+  mutations: {
+    /**
+     * On Default Request
+     * @param {object} state
+     */
+    onRequest(state) {
+      state.loading = true;
+      state.errors = [];
+    },
+
+    /**
+     * On Error Request
+     * @param {object} state
+     * @param {object} response
+     */
+    onError(state, response) {
+      state.loading = false;
+      state.errors = response.data;
+    },
+
+    /**
+     * On Success Request
+     * @param {object} state
+     * @param {object} response
+     */
+    onSuccess(state) {
+      state.loading = false;
+      state.errors = [];
+    },
+  },
+
+  /**
+   * Vuex Defualt State
+   */
+  state: {
+    loading: false,
+    errors: [],
+  },
+};
+
+export const FetchConfig = {
+  name: 'fetch',
+  http: {
+    url: '',
+    method: 'get',
+  },
+};
+
+export const GetConfig = {
+  name: 'get',
+  http: {
+    url: '/:id',
+    method: 'get',
+  },
+};
+
+export const CreateConfig = {
+  name: 'create',
+  alias: ['insert'],
+  http: {
+    url: '',
+    method: 'post',
+  },
+};
+
+export const UpdateConfig = {
+  name: 'update',
+  http: {
+    url: '/:id',
+    method: 'put',
+  },
+};
+
+export const DeleteConfig = {
+  name: 'delete',
+  http: {
+    url: '/:id',
+    method: 'delete',
+  },
+};
+
+export const ModelConfig = {
+  http: AxiosRequestConfig,
+  methods: {
+    $fetch: FetchConfig,
+    $get: GetConfig,
+    $create: CreateConfig,
+    $update: UpdateConfig,
+    $delete: DeleteConfig,
+  },
+};
