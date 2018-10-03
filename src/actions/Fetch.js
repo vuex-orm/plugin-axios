@@ -15,16 +15,41 @@ export default class Fetch extends Action {
     const axios =  new Axios(model.methodConf.http);
     const request = axios.get(endpoint);
 
-    commit('onRequest');
+    this.onRequest(commit);
     request
-      .then(data => {
-        commit('onSuccess')
-        model.insertOrUpdate({
-          data,
-        });
-      })
-      .catch(error => commit('onError', error))
+      .then(data => this.onSuccess(commit, model, data))
+      .catch(error => this.onError(commit, error))
 
     return request;
+  }
+
+  /**
+   * On Request Method
+   * @param {object} commit
+   */
+  static onRequest(commit) {
+    commit('onRequest');
+  }
+
+  /**
+   * On Successful Request Method
+   * @param {object} commit
+   * @param {object} model
+   * @param {object} data
+   */
+  static onSuccess(commit, model, data) {
+    commit('onSuccess')
+    model.insertOrUpdate({
+      data,
+    });
+  }
+
+  /**
+   * On Failed Request Method
+   * @param {object} commit
+   * @param {object} error
+   */
+  static onError(commit, error) {
+    commit('onError', error)
   }
 }

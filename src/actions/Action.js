@@ -20,6 +20,24 @@ export default class Action {
     ModelConfig.http = _.merge({}, ModelConfig.http, context.options.http);
     model.methodConf = _.merge({}, ModelConfig, model.methodConf);
     model.methodConf.http.url = (model.methodConf.http.url === '/') ? `/${model.entity}` : model.methodConf.http.url;
+
+    /**
+     * Add Model Interface to each model
+     */
+    model.getFields = () => {
+      if (!model.cachedFields) {
+        model.cachedFields = _.merge({}, {
+          $id: model.attr(undefined),
+          $isUpdating: model.boolean(false),
+          $updateErrors: model.attr([]),
+          $isDeleting: model.boolean(false),
+          $deleteErrors: model.attr([]),
+        }, model.fields())
+      }
+
+      return model.cachedFields;
+    };
+
     return model;
   }
 

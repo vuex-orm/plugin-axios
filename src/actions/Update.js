@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import Axios from '../orm/axios';
 import Action from './Action'
 import Context from '../common/context'
@@ -19,14 +20,58 @@ export default class Update extends Action {
     const axios =  new Axios(model.methodConf.http);
     const request = axios.put(endpoint, params.data);
 
+    this.onRequest(model, params);
     request
-      .then(data => {
-        model.update({
-          where: data.id,
-          data
-        })
-      })
+      .then(data => this.onSuccess(model, params, data))
+      .catch(error => this.onError(model, params, error))
 
     return request;
+  }
+
+  /**
+   * On Request Method
+   * @param {object} model
+   * @param {object} params
+   */
+  static onRequest(model, params) {
+    model.update({
+      where: params.params.id,
+      data: {
+        $isUpdating: true,
+        $updateErrors: []
+      }
+    })
+  }
+
+  /**
+   * On Successful Request Method
+   * @param {object} model
+   * @param {object} params
+   * @param {object} data
+   */
+  static onSuccess(model, params, data) {
+    model.update({
+      where: params.params.id || data.id,
+      data: _.merge({}, data, {
+        $isUpdating: false,
+        $updateErrors: []
+      })
+    })
+  }
+
+  /**
+   * On Failed Request Method
+   * @param {object} model
+   * @param {object} params
+   * @param {object} error
+   */
+  static onError(model, params, error) {
+    model.update({
+      where: params.params.id,
+      data: {
+        $isUpdating: false,
+        $updateErrors: error
+      }
+    })
   }
 }
