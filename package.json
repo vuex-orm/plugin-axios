@@ -1,18 +1,29 @@
 {
   "name": "@vuex-orm/plugin-axios",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Vuex-ORM Plugin to sync the data against a RESTful API.",
   "main": "dist/index.js",
-  "repository": "https://github.com/vuex-orm/vuex-orm-axios",
-  "author": "Kani Robinson",
-  "license": "MIT",
-  "private": false,
   "scripts": {
     "watch": "webpack --watch --mode=production",
     "build": "webpack --mode=production",
     "lint": "eslint src/**/*.js test/**/*.js",
     "test": "jest"
   },
+  "repository": {
+    "type": "git",
+    "type": "git+https://github.com/vuex-orm/plugin-axios.git"
+  },
+  "keywords": [
+    "vue",
+    "vuex",
+    "vuex-plugin",
+    "vuex-orm",
+    "vuex-orm-plugin",
+    "axios",
+    "http"
+  ],
+  "author": "Kani Robinson",
+  "license": "MIT",
   "jest": {
     "transform": {
       "^.+\\.jsx?$": "babel-jest"
