@@ -50,7 +50,8 @@ export default class Action {
   static transformParams (type, model, config = {}) {
     let endpoint = `${model.methodConf.http.url}${model.methodConf.methods[type].http.url}`;
     let params = _.map(endpoint.match(/(\/?)(\:)([A-z]*)/gm), (param) => { return param.replace('/', '') })
-    _.forEach(params, (param) => { endpoint = endpoint.replace(param, config.params[param.replace(':')] ? foundParam : '').replace('//', '/') })
+
+    _.forEach(params, (param) => { endpoint = endpoint.replace(param, config.params[param.replace(':', '')] || '').replace('//', '/') })
     if (config.query) endpoint += `?${Object.keys(config.query).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(config.query[k])}`).join('&')}`;
     return endpoint;
   }
