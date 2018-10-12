@@ -51,7 +51,10 @@ export default class Action {
     let endpoint = `${model.methodConf.http.url}${model.methodConf.methods[type].http.url}`;
     let params = _.map(endpoint.match(/(\/?)(\:)([A-z]*)/gm), (param) => { return param.replace('/', '') })
 
-    _.forEach(params, (param) => { endpoint = endpoint.replace(param, config.params[param.replace(':', '')] || '').replace('//', '/') })
+    _.forEach(params, (param) => {
+      const paramValue = _.has(config.params, param.replace(':', '')) ? config.params[param.replace(':', '')] : ''
+      endpoint = endpoint.replace(param, paramValue).replace('//', '/')
+    })
     if (config.query) endpoint += `?${Object.keys(config.query).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(config.query[k])}`).join('&')}`;
     return endpoint;
   }
