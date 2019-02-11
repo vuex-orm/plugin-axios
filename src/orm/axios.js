@@ -2,15 +2,15 @@ import axios from 'axios';
 
 export default class Axios {
   constructor(http) {
-    this.instance = axios.create(http);
+    this.instance = http.axios || axios.create(http);
 
     if(http.access_token) {
       this.instance.defaults.headers.common['Authorization'] = `Bearer ${http.access_token}`;
     }
 
     this.instance.interceptors.response.use(
-      response => http.onResponse(response),
-      error => http.onError(error),
+      response => http.onResponse(response, this.instance),
+      error => http.onError(error, this.instance),
     );
 
     return this.instance;

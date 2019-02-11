@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import merge from 'lodash/merge';
 import Axios from '../orm/axios';
 import Action from './Action'
 import Context from '../common/context'
@@ -52,7 +52,7 @@ export default class Update extends Action {
   static onSuccess(model, params, data) {
     model.update({
       where: params.params.id || data.id,
-      data: _.merge({}, data, {
+      data: merge({}, data, {
         $isUpdating: false,
         $updateErrors: []
       })

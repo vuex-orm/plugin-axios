@@ -1,3 +1,4 @@
+import map from 'lodash/map';
 import Context from './common/context';
 import Action from './actions/Action'
 import Fetch from './actions/Fetch'
@@ -41,7 +42,7 @@ export default class VuexOrmAxios {
     /**
      * Transform Model and Modules
      */
-    _.map(context.database.entities, entity => {
+    map(context.database.entities, entity => {
       entity.module = Action.transformModule(entity.module);
       entity.model = Action.transformModel(entity.model);
       return entity;

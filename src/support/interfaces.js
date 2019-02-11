@@ -2,6 +2,12 @@ import { Database } from '@vuex-orm/core';
 
 export const AxiosRequestConfig = {
   /**
+   * Default create new axios instance, provide
+   * option to pass an existing instance through.
+   */
+  axios: undefined,
+
+  /**
    * Default Base URL
    */
   baseURL: 'http://localhost:3000',

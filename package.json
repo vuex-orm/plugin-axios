@@ -1,6 +1,6 @@
 {
   "name": "@vuex-orm/plugin-axios",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Vuex-ORM Plugin to sync the data against a RESTful API.",
   "main": "dist/index.js",
   "scripts": {
@@ -29,18 +29,18 @@
     }
   },
   "dependencies": {
-    "@babel/preset-env": "^7.0.0",
     "@vuex-orm/core": "^0.26.2",
     "axios": "^0.18.0",
     "lodash": "^4.17.11"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.2.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/runtime": "^7.3.1",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^23.4.2",
     "babel-loader": "^8.0.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.7.0",
     "eslint": "^5.4.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.14.0",
