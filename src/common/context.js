@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import merge from 'lodash/merge'
+import find from 'lodash/find'
 import { VuexOrmPluginConfig } from '../support/interfaces';
 
 export default class Context {
@@ -11,7 +12,7 @@ export default class Context {
    */
   constructor(components, options) {
     this.components = components;
-    this.options = _.merge({}, VuexOrmPluginConfig, options);
+    this.options = merge({}, VuexOrmPluginConfig, options);
     this.database = options.database;
 
     if (!options.database) {
@@ -43,7 +44,7 @@ export default class Context {
    * @param {object} state
    */
   getModelFromState(state) {
-    return _.find(this.database.entities, {
+    return find(this.database.entities, {
       name: state.$name
     }).model;
   }

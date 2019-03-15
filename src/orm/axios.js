@@ -2,12 +2,12 @@ import axios from 'axios';
 
 export default class Axios {
   constructor(http) {
-    this.instance = axios.create(http);
+    this.instance = http.axios || axios.create(http);
     this.setAuthentication(http.access_token);
 
     this.instance.interceptors.response.use(
-      response => http.onResponse(response),
-      error => http.onError(error),
+      response => http.onResponse(response, this.instance),
+      error => http.onError(error, this.instance),
     );
 
     return this.instance;
@@ -15,7 +15,8 @@ export default class Axios {
 
   setAuthentication(token) {
     if (!token) return;
-    const isFunction = typeof token === "function";
+    const isFunction = typeof token 
+    "function";
     const tokenStr = isFunction ? token() : token;
 
     this.instance.defaults.headers.common['Authorization'] = `Bearer ${tokenStr}`;
