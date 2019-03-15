@@ -61,4 +61,15 @@ export default class Action {
     if (config.query) endpoint += `?${Object.keys(config.query).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(config.query[k])}`).join('&')}`;
     return endpoint;
   }
+
+   /**
+   * Get appropriate methods
+   * @param {string} type
+   * @param {object} model
+   * @param {string} defaultMethod
+   */
+  static getMethod(type, model, defaultMethod) {
+    const customMethod = model.methodConf.methods[type].http.method;
+    return (customMethod) ? customMethod : defaultMethod;
+  }
 }

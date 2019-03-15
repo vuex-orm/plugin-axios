@@ -17,7 +17,8 @@ export default class Create extends Action {
     const model = context.getModelFromState(state);
     const endpoint = Action.transformParams('$create', model, params);
     const axios =  new Axios(model.methodConf.http);
-    const request = axios.post(endpoint, params.data);
+    const method = Action.getMethod('$create', model, 'post');
+    const request = axios[method](endpoint, params.data);
 
     this.onRequest(commit);
     request

@@ -136,24 +136,18 @@ export const AxiosRequestConfig = {
    * @param {object} error
    */
   onError(error) {
-    switch (error.response.status) {
-      case 401:
-        this.onUnauthorised(error);
-        break;
-      case 404:
-        this.onNotFound(error);
-        break;
-      case 422:
-        this.onValidationError(error);
-        break;
-      case 500:
-        this.onServerError(error);
-        break;
-      default:
-        this.onGenericError(error);
-        break;
+    const { response } = error;
+    const errorTypes = {
+      401: this.onUnauthorised,
+      404: this.onNotFound,
+      422: this.onValidationError,
+      500: this.onServerError
     }
-
+    if (response && response.status in errorTypes) {
+      errorTypes[response.status](error);
+    } else {
+      this.onGenericError(error);
+    }
     return Promise.reject(error);
   },
 };
