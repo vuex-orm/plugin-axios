@@ -1,7 +1,7 @@
 import merge from 'lodash/merge';
-import Axios from '../orm/axios';
-import Action from './Action'
-import Context from '../common/context'
+import Axios from '@src/orm/axios';
+import Action from '@src/actions/Action';
+import Context from '@src/common/context';
 
 export default class Update extends Action {
   /**

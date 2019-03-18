@@ -1,13 +1,13 @@
 const path = require('path');
 
 module.exports = {
-  entry: './src/index.js',
-  target: 'node',
+  entry: "./src/index.js",
+  target: "node",
   output: {
-    library: 'vuex-orm-axios',
-    libraryTarget: 'umd',
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'index.js',
+    library: "vuex-orm-axios",
+    libraryTarget: "umd",
+    path: path.resolve(__dirname, "dist"),
+    filename: "index.js"
   },
   module: {
     rules: [
@@ -15,9 +15,15 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
-        },
-      },
-    ],
+          loader: "babel-loader"
+        }
+      }
+    ]
   },
+  resolve: {
+    alias: {
+      '@src': path.resolve(__dirname, 'src')
+    },
+    extensions: ['.js']
+  }
 };

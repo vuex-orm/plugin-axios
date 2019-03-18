@@ -2,8 +2,8 @@ import forEach from 'lodash/forEach';
 import has from 'lodash/has';
 import map from 'lodash/map';
 import merge from 'lodash/merge';
-import Context from '../common/context';
-import { ModuleConfig, ModelConfig } from '../support/interfaces';
+import Context from '@src/common/context';
+import { ModuleConfig, ModelConfig } from '@src/support/interfaces';
 
 export default class Action {
   /**

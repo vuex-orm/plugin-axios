@@ -1,11 +1,11 @@
 import map from 'lodash/map';
-import Context from './common/context';
-import Action from './actions/Action'
-import Fetch from './actions/Fetch'
-import Get from './actions/Get'
-import Create from './actions/Create'
-import Update from './actions/Update'
-import Delete from './actions/Delete'
+import Context from '@src/common/context';
+import Action from '@src/actions/Action';
+import Fetch from '@src/actions/Fetch';
+import Get from '@src/actions/Get';
+import Create from '@src/actions/Create';
+import Update from '@src/actions/Update';
+import Delete from '@src/actions/Delete';
 
 export default class VuexOrmAxios {
   /**
