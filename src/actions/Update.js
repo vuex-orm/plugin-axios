@@ -21,10 +21,12 @@ export default class Update extends Action {
     const method = Action.getMethod('$update', model, 'put');
     const request = axios[method](endpoint, params.data);
 
-    this.onRequest(model, params);
-    request
-      .then(data => this.onSuccess(model, params, data))
-      .catch(error => this.onError(model, params, error))
+    await this.onRequest(model, params);
+    try {
+      await this.onSuccess(model, params, await request);
+    } catch(error) {
+      await this.onError(model, params, error);
+    }
 
     return request;
   }
@@ -35,7 +37,7 @@ export default class Update extends Action {
    * @param {object} params
    */
   static onRequest(model, params) {
-    model.update({
+    return model.update({
       where: params.params.id,
       data: {
         $isUpdating: true,
@@ -51,7 +53,7 @@ export default class Update extends Action {
    * @param {object} data
    */
   static onSuccess(model, params, data) {
-    model.update({
+    return model.update({
       where: params.params.id || data.id,
       data: merge({}, data, {
         $isUpdating: false,
@@ -67,7 +69,7 @@ export default class Update extends Action {
    * @param {object} error
    */
   static onError(model, params, error) {
-    model.update({
+    return model.update({
       where: params.params.id,
       data: {
         $isUpdating: false,
