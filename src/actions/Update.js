@@ -50,7 +50,7 @@ export default class Update extends Action {
    * @param {object} params
    * @param {object} data
    */
-  static onSuccess(model, params, data) {
+  static onSuccess(model, params, { data }) {
     model.update({
       where: params.params.id || data.id,
       data: merge({}, data, {

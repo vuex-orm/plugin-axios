@@ -45,7 +45,7 @@ export default class Delete extends Action {
    * @param {object} params
    * @param {object} data
    */
-  static onSuccess(model, params, data) {
+  static onSuccess(model, params, { data }) {
     model.delete({
       where: params.params.id || data.id,
     })
