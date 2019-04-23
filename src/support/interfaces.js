@@ -84,10 +84,20 @@ export const AxiosRequestConfig = {
   proxy: {},
 
   /**
+   * Default onRequest
+   * @param {object} config
+   * @param {Axios} Axios instance
+   */
+  onRequest(config, axios) {
+    return config;
+  },
+
+  /**
    * Default on Response
    * @param {object} response
+   * @param {Axios} axios instance
    */
-  onResponse(response) {
+  onResponse(response, axios) {
     return response.data;
   },
 
@@ -134,8 +144,9 @@ export const AxiosRequestConfig = {
   /**
    * Default on Error
    * @param {object} error
+   * @param {Axios} axios instance
    */
-  onError(error) {
+  onError(error, axios) {
     const { response } = error;
     const errorTypes = {
       401: this.onUnauthorised,
