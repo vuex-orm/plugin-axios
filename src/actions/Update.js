@@ -23,8 +23,8 @@ export default class Update extends Action {
 
     this.onRequest(model, params);
     request
-      .then(data => this.onSuccess(model, params, data))
-      .catch(error => this.onError(model, params, error))
+      .then(response => this.onSuccess(model, params, response))
+      .catch(error => this.onError(model, params, error));
 
     return request;
   }
@@ -50,7 +50,7 @@ export default class Update extends Action {
    * @param {object} params
    * @param {object} data
    */
-  static onSuccess(model, params, data) {
+  static onSuccess(model, params, { data }) {
     model.update({
       where: params.params.id || data.id,
       data: merge({}, data, {

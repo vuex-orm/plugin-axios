@@ -18,7 +18,7 @@ export default class Delete extends Action {
 
     this.onRequest(model, params);
     request
-      .then(data => this.onSuccess(model, params, data))
+      .then(response => this.onSuccess(model, params, response))
       .catch(error => this.onError(model, params, error))
 
     return request;
@@ -45,7 +45,7 @@ export default class Delete extends Action {
    * @param {object} params
    * @param {object} data
    */
-  static onSuccess(model, params, data) {
+  static onSuccess(model, params, { data }) {
     model.delete({
       where: params.params.id || data.id,
     })

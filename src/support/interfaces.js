@@ -88,7 +88,7 @@ export const AxiosRequestConfig = {
    * @param {object} response
    */
   onResponse(response) {
-    return response.data;
+    return response;
   },
 
   /**
