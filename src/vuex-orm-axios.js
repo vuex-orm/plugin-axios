@@ -45,6 +45,7 @@ export default class VuexOrmAxios {
     map(context.database.entities, entity => {
       entity.module = Action.transformModule(entity.module);
       entity.model = Action.transformModel(entity.model);
+      Action.addAdditionalActions(entity.model);
       return entity;
     });
 

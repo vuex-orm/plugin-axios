@@ -23,7 +23,6 @@ export default class Action {
     ModelConfig.http = merge({}, ModelConfig.http, context.options.http);
     model.methodConf = merge({}, ModelConfig, model.methodConf);
     model.methodConf.http.url = (model.methodConf.http.url === '/') ? `/${model.entity}` : model.methodConf.http.url;
-
     /**
      * Add Model Interface to each model
      */
@@ -42,6 +41,16 @@ export default class Action {
     };
 
     return model;
+  }
+
+  static addAdditionalActions(model) {
+    let extra = model.methodConf.methods.extra;
+    const context = Context.getInstance();
+    Object.keys(extra).forEach((key) => {
+      context.components.Model[key] = function (config = {}) {
+        return this.dispatch(extra[key].action, config);
+      };
+    });
   }
 
   /**
