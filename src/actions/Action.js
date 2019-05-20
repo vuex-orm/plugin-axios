@@ -2,6 +2,7 @@ import forEach from 'lodash/forEach';
 import has from 'lodash/has';
 import map from 'lodash/map';
 import merge from 'lodash/merge';
+import Axios from 'axios';
 import Context from '../common/context';
 import { ModuleConfig, ModelConfig } from '../support/interfaces';
 
@@ -62,7 +63,7 @@ export default class Action {
     return endpoint;
   }
 
-   /**
+  /**
    * Get appropriate methods
    * @param {string} type
    * @param {object} model
@@ -70,6 +71,18 @@ export default class Action {
    */
   static getMethod(type, model, defaultMethod) {
     const customMethod = model.methodConf.methods[type].http.method;
-    return (customMethod) ? customMethod : defaultMethod;
+    return (customMethod) || defaultMethod;
+  }
+
+  static createAxiosInstanceForMethod(type, model) {
+    return new Axios(
+      merge(
+        {},
+        has(model.methodConf, `methods.${type}.http`)
+          ? model.methodConf.methods[type].http
+          : {},
+        model.methodConf.http,
+      ),
+    );
   }
 }

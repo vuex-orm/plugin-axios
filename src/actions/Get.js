@@ -1,6 +1,5 @@
-import Axios from '../orm/axios';
-import Action from './Action'
-import Context from '../common/context'
+import Action from './Action';
+import Context from '../common/context';
 
 export default class Get extends Action {
   /**
@@ -8,18 +7,19 @@ export default class Get extends Action {
    * @param {object} store
    * @param {object} params
    */
-  static async call ({ state, commit }, params = {}) {
+  static async call({ state, commit }, params = {}) {
     const context = Context.getInstance();
     const model = context.getModelFromState(state);
+
     const endpoint = Action.transformParams('$get', model, params);
-    const axios =  new Axios(model.methodConf.http);
+    const axios = Action.createAxiosInstanceForMethod('$get', model);
     const method = Action.getMethod('$get', model, 'get');
     const request = axios[method](endpoint);
 
     this.onRequest(commit);
     request
       .then(data => this.onSuccess(commit, model, data))
-      .catch(error => this.onError(commit, error))
+      .catch(error => this.onError(commit, error));
 
     return request;
   }
@@ -39,7 +39,7 @@ export default class Get extends Action {
    * @param {object} data
    */
   static onSuccess(commit, model, data) {
-    commit('onSuccess')
+    commit('onSuccess');
     model.insertOrUpdate({
       data,
     });
@@ -51,6 +51,6 @@ export default class Get extends Action {
    * @param {object} error
    */
   static onError(commit, error) {
-    commit('onError', error)
+    commit('onError', error);
   }
 }
