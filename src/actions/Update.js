@@ -1,7 +1,6 @@
 import merge from 'lodash/merge';
-import Axios from '../orm/axios';
-import Action from './Action'
-import Context from '../common/context'
+import Action from './Action';
+import Context from '../common/context';
 
 export default class Update extends Action {
   /**
@@ -9,22 +8,22 @@ export default class Update extends Action {
    * @param {object} store
    * @param {object} params
    */
-  static async call ({ state, commit }, params = {}) {
-    if(!params.data || typeof params !== 'object') {
-      throw new TypeError("You must include a data object in the params to send a POST request", params)
+  static async call({ state, commit }, params = {}) {
+    if (!params.data || typeof params !== 'object') {
+      throw new TypeError('You must include a data object in the params to send a POST request', params);
     }
 
     const context = Context.getInstance();
     const model = context.getModelFromState(state);
     const endpoint = Action.transformParams('$update', model, params);
-    const axios =  new Axios(model.methodConf.http);
+    const axios = Action.createAxiosInstanceForMethod('$update', model);
     const method = Action.getMethod('$update', model, 'put');
     const request = axios[method](endpoint, params.data);
 
     this.onRequest(model, params);
     request
       .then(data => this.onSuccess(model, params, data))
-      .catch(error => this.onError(model, params, error))
+      .catch(error => this.onError(model, params, error));
 
     return request;
   }
@@ -39,9 +38,9 @@ export default class Update extends Action {
       where: params.params.id,
       data: {
         $isUpdating: true,
-        $updateErrors: []
-      }
-    })
+        $updateErrors: [],
+      },
+    });
   }
 
   /**
@@ -55,9 +54,9 @@ export default class Update extends Action {
       where: params.params.id || data.id,
       data: merge({}, data, {
         $isUpdating: false,
-        $updateErrors: []
-      })
-    })
+        $updateErrors: [],
+      }),
+    });
   }
 
   /**
@@ -71,8 +70,8 @@ export default class Update extends Action {
       where: params.params.id,
       data: {
         $isUpdating: false,
-        $updateErrors: error
-      }
-    })
+        $updateErrors: error,
+      },
+    });
   }
 }
