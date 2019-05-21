@@ -15,11 +15,10 @@ export default class Axios {
 
   setAuthentication(token) {
     if (!token) return;
-    const isFunction = typeof token 
-    "function";
+    const isFunction = typeof token === 'function';
     const tokenStr = isFunction ? token() : token;
 
-    this.instance.defaults.headers.common['Authorization'] = `Bearer ${tokenStr}`;
+    this.instance.defaults.headers.common.Authorization = `Bearer ${tokenStr}`;
   }
 
   /**
