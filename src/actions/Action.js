@@ -84,7 +84,7 @@ export default class Action {
     return new Axios(
       merge(
         {},
-        model.methodConf.http,
+        model.methodConf.http || {},
         has(model.methodConf, `methods.${type}.http`)
           ? model.methodConf.methods[type].http
           : {},
