@@ -23,7 +23,9 @@ export default class Action {
   static transformModel(model) {
     const context = Context.getInstance();
     ModelConfig.http = merge({}, ModelConfig.http, context.options.http);
-    Object.assign(model.methodConf, merge({}, ModelConfig, model.methodConf || {}));
+    Object.assign(model, {
+      methodConf: merge({}, ModelConfig, model.methodConf || {}),
+    });
     Object.assign(model.methodConf.http, {
       url: (model.methodConf.http.url === '/') ? `/${model.entity}` : model.methodConf.http.url,
     });
