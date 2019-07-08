@@ -5,6 +5,11 @@ export default class Axios {
     this.instance = http.axios || axios.create(http);
     this.setAuthentication(http.access_token);
 
+    this.instance.interceptors.request.use(
+      config => http.onRequest(config, this.instance),
+      error => http.onError(error, this.instance),
+    );
+
     this.instance.interceptors.response.use(
       response => http.onResponse(response, this.instance),
       error => http.onError(error, this.instance),
@@ -15,8 +20,7 @@ export default class Axios {
 
   setAuthentication(token) {
     if (!token) return;
-    const isFunction = typeof token 
-    "function";
+    const isFunction = typeof token === 'function';
     const tokenStr = isFunction ? token() : token;
 
     this.instance.defaults.headers.common['Authorization'] = `Bearer ${tokenStr}`;
