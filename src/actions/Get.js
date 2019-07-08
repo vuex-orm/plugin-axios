@@ -17,9 +17,11 @@ export default class Get extends Action {
     const request = axios[method](endpoint);
 
     this.onRequest(commit);
-    request
-      .then(data => this.onSuccess(commit, model, data))
-      .catch(error => this.onError(commit, error))
+    try {
+      await this.onSuccess(commit, model, await request);
+    } catch(error) {
+      this.onError(commit, error);
+    }
 
     return request;
   }
@@ -40,7 +42,7 @@ export default class Get extends Action {
    */
   static onSuccess(commit, model, data) {
     commit('onSuccess')
-    model.insertOrUpdate({
+    return model.insertOrUpdate({
       data,
     });
   }

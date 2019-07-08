@@ -16,10 +16,12 @@ export default class Delete extends Action {
     const method = Action.getMethod('$delete', model, 'delete');
     const request = axios[method](endpoint);
 
-    this.onRequest(model, params);
-    request
-      .then(data => this.onSuccess(model, params, data))
-      .catch(error => this.onError(model, params, error))
+    await this.onRequest(model, params);
+    try {
+      await this.onSuccess(model, params, await request);
+    } catch(error) {
+      await this.onError(model, params, error);
+    }
 
     return request;
   }
@@ -30,7 +32,7 @@ export default class Delete extends Action {
    * @param {object} params
    */
   static onRequest(model, params) {
-    model.update({
+    return model.update({
       where: params.params.id,
       data: {
         $isDeleting: true,
@@ -46,7 +48,7 @@ export default class Delete extends Action {
    * @param {object} data
    */
   static onSuccess(model, params, data) {
-    model.delete({
+    return model.delete({
       where: params.params.id || data.id,
     })
   }
@@ -58,7 +60,7 @@ export default class Delete extends Action {
    * @param {object} error
    */
   static onError(model, params, error) {
-    model.update({
+    return model.update({
       where: params.params.id,
       data: {
         $isDeleting: false,
