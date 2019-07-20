@@ -23,7 +23,7 @@ export default class Axios {
     const isFunction = typeof token === 'function';
     const tokenStr = isFunction ? token() : token;
 
-    this.instance.defaults.headers.common['Authorization'] = `Bearer ${tokenStr}`;
+    this.instance.defaults.headers.common['Authorization'] = tokenStr;
   }
 
   /**
