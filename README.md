@@ -51,6 +51,9 @@ export const AxiosRequestConfig = {
 
   /**
    * Access Token Variable
+   * Could also be a function.
+   * Example: access_token: () => { return localStorage['token'] },
+   * This method is called on every action.
    */
   access_token: '',
 
@@ -203,7 +206,7 @@ User.$get({
   params: {
     id: 1
   }
-}); 
+});
 
 /**
  * @uri `/users`
