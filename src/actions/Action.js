@@ -29,16 +29,22 @@ export default class Action {
      */
     model.getFields = () => {
       if (!model.cachedFields) {
-        model.cachedFields = merge({}, {
-          $id: model.attr(undefined),
-          $isUpdating: model.boolean(false),
-          $updateErrors: model.attr([]),
-          $isDeleting: model.boolean(false),
-          $deleteErrors: model.attr([]),
-        }, model.fields());
+        model.cachedFields = {}
       }
 
-      return model.cachedFields;
+      if (model.cachedFields[model.entity]) {
+        return model.cachedFields[model.entity]
+      }
+
+      model.cachedFields[model.entity] = merge({}, {
+        $id: model.attr(undefined),
+        $isUpdating: model.boolean(false),
+        $updateErrors: model.attr([]),
+        $isDeleting: model.boolean(false),
+        $deleteErrors: model.attr([]),
+      }, model.fields())
+
+      return model.cachedFields[model.entity]
     };
 
     return model;
