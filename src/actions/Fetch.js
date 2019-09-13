@@ -1,6 +1,7 @@
 import Axios from '../orm/axios';
 import Action from './Action'
 import Context from '../common/context'
+import isPlainObject from 'lodash/isPlainObject';
 
 export default class Fetch extends Action {
   /**
@@ -42,8 +43,15 @@ export default class Fetch extends Action {
    */
   static onSuccess(commit, model, data) {
     commit('onSuccess')
+    let insertData
+    if(isPlainObject(data)) {
+      const rootKey = model.rootKey || 'data'
+      insertData = data[rootKey]
+    }else {
+      insertData = data
+    }
     return model.insertOrUpdate({
-      data,
+      data: insertData,
     });
   }
 

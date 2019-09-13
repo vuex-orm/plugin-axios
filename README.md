@@ -310,3 +310,18 @@ export default class Post extends Model {
   }
 }
 ```
+## Root keys
+
+When making a call to fetch a list of data, the data returned is expected to be an array or an object with a data key as the root key.
+To specify a different root key declare a static rootKey in your model.
+
+``` js
+import { Model } from '@vuex-orm/core'
+
+export default class Post extends Model {
+  static entity = 'users'
+
+  static rootKey = 'users'
+
+}
+```
