@@ -2,6 +2,7 @@ import forEach from 'lodash/forEach';
 import has from 'lodash/has';
 import map from 'lodash/map';
 import merge from 'lodash/merge';
+import qs from 'qs';
 import Context from '../common/context';
 import { ModuleConfig, ModelConfig } from '../support/interfaces';
 
@@ -58,7 +59,7 @@ export default class Action {
       const paramValue = has(config.params, param.replace(':', '')) ? config.params[param.replace(':', '')] : '';
       endpoint = endpoint.replace(param, paramValue).replace('//', '/');
     });
-    if (config.query) endpoint += `?${Object.keys(config.query).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(config.query[k])}`).join('&')}`;
+    if (config.query) endpoint += '?'.concat(qs.stringify(config.query, { encode: false }));
     return endpoint;
   }
 
