@@ -1,16 +1,28 @@
 {
-  "name": "@vuex-orm/plugin-axios",
-  "version": "0.5.1",
-  "description": "Vuex-ORM Plugin to sync the data against a RESTful API.",
-  "main": "dist/index.js",
+  "name": "@vuex-orm/axios",
+  "version": "0.6.0",
+  "description": "Vuex ORM plugin for adding smooth integration with axios.",
+  "main": "dist/vuex-orm-axios.common.js",
+  "module": "dist/vuex-orm-axios.esm.js",
+  "unpkg": "dist/vuex-orm-axios.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "dist",
+    "lib"
+  ],
   "scripts": {
-    "watch": "webpack --watch --mode=production",
-    "build": "webpack --mode=production",
-    "lint": "eslint src/**/*.js test/**/*.js",
-    "test": "jest"
+    "build": "yarn clean && yarn build:ts && yarn build:main ",
+    "build:ts": "tsc -p tsconfig.build.json",
+    "build:main": "node build/build.js",
+    "lint": "tslint '{src,test}/**/*.ts' -c tslint.json -p . --fix",
+    "test": "jest",
+    "test:watch": "jest --watchAll",
+    "coverage": "jest --collect-coverage",
+    "clean": "rm -rf dist && rm -rf lib && rm -rf coverage && rm -rf .nyc_output && rm -rf .tmp"
   },
   "repository": {
-    "type": "git+https://github.com/vuex-orm/plugin-axios.git"
+    "type": "git",
+    "url": "https://github.com/vuex-orm/plugin-axios.git"
   },
   "keywords": [
     "vue",
@@ -18,35 +30,55 @@
     "vuex-plugin",
     "vuex-orm",
     "vuex-orm-plugin",
-    "axios",
-    "http"
+    "axios"
   ],
-  "author": "Kani Robinson",
+  "author": "Kia Ishii <kia.king.08@gmail.com>",
   "license": "MIT",
-  "jest": {
-    "transform": {
-      "^.+\\.jsx?$": "babel-jest"
-    }
+  "bugs": {
+    "url": "https://github.com/vuex-orm/plugin-axios/issues"
   },
   "dependencies": {
-    "@vuex-orm/core": "^0.31.13",
-    "axios": "^0.19.0",
-    "lodash": "^4.17.11"
+    "@vuex-orm/core": "^0.32.1",
+    "axios": "^0.19.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0",
-    "@babel/plugin-transform-runtime": "^7.2.0",
-    "@babel/preset-env": "^7.0.0",
-    "@babel/runtime": "^7.3.1",
-    "babel-core": "7.0.0-bridge.0",
-    "babel-jest": "^23.4.2",
-    "babel-loader": "^8.0.0",
-    "eslint": "^5.4.0",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jest": "^21.22.0",
-    "jest": "^23.5.0",
-    "webpack": "^4.17.1",
-    "webpack-cli": "^3.1.0"
+    "@types/jest": "^24.0.16",
+    "codecov": "^3.5.0",
+    "jest": "^24.8.0",
+    "rollup": "^1.17.0",
+    "rollup-plugin-commonjs": "^10.0.1",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "ts-jest": "^24.0.2",
+    "tslint": "^5.18.0",
+    "tslint-config-standard": "^8.0.1",
+    "typescript": "^3.5.3",
+    "uglify-js": "^3.6.0",
+    "vue": "^2.6.10",
+    "vuex": "^3.1.1"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "ts",
+      "json"
+    ],
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1",
+      "^test/(.*)$": "<rootDir>/test/$1"
+    },
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "collectCoverageFrom": [
+      "src/**/*.ts",
+      "!**/node_modules/**"
+    ],
+    "coverageReporters": [
+      "json",
+      "lcov",
+      "text-summary",
+      "clover"
+    ]
   }
 }
