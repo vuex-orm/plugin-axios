@@ -8,17 +8,17 @@ declare module '@vuex-orm/core' {
     /**
      * The api client.
      */
-    export var axios: AxiosInstance | null
+    export let axios: AxiosInstance | null
 
     /**
      * The global api configuration for all models.
      */
-    export var globalApiConfig: GlobalConfig
+    export let globalApiConfig: GlobalConfig
 
     /**
      * The api configuration for the model.
      */
-    export var apiConfig: Config | null
+    export let apiConfig: Config | null
 
     /**
      * Set the given axios instance.

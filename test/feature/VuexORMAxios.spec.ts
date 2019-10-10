@@ -20,6 +20,7 @@ describe('Feature - Vuex ORM Axios', () => {
   it('throws when calling api request without registering the axios', () => {
     VuexORM.use(VuexORMAxios)
 
+    // tslint:disable-next-line
     expect(() => { Model.api().axios }).toThrowError('Vuex ORM Axios')
   })
 })
