@@ -18,7 +18,10 @@
     "test": "jest",
     "test:watch": "jest --watchAll",
     "coverage": "jest --collect-coverage",
-    "clean": "rm -rf dist && rm -rf lib && rm -rf coverage && rm -rf .nyc_output && rm -rf .tmp"
+    "clean": "rm -rf dist && rm -rf lib && rm -rf coverage && rm -rf .nyc_output && rm -rf .tmp",
+    "docs": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
+    "docs:deploy": "bash ./docs/deploy.sh"
   },
   "repository": {
     "type": "git",
@@ -55,6 +58,8 @@
     "typescript": "^3.5.3",
     "uglify-js": "^3.6.0",
     "vue": "^2.6.10",
+    "vuepress": "^1.2.0",
+    "vuepress-theme-vue": "^1.1.0",
     "vuex": "^3.1.1"
   },
   "jest": {
