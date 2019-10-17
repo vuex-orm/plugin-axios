@@ -36,6 +36,34 @@ export default class Request {
   }
 
   /**
+   * Perform a post request.
+   */
+  post (url: string, data: any = {}, config: Config = {}): Promise<Response> {
+    return this.request({ method: 'post', url, data, ...config })
+  }
+
+  /**
+   * Perform a put request.
+   */
+  put (url: string, data: any = {}, config: Config = {}): Promise<Response> {
+    return this.request({ method: 'put', url, data, ...config })
+  }
+
+  /**
+   * Perform a patch request.
+   */
+  patch (url: string, data: any = {}, config: Config = {}): Promise<Response> {
+    return this.request({ method: 'patch', url, data, ...config })
+  }
+
+  /**
+   * Perform a delete request.
+   */
+  delete (url: string, config: Config = {}): Promise<Response> {
+    return this.request({ method: 'delete', url, ...config })
+  }
+
+  /**
    * Perform an api request.
    */
   async request (config: Config): Promise<Response> {
