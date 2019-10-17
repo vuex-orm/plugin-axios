@@ -1,17 +1,17 @@
 # Installation
 
-You can install Vuex ORM Axios via NPM, Yarn, or download it directly. Remember since Vuex ORM Axios is a plugin of [Vuex ORM](https://github.com/vuex-orm/vuex-orm), you need to install Vuex ORM and Vuex alongside with Vuex ORM Axios.
+You can install Vuex ORM Axios via NPM, Yarn, or download it directly. Remember since Vuex ORM Axios is a plugin of [Vuex ORM](https://github.com/vuex-orm/vuex-orm), you need to install Vuex ORM and Vuex alongside with Vuex ORM Axios. Also, Vuex ORM Axios requires manually passing Axios Instance. Don't forget to install Axios as well.
 
 ## NPM
 
 ```console
-$ npm install vue vuex @vuex-orm/core @vuex-orm/plugin-axios --save
+$ npm install axios vue vuex @vuex-orm/core @vuex-orm/plugin-axios --save
 ```
 
 ## Yarn
 
 ```console
-$ yarn add vue vuex @vuex-orm/core @vuex-orm/plugin-axios
+$ yarn add axios vue vuex @vuex-orm/core @vuex-orm/plugin-axios
 ```
 
 ## Direct Download / CDN

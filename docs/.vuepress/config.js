@@ -5,6 +5,9 @@ const sidebars = {
       collapsable: false,
       children: [
         '/guide/installation',
+        '/guide/getting-started',
+        '/guide/basic-usage',
+        '/guide/configurations',
         '/guide/sponsors'
       ]
     },
