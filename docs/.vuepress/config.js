@@ -7,6 +7,7 @@ const sidebars = {
         '/guide/installation',
         '/guide/getting-started',
         '/guide/basic-usage',
+        '/guide/advanced-usage',
         '/guide/configurations',
         '/guide/sponsors'
       ]
@@ -18,7 +19,8 @@ const sidebars = {
       title: 'API',
       collapsable: false,
       children: [
-        '/api/model'
+        '/api/model',
+        '/api/request'
       ]
     }
   ]

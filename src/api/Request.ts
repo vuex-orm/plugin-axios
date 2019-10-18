@@ -64,6 +64,13 @@ export default class Request {
   }
 
   /**
+   * Fetch data from the api.
+   */
+  fetch (url: string, params: any = {}, config: Config = {}): Promise<Response> {
+    return this.get(url, { params, ...config })
+  }
+
+  /**
    * Perform an api request.
    */
   async request (config: Config): Promise<Response> {

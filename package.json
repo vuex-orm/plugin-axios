@@ -16,7 +16,7 @@
     "build:main": "node build/build.js",
     "lint": "tslint '{src,test}/**/*.ts' -c tslint.json -p . --fix",
     "test": "jest",
-    "test:watch": "jest --watchAll",
+    "test:watch": "jest --watch",
     "coverage": "jest --collect-coverage",
     "clean": "rm -rf dist && rm -rf lib && rm -rf coverage && rm -rf .nyc_output && rm -rf .tmp",
     "docs": "vuepress dev docs",
