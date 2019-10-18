@@ -18,7 +18,7 @@ declare module '@vuex-orm/core' {
     /**
      * The api configuration for the model.
      */
-    export let apiConfig: Config | null
+    export let apiConfig: Config
 
     /**
      * Set the given axios instance.

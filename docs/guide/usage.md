@@ -1,4 +1,4 @@
-# Basic Usage
+# Usage
 
 After setting up Vuex ORM Axios, you may use `Model.api` method to perform api call.
 
@@ -60,6 +60,18 @@ User.api().get('users', {
 ```
 
 There're additional configuration specific to Vuex ORM Axios as well. Please check out [Configurations page](configurations) for more.
+
+### Note on Delete Method
+
+Even when you call `delete` method, it will not delete records from the store. It just means that it will perform HTTP DELETE request. If you want to delete the record after calling the API, you must define `delete` option.
+
+```js
+User.api().delete('/api/users/1', {
+  delete: 1
+})
+```
+
+The above example will delete the user record with an id of 1. Please check out [Configurations page](configurations) for more.
 
 ## Response
 

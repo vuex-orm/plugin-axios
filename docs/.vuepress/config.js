@@ -5,10 +5,10 @@ const sidebars = {
       collapsable: false,
       children: [
         '/guide/installation',
-        '/guide/getting-started',
-        '/guide/basic-usage',
-        '/guide/advanced-usage',
+        '/guide/setup',
+        '/guide/usage',
         '/guide/configurations',
+        '/guide/custom-actions',
         '/guide/sponsors'
       ]
     },

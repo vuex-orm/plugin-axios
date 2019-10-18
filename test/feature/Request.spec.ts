@@ -3,7 +3,7 @@ import MockAdapter from 'axios-mock-adapter'
 import { createStore, createState } from 'test/support/Helpers'
 import { Model, Fields } from '@vuex-orm/core'
 
-describe('Feature - Request - Base', () => {
+describe('Feature - Request', () => {
   let mock: MockAdapter
 
   class User extends Model {

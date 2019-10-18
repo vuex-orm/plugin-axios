@@ -75,9 +75,3 @@ User.api().get()
 - **`delete(url: string, config: Config = {}): Promise<Response>`**
 
   Performs a `DELETE` request. It takes the same argument as Axios's `delete` method.
-
-### fetch
-
-- **`fetch(url: string, params: any, config: Config = {}): Promise<Response>`**
-
-  The `fetch` method works almost as same as `get` method, but it will take URL query parameters as the 2nd argument. Please [refer here](../guide/advanced-usage.html#fetch) for more details.

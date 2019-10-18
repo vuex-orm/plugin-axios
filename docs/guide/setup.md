@@ -1,8 +1,6 @@
 # Setup
 
-This page is a quick start guide to begin using Vuex ORM. It assumes you have a basic understanding of Vuex ORM. If you are not familiar with Vuex ORM, please check out the [Vuex ORM Documentation](https://vuex-orm.github.io/vuex-orm/).
-
-At first, Vuex ORM Axios requires manually passing Axios instance during the installation process. Please make sure you have axios installed to your app.
+At first, Vuex ORM Axios requires manually passing Axios instance during the setup process. Please make sure you have axios installed to your app.
 
 To install Vuex ORM Axios to Vuex ORM, pass Vuex ORM Axios to the `VuexORM.use` method. Here, you should pass your axios instance as an option.
 

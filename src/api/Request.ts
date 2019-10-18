@@ -1,6 +1,5 @@
 import { AxiosInstance, AxiosResponse } from 'axios'
 import { Model } from '@vuex-orm/core'
-import GlobalConfig from '../contracts/GlobalConfig'
 import Config from '../contracts/Config'
 import Response from './Response'
 
@@ -11,11 +10,25 @@ export default class Request {
   model: typeof Model
 
   /**
+   * The default config.
+   */
+  config: Config = {
+    save: true
+  }
+
+  /**
    * Create a new api instance.
    */
   constructor (model: typeof Model) {
     this.model = model
+
+    this.registerActions()
   }
+
+  /**
+   * Index key for the user defined actions.
+   */
+  [action: string]: any
 
   /**
    * Get the axios client.
@@ -26,6 +39,41 @@ export default class Request {
     }
 
     return this.model.axios
+  }
+
+  /**
+   * Register actions from the model config.
+   */
+  private registerActions (): void {
+    const actions = this.model.apiConfig.actions
+
+    if (!actions) {
+      return
+    }
+
+    for (const name in actions) {
+      const action = actions[name]
+
+      typeof action === 'function'
+        ? this.registerFunctionAction(name, action)
+        : this.registerObjectAction(name, action)
+    }
+  }
+
+  /**
+   * Register the given object action.
+   */
+  private registerObjectAction (name: string, action: any): void {
+    this[name] = (config: Config) => {
+      return this.request({ ...action, ...config })
+    }
+  }
+
+  /**
+   * Register the given function action.
+   */
+  private registerFunctionAction (name: string, action: any): void {
+    this[name] = action.bind(this)
   }
 
   /**
@@ -64,13 +112,6 @@ export default class Request {
   }
 
   /**
-   * Fetch data from the api.
-   */
-  fetch (url: string, params: any = {}, config: Config = {}): Promise<Response> {
-    return this.get(url, { params, ...config })
-  }
-
-  /**
    * Perform an api request.
    */
   async request (config: Config): Promise<Response> {
@@ -78,11 +119,9 @@ export default class Request {
 
     const response = await this.axios.request(requestConfig)
 
-    const entities = await this.model.insertOrUpdate({
-      data: this.getDataFromResponse(response, requestConfig)
-    })
+    const entities = await this.persistResponseData(response, requestConfig)
 
-    return new Response(response, entities)
+    return new Response(this.model, requestConfig, response, entities)
   }
 
   /**
@@ -90,10 +129,29 @@ export default class Request {
    * and the given config.
    */
   private createConfig (config: Config): Config {
-    const globalConfig: GlobalConfig = this.model.globalApiConfig
-    const modelConfig: Config = this.model.apiConfig || {}
+    return {
+      ...this.config,
+      ...this.model.globalApiConfig,
+      ...this.model.apiConfig,
+      ...config
+    }
+  }
 
-    return { ...globalConfig, ...modelConfig, ...config }
+  /**
+   * Persist the response data to the vuex store.
+   */
+  private async persistResponseData (response: AxiosResponse, config: Config): Promise<any> {
+    if (!config.save) {
+      return null
+    }
+
+    if (config.delete !== undefined) {
+      return this.model.delete(config.delete as any)
+    }
+
+    return this.model.insertOrUpdate({
+      data: this.getDataFromResponse(response, config)
+    })
   }
 
   /**

@@ -17,7 +17,7 @@ export default function Model (model: typeof BaseModel, config: GlobalConfig): v
   /**
    * The api configuration for the model.
    */
-  model.apiConfig = null
+  model.apiConfig = {}
 
   /**
    * Set the given api client.

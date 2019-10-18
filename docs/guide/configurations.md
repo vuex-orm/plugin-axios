@@ -15,7 +15,7 @@ import VuexORMAxios from '@vuex-orm/plugin-axios'
 
 VuexORM.use(VuexORMAxios, {
   axios,
-  headers: {'X-Requested-With': 'XMLHttpRequest'},
+  headers: { 'X-Requested-With': 'XMLHttpRequest' },
   baseURL: 'https://example.com/api/'
 })
 ```
@@ -36,7 +36,7 @@ class User extends Model {
   }
 
   static apiConfig = {
-    headers: {'X-Requested-With': 'XMLHttpRequest'},
+    headers: { 'X-Requested-With': 'XMLHttpRequest' },
     baseURL: 'https://example.com/api/'
   }
 }
@@ -46,7 +46,7 @@ Finally, you can pass configuration when making the api call.
 
 ```js
 User.api().get('/api/users', {
-  headers: {'X-Requested-With': 'XMLHttpRequest'},
+  headers: { 'X-Requested-With': 'XMLHttpRequest' },
   baseURL: 'https://example.com/api/'
 })
 ```
@@ -59,7 +59,9 @@ All Axios configurations are available. For those, please refer to [the Axios do
 
 ### dataKey
 
-- **`dataKey: string | null`**
+- **`dataKey?: string | null`**
+
+  This option will define which key to look for when persisting response data. Let's say your response from the server looks like below.
 
   ```js
   {
@@ -82,3 +84,37 @@ All Axios configurations are available. For those, please refer to [the Axios do
   ```
 
   With the above config, the data inside `data` key will be inserted to the store.
+
+### save
+
+- **`save: boolean = true`**
+
+  This option will determine whether to store the response data to the store or not. If you set this value to `false`, the response data will not be persisted to the store. In that case, the `entities` property at the Response object will become null.
+
+  ```js
+  User.api().get('/api/users', {
+    save: false
+  })
+  ```
+
+### delete
+
+- **`delete?: string | number | (model: Model) => boolean`**
+
+  When this option is defined, the matching record will be deleted from the store after the api call. Usually, you need to set this when calling api to delete a record. When this option is set, the response data will not be persisted even if the `save` option is set to true.
+
+  ```js
+  User.api().delete('/api/users', {
+    delete: 1
+  })
+  ```
+
+  Well, you may wonder having to manually specify what record to be deleted is a bit redundant. However, without this option, Vuex ORM Axios wouldn't know what records should be deleted because it can't rely on the response data.
+
+  We're open to any suggestions and recommendations to improve the "delete" functionality. Please feel free to open an issue on GitHub!
+
+### actions
+
+- **`actions?: { [name: string]: ActionObject | ActionFunction }`**
+
+  You can define custom actions in here. Please refer to the [Custom Actions](custom-actions) page to learn more about it.

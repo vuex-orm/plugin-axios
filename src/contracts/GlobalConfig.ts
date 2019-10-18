@@ -1,8 +1,8 @@
-import { AxiosInstance, AxiosRequestConfig } from 'axios'
+import { AxiosInstance } from 'axios'
+import Config from './Config'
 
-export interface GlobalConfig extends AxiosRequestConfig {
+export interface GlobalConfig extends Config {
   axios?: AxiosInstance
-  dataKey?: string
 }
 
 export default GlobalConfig
