@@ -41,22 +41,22 @@
     "url": "https://github.com/vuex-orm/plugin-axios/issues"
   },
   "dependencies": {
-    "@vuex-orm/core": "^0.32.1",
+    "@vuex-orm/core": "^0.32.5",
     "axios": "^0.19.0"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.16",
+    "@types/jest": "^24.0.19",
     "axios-mock-adapter": "^1.17.0",
     "codecov": "^3.5.0",
     "jest": "^24.8.0",
-    "rollup": "^1.17.0",
+    "rollup": "^1.25.1",
     "rollup-plugin-commonjs": "^10.0.1",
     "rollup-plugin-node-resolve": "^5.2.0",
     "ts-jest": "^24.0.2",
     "tslint": "^5.18.0",
     "tslint-config-standard": "^8.0.1",
-    "typescript": "^3.5.3",
-    "uglify-js": "^3.6.0",
+    "typescript": "^3.6.4",
+    "uglify-js": "^3.6.3",
     "vue": "^2.6.10",
     "vuepress": "^1.2.0",
     "vuepress-theme-vue": "^1.1.0",
