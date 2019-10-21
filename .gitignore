@@ -1,4 +1,6 @@
+/coverage
+/docs/.vuepress/dist
+/docs/node_modules
+/lib
 /node_modules
 yarn-error.log
-vuex-orm-axios*.tgz
-coverage
