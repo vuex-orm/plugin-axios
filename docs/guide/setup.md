@@ -52,7 +52,7 @@ const database = new VuexORM.Database()
 
 database.register(User)
 
-const plugins = [VuexORM.install(database)]
+export const plugins = [VuexORM.install(database)]
 ```
 
 Next, create a plugin to set Axios instance to Vuex ORM Model directly.
