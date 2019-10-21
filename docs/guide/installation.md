@@ -31,7 +31,7 @@ Include Vuex ORM Axios from an HTML script.
 
 ## Dev Build
 
-You have to clone directly from GitHub and build vuex yourself if you want to use the latest dev build.
+You have to clone directly from GitHub and build Vuex yourself if you want to use the latest dev build.
 
 ```console
 $ git clone https://github.com/vuex-orm/plugin-axios.git node_modules/@vuex-orm/plugin-axios
