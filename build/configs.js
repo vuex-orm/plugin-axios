@@ -6,19 +6,19 @@ const resolve = _path => path.resolve(__dirname, '../', _path)
 
 const configs = {
   umdDev: {
-    input: resolve('lib/index.js'),
+    input: resolve('lib/index.cjs.js'),
     file: resolve('dist/vuex-orm-axios.js'),
     format: 'umd',
     env: 'development'
   },
   umdProd: {
-    input: resolve('lib/index.js'),
+    input: resolve('lib/index.cjs.js'),
     file: resolve('dist/vuex-orm-axios.min.js'),
     format: 'umd',
     env: 'production'
   },
   commonjs: {
-    input: resolve('lib/index.js'),
+    input: resolve('lib/index.cjs.js'),
     file: resolve('dist/vuex-orm-axios.common.js'),
     format: 'cjs'
   },
