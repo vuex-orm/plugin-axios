@@ -49,13 +49,79 @@ Vuex ORM is sponsored by awesome folks. Big love to all of them from whole Vuex 
 
 ## Documentation
 
-Coming soon...
+You can check out the full documentation for Vuex ORM Axios at https://vuex-orm.github.io/plugin-axios.
 
 ## Questions & Discussions
 
 Join us on our [Slack Channel](https://join.slack.com/t/vuex-orm/shared_invite/enQtNDQ0NjE3NTgyOTY2LTc1YTI2N2FjMGRlNGNmMzBkMGZlMmYxOTgzYzkzZDM2OTQ3OGExZDRkN2FmMGQ1MGJlOWM1NjU0MmRiN2VhYzQ) for any questions and discussions.
 
 Although there is the Slack Channel, do not hesitate to open an [issue](https://github.com/vuex-orm/vuex-orm/issues) for any question you might have. We're always more than happy to hear any feedback, and we don't care what kind of form they are.
+
+## Quick Start
+
+Here's a very simple quick start guide that demonstrates how it feels like to be using Vuex ORM Axios.
+
+### Install and Setup Vuex ORM Axios
+
+Install Vuex ORM Axios by npm or yarn. Note that the Vuex ORM Axios require Axios to be installed manually, so don't forget to install it too!
+
+```bash
+$ npm install axios @vuex-orm/core @vuex-orm/plugin-axios
+
+$ yarn add axios @vuex-orm/core @vuex-orm/plugin-axios
+```
+
+To plugin Vuex ORM Axios to Vuex ORM, pass Vuex ORM Axios to the `VuexORM.use` method. Here, you should pass your axios instance as an option.
+
+```js
+import axios from 'axios'
+import VuexORM from '@vuex-orm/core'
+import VuexORMAxios from '@vuex-orm/plugin-axios'
+
+VuexORM.use(VuexORMAxios, { axios })
+```
+
+### Usage
+
+After setting up Vuex ORM Axios, you may use `Model.api` method to perform api call.
+
+```js
+User.api().get('/api/users')
+```
+
+Vuex ORM Axios can perform all basic Axios requests, which is `get`, `post`, `put`, `patch`, `delete`, and `request`. These methods take the same arguments as Axios and perform exactly as same as Axios, except it's going to store response data to the store corresponding to the Model that is calling the api.
+
+Vuex ORM Axios lets you define the "Custom Actions" as well. Like this.
+
+```js
+class User extends Model {
+  static entity = 'users'
+
+  static fields () {
+    return {
+      id: this.attr(null),
+      name: this.attr('')
+    }
+  }
+
+  static apiConfig = {
+    actions: {
+      fetch: {
+        method: 'get',
+        url: '/api/users'
+      }
+    }
+  }
+}
+```
+
+And then, you can use the above `fetch` method through your model.
+
+```js
+User.api().fetch()
+```
+
+Now, are you ready to learn more about the plugin? Let's [jump right into it](https://vuex-orm.github.io/plugin-axios).
 
 ## Plugins
 

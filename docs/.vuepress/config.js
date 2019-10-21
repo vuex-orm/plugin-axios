@@ -30,7 +30,7 @@ module.exports = {
   title: 'Vuex ORM Axios',
   description: 'Vuex ORM persistence plugin to sync the store against a RESTful API.',
 
-  base: '/vuex-orm-axios/',
+  base: '/plugin-axios/',
 
   themeConfig: {
     repo: 'vuex-orm/plugin-axios',

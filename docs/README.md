@@ -32,9 +32,14 @@ Vuex ORM is sponsored by awesome folks. Big love to all of them from whole Vuex 
 
 - Guide
     - [Installation](guide/installation)
+    - [Setup](guide/setup)
+    - [Usage](guide/usage)
+    - [Configurations](guide/configurations)
+    - [Custom Actions](guide/custom-actions)
     - [Sponsors](guide/sponsors)
 - API
     - [Model](/api/model)
+    - [Request](/api/request)
 
 ## Questions & Discussions
 
