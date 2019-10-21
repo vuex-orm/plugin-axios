@@ -4,7 +4,7 @@ sidebarDepth: 2
 
 # Request
 
-The Request object is the foundation for the Vuex ORM Axios, and you can call many methods to perform api request. You can obtain Request instance by `api` method on the Model.
+The Request object is the foundation for the Vuex ORM Axios, and you can call many methods to perform an api request. You can obtain a Request instance by `api` method on the Model.
 
 ```js
 const request = User.api()
@@ -20,7 +20,7 @@ User.api().get()
 
 - **``constructor(model: typeof Model)``**
 
-  Request instance requires the Model class to be passed to the constructor. It's automatically done when obtaining the Request object through `Model.api()` method. But you could manually construct Request object your self.
+  Request instances require the Model class to be passed to the constructor. It's automatically done when obtaining the Request object through `Model.api()` method. Alternatively,  you could manually construct Request object your self.
 
   ```js
   // This is equivalent to...
