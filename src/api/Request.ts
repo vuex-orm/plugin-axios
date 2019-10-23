@@ -149,8 +149,13 @@ export default class Request {
       return this.model.delete(config.delete as any)
     }
 
+    const data = this.getDataFromResponse(response, config)
+    if (!response || data.length === 0) {
+      return this.model.deleteAll()
+    }
+
     return this.model.insertOrUpdate({
-      data: this.getDataFromResponse(response, config)
+      data: data
     })
   }
 
