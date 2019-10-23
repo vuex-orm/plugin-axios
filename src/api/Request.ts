@@ -150,7 +150,7 @@ export default class Request {
     }
 
     const data = this.getDataFromResponse(response, config)
-    if (!response || data.length === 0) {
+    if (!data || data.length === 0) {
       return this.model.deleteAll()
     }
 
