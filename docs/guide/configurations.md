@@ -73,7 +73,7 @@ All Axios configurations are available. For those, please refer to [the Axios do
   }
   ```
 
-  In this case, data persistent to the store will probably fail, since actual data is inside `data` key, but Vuex ORM Axios is going to insert whole object including `ok` property.
+  In this case, data persistent to the store will probably fail, since actual data is inside the `data` key, but Vuex ORM Axios is going to insert whole object including `ok` property.
 
   For these situations, you can use `dataKey` property to specify which key to look for data.
 

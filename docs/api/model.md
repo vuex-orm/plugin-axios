@@ -14,7 +14,7 @@ Vuex ORM Axios adds a few properties and methods to the Model object.
 
   The axios isntance which was installed during the plugin installation process. Vuex ORM Axios adds a few properties and methods to the Model object. Vuex ORM Axios will use this Axios instance to perform any HTTP request.
 
-  Usually, this property will not become `null`. However, there's a case where you may need to add Axios instance manually, for example, when using Vuex ORM Axios with Nuxt.js. Int hat case, this property will temporary be `null`.
+  Usually, this property will not become `null`. However, there's a case where you may need to add Axios instance manually, for example, when using Vuex ORM Axios with Nuxt.js. In that case, this property will temporarily be `null`.
 
 ### globalApiConfig
 
@@ -32,13 +32,13 @@ Vuex ORM Axios adds a few properties and methods to the Model object.
 
 - **`static setAxios(axios: AxiosInstance): void`**
 
-  The method to set the Axios instance manually. Usually, you don't have to call this method yourself. However, you might need to use this method to set Axios instance properly in some situations. Please [refer here](../guide/getting-started.html#nuxt-js-integration) for more detail.
+  The method to set the Axios instance manually. Usually, you don't have to call this method yourself; however, you might need to use this method to set Axios instance properly in some situations. Please [refer here](../guide/getting-started.html#nuxt-js-integration) for more detail.
 
 ### api
 
 - **`static api(): Request`**
 
-  This method is going to return a new Request instance. Request instance is the wrapper for Axios, and it's used to perform any API request.
+  This method is going to return a new Request instance. A request instance is the wrapper for Axios, and it's used to perform any API request.
 
   ```js
   User.api().get('/api/users')

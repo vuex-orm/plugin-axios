@@ -12,7 +12,7 @@ import VuexORMAxios from '@vuex-orm/plugin-axios'
 VuexORM.use(VuexORMAxios, { axios })
 ```
 
-Here is a more realistic example that shows how to install Vuex ORM to Vuex along with Vex ORM Axios.
+Here is a more realistic example that shows how to install Vuex ORM to Vuex along with Vuex ORM Axios.
 
 ```js
 import axios from 'axios'
