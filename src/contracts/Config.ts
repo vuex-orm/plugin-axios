@@ -2,7 +2,7 @@ import { AxiosRequestConfig } from 'axios'
 import { Model } from '@vuex-orm/core'
 
 export interface Config extends AxiosRequestConfig {
-  dataKey?: string
+  dataTransformer?: ((response: object) => object),
   save?: boolean
   delete?: string | number | ((model: Model) => boolean)
   actions?: {

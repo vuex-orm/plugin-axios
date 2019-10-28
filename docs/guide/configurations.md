@@ -57,11 +57,11 @@ The lower level configuration will overwrite a higher level of configs. Which me
 
 All Axios configurations are available. For those, please refer to [the Axios documentation](https://github.com/axios/axios#request-config). In addition to Axios options, Vuex ORM Axios takes few more options specific to the plugin usage.
 
-### dataKey
+### dataTransformer
 
-- **`dataKey?: string | null`**
+- **`dataTransformer?: ((response: object) => object)`**
 
-  This option will define which key to look for when persisting response data. Let's say your response from the server looks like below.
+  This option will let you transform the response before send it to the store. Let's say your response from the server looks like below.
 
   ```js
   {
@@ -73,13 +73,13 @@ All Axios configurations are available. For those, please refer to [the Axios do
   }
   ```
 
-  In this case, data persistent to the store will probably fail, since actual data is inside the `data` key, but Vuex ORM Axios is going to insert whole object including `ok` property.
-
-  For these situations, you can use `dataKey` property to specify which key to look for data.
+  For these situations, you can use `dataTransform` property to specify how you want to transform the data. The whole response is send as callback param.
 
   ```js
   User.api().get('/api/users', {
-    dataKey: 'data'
+    dataTransformer: (response) => {
+      return response['data']['data']
+    }
   })
   ```
 

@@ -50,7 +50,7 @@ describe('Feature - Request', () => {
 
     const store = createStore([User])
 
-    await User.api().get('/api/users', { dataKey: 'data' })
+    await User.api().get('/api/users', { dataTransformer: (response) => response['data']['data'] })
 
     const expected = createState({
       users: {
@@ -92,7 +92,7 @@ describe('Feature - Request', () => {
 
     const store = createStore([User])
 
-    await User.api().post('/api/users', {}, { dataKey: 'data' })
+    await User.api().post('/api/users', {}, { dataTransformer: (response) => response['data']['data'] })
 
     const expected = createState({
       users: {
@@ -134,7 +134,7 @@ describe('Feature - Request', () => {
 
     const store = createStore([User])
 
-    await User.api().put('/api/users', {}, { dataKey: 'data' })
+    await User.api().put('/api/users', {}, { dataTransformer: (response) => response['data']['data'] })
 
     const expected = createState({
       users: {
@@ -176,7 +176,7 @@ describe('Feature - Request', () => {
 
     const store = createStore([User])
 
-    await User.api().patch('/api/users', {}, { dataKey: 'data' })
+    await User.api().patch('/api/users', {}, { dataTransformer: (response) => response['data']['data'] })
 
     const expected = createState({
       users: {
@@ -218,7 +218,7 @@ describe('Feature - Request', () => {
 
     const store = createStore([User])
 
-    await User.api().delete('/api/users', { dataKey: 'data' })
+    await User.api().delete('/api/users', { dataTransformer: (response) => response['data']['data'] })
 
     const expected = createState({
       users: {
