@@ -59,7 +59,7 @@ All Axios configurations are available. For those, please refer to [the Axios do
 
 ### dataTransformer
 
-- **`dataTransformer?: ((response: object) => object)`**
+- **`dataTransformer?: ((response: AxiosResponse) => object)`**
 
   This option will let you transform the response before send it to the store. Let's say your response from the server looks like below.
 
@@ -77,8 +77,8 @@ All Axios configurations are available. For those, please refer to [the Axios do
 
   ```js
   User.api().get('/api/users', {
-    dataTransformer: (response) => {
-      return response['data']['data']
+    dataTransformer: ({ data }) => {
+      return data.data
     }
   })
   ```

@@ -29,7 +29,7 @@ describe('Feature - Request - Data Transformer', () => {
 
     await User.api().request({
       url: '/users',
-      dataTransformer: (response) => response['data']['data']
+      dataTransformer: ({ data }) => data.data
     })
 
     const expected = createState({
