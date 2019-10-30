@@ -67,7 +67,7 @@ Even when you call `delete` method, it will not delete records from the store. I
 
 ```js
 User.api().delete('/api/users/1', {
-  delete: 1
+  delete: 42
 })
 ```
 

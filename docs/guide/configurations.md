@@ -105,7 +105,7 @@ All Axios configurations are available. For those, please refer to [the Axios do
 
   ```js
   User.api().delete('/api/users', {
-    delete: 1
+    delete: 42
   })
   ```
 
