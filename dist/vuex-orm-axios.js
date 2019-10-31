@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define(factory) :
     (global = global || self, global.VuexORMAxios = factory());
-}(this, function () { 'use strict';
+}(this, (function () { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -209,27 +209,36 @@
         Request.prototype.persistResponseData = function (response, config) {
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
-                    if (!config.save) {
-                        return [2 /*return*/, null];
+                    switch (_a.label) {
+                        case 0:
+                            if (!config.save) {
+                                return [2 /*return*/, null];
+                            }
+                            if (!(config.delete !== undefined)) return [3 /*break*/, 2];
+                            return [4 /*yield*/, this.model.delete(config.delete)];
+                        case 1:
+                            _a.sent();
+                            return [2 /*return*/, null];
+                        case 2: return [2 /*return*/, this.model.insertOrUpdate({
+                                data: this.getDataFromResponse(response, config)
+                            })];
                     }
-                    if (config.delete !== undefined) {
-                        return [2 /*return*/, this.model.delete(config.delete)];
-                    }
-                    return [2 /*return*/, this.model.insertOrUpdate({
-                            data: this.getDataFromResponse(response, config)
-                        })];
                 });
             });
         };
         /**
-         * Get data from the given response object. If the `dataKey` config is
-         * provided, it tries to fetch the data at that key.
+         * Get data from the given response object. If the `dataTransformer` config is
+         * provided, it tries to execute the method with the response as param. If the
+         * `dataKey` config is provided, it tries to fetch the data at that key.
          */
         Request.prototype.getDataFromResponse = function (response, config) {
-            if (!config.dataKey) {
-                return response.data;
+            if (config.dataTransformer) {
+                return config.dataTransformer(response);
             }
-            return response.data[config.dataKey];
+            if (config.dataKey) {
+                return response.data[config.dataKey];
+            }
+            return response.data;
         };
         return Request;
     }());
@@ -286,4 +295,4 @@
 
     return index_cjs;
 
-}));
+})));
