@@ -155,14 +155,19 @@ export default class Request {
   }
 
   /**
-   * Get data from the given response object. If the `dataKey` config is
-   * provided, it tries to fetch the data at that key.
+   * Get data from the given response object. If the `dataTransformer` config is
+   * provided, it tries to execute the method with the response as param.
+   * If the `dataKey` config is provided, it tries to fetch the data at that key.
    */
   private getDataFromResponse (response: AxiosResponse, config: Config): any {
-    if (!config.dataKey) {
-      return response.data
+    if (config.dataTransformer) {
+      return config.dataTransformer(response)
     }
 
-    return response.data[config.dataKey]
+    if (config.dataKey) {
+      return response.data[config.dataKey]
+    }
+
+    return response.data
   }
 }

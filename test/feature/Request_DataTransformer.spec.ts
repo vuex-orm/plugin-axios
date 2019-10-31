@@ -3,7 +3,7 @@ import MockAdapter from 'axios-mock-adapter'
 import { createStore, createState } from 'test/support/Helpers'
 import { Model, Fields } from '@vuex-orm/core'
 
-describe('Feature - Request - Data Key', () => {
+describe('Feature - Request - Data Transformer', () => {
   let mock: MockAdapter
 
   class User extends Model {
@@ -20,7 +20,7 @@ describe('Feature - Request - Data Key', () => {
   beforeEach(() => { mock = new MockAdapter(axios) })
   afterEach(() => { mock.reset() })
 
-  it('can specify which key to look for the data', async () => {
+  it('can specify callback to transform the response', async () => {
     mock.onGet('/users').reply(200, {
       data: { id: 1, name: 'John Doe' }
     })
@@ -29,7 +29,7 @@ describe('Feature - Request - Data Key', () => {
 
     await User.api().request({
       url: '/users',
-      dataKey: 'data'
+      dataTransformer: ({ data }) => data.data
     })
 
     const expected = createState({
