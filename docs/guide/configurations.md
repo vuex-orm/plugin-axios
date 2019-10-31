@@ -77,9 +77,42 @@ All Axios configurations are available. For those, please refer to [the Axios do
 
   ```js
   User.api().get('/api/users', {
-    dataTransformer: ({ data }) => {
+    dataTransformer: ({ data, headers }) => {
+      // Do stuff with headers
+      // Do stuff with data
+
       return data.data
     }
+  })
+  ```
+
+  With the above config, the data inside `data` key will be inserted to the store.
+
+  It is very useful when you need to transform a given response to be handle by Vuex ORM. For instance, if you format your response with the [JSON:API specs](https://jsonapi.org/), you can transform your response with this callback.
+
+### dataKey
+
+- **`dataKey?: string | null`**
+
+  This option will define which key to look for when persisting response data. Let's say your response from the server looks like below.
+
+  ```js
+  {
+    ok: true,
+    data: {
+      id: 1,
+      name: 'John Doe'
+    }
+  }
+  ```
+
+  In this case, data persistent to the store will probably fail, since actual data is inside the `data` key, but Vuex ORM Axios is going to insert whole object including `ok` property.
+
+  For these situations, you can use `dataKey` property to specify which key to look for data.
+
+  ```js
+  User.api().get('/api/users', {
+    dataKey: 'data'
   })
   ```
 
