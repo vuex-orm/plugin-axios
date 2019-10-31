@@ -57,39 +57,6 @@ The lower level configuration will overwrite a higher level of configs. Which me
 
 All Axios configurations are available. For those, please refer to [the Axios documentation](https://github.com/axios/axios#request-config). In addition to Axios options, Vuex ORM Axios takes few more options specific to the plugin usage.
 
-### dataTransformer
-
-- **`dataTransformer?: ((response: AxiosResponse) => object)`**
-
-  This option will let you transform the response before send it to the store. Let's say your response from the server looks like below.
-
-  ```js
-  {
-    ok: true,
-    data: {
-      id: 1,
-      name: 'John Doe'
-    }
-  }
-  ```
-
-  For these situations, you can use `dataTransform` property to specify how you want to transform the data. The whole response is send as callback param.
-
-  ```js
-  User.api().get('/api/users', {
-    dataTransformer: ({ data, headers }) => {
-      // Do stuff with headers
-      // Do stuff with data
-
-      return data.data
-    }
-  })
-  ```
-
-  With the above config, the data inside `data` key will be inserted to the store.
-
-  It is very useful when you need to transform a given response to be handle by Vuex ORM. For instance, if you format your response with the [JSON:API specs](https://jsonapi.org/), you can transform your response with this callback.
-
 ### dataKey
 
 - **`dataKey?: string | null`**
@@ -117,6 +84,53 @@ All Axios configurations are available. For those, please refer to [the Axios do
   ```
 
   With the above config, the data inside `data` key will be inserted to the store.
+
+  > **NOTE:** When `dataTransformer` key is set, this option will be ignored.
+
+### dataTransformer
+
+- **`dataTransformer?: ((response: AxiosResponse) => Record | Record[])`**
+
+  This option will let you transform the response before persisting it to the store. Let's say your response from the server looks like below.
+
+  ```js
+  {
+    ok: true,
+    record: {
+      id: 1,
+      name: 'John Doe'
+    }
+  }
+  ```
+
+  You can use `dataTransform` property to specify how you want to transform the data. The whole Axios response will be passed as callback argument.
+
+  ```js
+  User.api().get('/api/users', {
+    dataTransformer: (response) => {
+      return response.data.record
+    }
+  })
+  ```
+
+  With the above config, the data inside `record` key will be inserted to the store.
+
+  It is very useful when you need to transform a given response to be handle by Vuex ORM. For instance, if you format your response with the [JSON:API specs](https://jsonapi.org/), you can transform your response with this callback.
+
+  You can always use object destructuring to get specific properties from the response object too.
+
+  ```js
+  User.api().get('/api/users', {
+    dataTransformer: ({ data, headers }) => {
+      // Do stuff with headers...
+      // Do stuff with data...
+
+      return data
+    }
+  })
+  ```
+
+  > **NOTE:** When `dataTransformer` key is set, `dataKey` option will be ignored.
 
 ### save
 

@@ -1,9 +1,9 @@
 import { AxiosRequestConfig, AxiosResponse } from 'axios'
-import { Model } from '@vuex-orm/core'
+import { Model, Record } from '@vuex-orm/core'
 
 export interface Config extends AxiosRequestConfig {
-  dataKey?: string,
-  dataTransformer?: ((response: AxiosResponse) => object),
+  dataKey?: string
+  dataTransformer?: ((response: AxiosResponse) => Record | Record[])
   save?: boolean
   delete?: string | number | ((model: Model) => boolean)
   actions?: {

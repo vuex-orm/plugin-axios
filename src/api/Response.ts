@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios'
-import { Model } from '@vuex-orm/core'
+import { Model, Collections } from '@vuex-orm/core'
 import Config from '../contracts/Config'
 
 export default class Response {
@@ -21,12 +21,12 @@ export default class Response {
   /**
    * Entities created by Vuex ORM.
    */
-  entities: any
+  entities: Collections | null
 
   /**
    * Create a new response instance.
    */
-  constructor (model: typeof Model, config: Config, response: AxiosResponse, entities: any) {
+  constructor (model: typeof Model, config: Config, response: AxiosResponse, entities: Collections | null) {
     this.model = model
     this.config = config
     this.response = response

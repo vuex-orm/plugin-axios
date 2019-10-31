@@ -1,5 +1,5 @@
 import { AxiosInstance, AxiosResponse } from 'axios'
-import { Model } from '@vuex-orm/core'
+import { Model, Record, Collections } from '@vuex-orm/core'
 import Config from '../contracts/Config'
 import Response from './Response'
 
@@ -140,13 +140,15 @@ export default class Request {
   /**
    * Persist the response data to the vuex store.
    */
-  private async persistResponseData (response: AxiosResponse, config: Config): Promise<any> {
+  private async persistResponseData (response: AxiosResponse, config: Config): Promise<Collections | null> {
     if (!config.save) {
       return null
     }
 
     if (config.delete !== undefined) {
-      return this.model.delete(config.delete as any)
+      await this.model.delete(config.delete as any)
+
+      return null
     }
 
     return this.model.insertOrUpdate({
@@ -156,10 +158,10 @@ export default class Request {
 
   /**
    * Get data from the given response object. If the `dataTransformer` config is
-   * provided, it tries to execute the method with the response as param.
-   * If the `dataKey` config is provided, it tries to fetch the data at that key.
+   * provided, it tries to execute the method with the response as param. If the
+   * `dataKey` config is provided, it tries to fetch the data at that key.
    */
-  private getDataFromResponse (response: AxiosResponse, config: Config): any {
+  private getDataFromResponse (response: AxiosResponse, config: Config): Record | Record[] {
     if (config.dataTransformer) {
       return config.dataTransformer(response)
     }

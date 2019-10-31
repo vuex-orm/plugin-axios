@@ -78,6 +78,7 @@
     "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
     "collectCoverageFrom": [
       "src/**/*.ts",
+      "!src/index.cjs.ts",
       "!**/node_modules/**"
     ],
     "coverageReporters": [
