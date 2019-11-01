@@ -1,5 +1,5 @@
 import { AxiosInstance, AxiosResponse } from 'axios'
-import { Model, Record, Collections } from '@vuex-orm/core'
+import { Model } from '@vuex-orm/core'
 import Config from '../contracts/Config'
 import Response from './Response'
 
@@ -117,11 +117,9 @@ export default class Request {
   async request (config: Config): Promise<Response> {
     const requestConfig = this.createConfig(config)
 
-    const response = await this.axios.request(requestConfig)
+    const axiosResponse = await this.axios.request(requestConfig)
 
-    const entities = await this.persistResponseData(response, requestConfig)
-
-    return new Response(this.model, requestConfig, response, entities)
+    return this.createResponse(axiosResponse, requestConfig)
   }
 
   /**
@@ -138,38 +136,20 @@ export default class Request {
   }
 
   /**
-   * Persist the response data to the vuex store.
+   * Create a new response instance by applying a few initialization processes.
+   * For example, it saves response data if `save` option id set to `true`.
    */
-  private async persistResponseData (response: AxiosResponse, config: Config): Promise<Collections | null> {
-    if (!config.save) {
-      return null
-    }
+  private async createResponse (axiosResponse: AxiosResponse, config: Config): Promise<Response> {
+    const response = new Response(this.model, config, axiosResponse)
 
     if (config.delete !== undefined) {
-      await this.model.delete(config.delete as any)
+      await response.delete()
 
-      return null
+      return response
     }
 
-    return this.model.insertOrUpdate({
-      data: this.getDataFromResponse(response, config)
-    })
-  }
+    config.save && response.save()
 
-  /**
-   * Get data from the given response object. If the `dataTransformer` config is
-   * provided, it tries to execute the method with the response as param. If the
-   * `dataKey` config is provided, it tries to fetch the data at that key.
-   */
-  private getDataFromResponse (response: AxiosResponse, config: Config): Record | Record[] {
-    if (config.dataTransformer) {
-      return config.dataTransformer(response)
-    }
-
-    if (config.dataKey) {
-      return response.data[config.dataKey]
-    }
-
-    return response.data
+    return response
   }
 }
