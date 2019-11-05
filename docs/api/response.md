@@ -20,6 +20,12 @@ The Response object is what gets returned when you make API call via Request obj
 
   The result of Vuex ORM persistent method.
 
+### isSaved
+
+- **`isSaved: boolean`**
+
+  Whether the response data is persisted to the store or not.
+
 ### model
 
 - **`model: typeof Model`**

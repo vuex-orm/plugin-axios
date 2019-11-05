@@ -117,3 +117,17 @@ if (result.response.data.error) {
 // Persist in the store otherwise.
 result.save()
 ````
+
+You can check to see if the response data is already stored in the store or not with `isSaved` property.
+
+```js
+const result = await User.api().get('/api/users', {
+  save: false
+})
+
+result.isSaved // <- false
+
+result.save()
+
+result.isSaved // <- true
+```
