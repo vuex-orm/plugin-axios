@@ -40,6 +40,7 @@ Vuex ORM is sponsored by awesome folks. Big love to all of them from whole Vuex 
 - API
     - [Model](/api/model)
     - [Request](/api/request)
+    - [Response](/api/response)
 
 ## Questions & Discussions
 

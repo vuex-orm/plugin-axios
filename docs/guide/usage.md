@@ -86,3 +86,48 @@ result.response.status // <- 200
 // And Vuex ORM persisted entities like so.
 result.entities // <- { users: [{ ... }] }
 ```
+
+### Saving Data Afterwards
+
+When setting the [save option](./configurations#available-options) to false, you can persist response data afterwards via `save` method on response object.
+
+```js
+// Don't save response data when calling API.
+const result = await User.api().get('/api/users', {
+  save: false
+})
+
+// Save data afterwards.
+result.save()
+````
+
+This can be useful when you want to check the response data before persisting it to the store. For example, you might check if the response contains any errors or not.
+
+```js
+// Don't save response data when calling API.
+const result = await User.api().get('/api/users', {
+  save: false
+})
+
+// If the response data contains any error, don't persist in the store.
+if (result.response.data.error) {
+  throw new Error('Something is wrong.')
+}
+
+// Persist in the store otherwise.
+result.save()
+````
+
+You can check to see if the response data is already stored in the store or not with `isSaved` property.
+
+```js
+const result = await User.api().get('/api/users', {
+  save: false
+})
+
+result.isSaved // <- false
+
+result.save()
+
+result.isSaved // <- true
+```

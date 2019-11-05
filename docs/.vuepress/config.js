@@ -20,7 +20,8 @@ const sidebars = {
       collapsable: false,
       children: [
         '/api/model',
-        '/api/request'
+        '/api/request',
+        '/api/response'
       ]
     }
   ]
