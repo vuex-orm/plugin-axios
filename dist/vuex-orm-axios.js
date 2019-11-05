@@ -71,12 +71,73 @@
         /**
          * Create a new response instance.
          */
-        function Response(model, config, response, entities) {
+        function Response(model, config, response) {
+            /**
+             * Entities created by Vuex ORM.
+             */
+            this.entities = null;
+            /**
+             * Whether if response data is saved to the store or not.
+             */
+            this.isSaved = false;
             this.model = model;
             this.config = config;
             this.response = response;
-            this.entities = entities;
         }
+        /**
+         * Save response data to the store.
+         */
+        Response.prototype.save = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var _a;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
+                        case 0:
+                            _a = this;
+                            return [4 /*yield*/, this.model.insertOrUpdate({
+                                    data: this.getDataFromResponse()
+                                })];
+                        case 1:
+                            _a.entities = _b.sent();
+                            this.isSaved = true;
+                            return [2 /*return*/];
+                    }
+                });
+            });
+        };
+        /**
+         * Delete store record depending on `delete` option.
+         */
+        Response.prototype.delete = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            if (this.config.delete === undefined) {
+                                throw new Error('[Vuex ORM Axios] Could not delete records because the `delete` option is not set.');
+                            }
+                            return [4 /*yield*/, this.model.delete(this.config.delete)];
+                        case 1:
+                            _a.sent();
+                            return [2 /*return*/];
+                    }
+                });
+            });
+        };
+        /**
+         * Get data from the given response object. If the `dataTransformer` config is
+         * provided, it tries to execute the method with the response as param. If the
+         * `dataKey` config is provided, it tries to fetch the data at that key.
+         */
+        Response.prototype.getDataFromResponse = function () {
+            if (this.config.dataTransformer) {
+                return this.config.dataTransformer(this.response);
+            }
+            if (this.config.dataKey) {
+                return this.response.data[this.config.dataKey];
+            }
+            return this.response.data;
+        };
         return Response;
     }());
 
@@ -180,18 +241,15 @@
          */
         Request.prototype.request = function (config) {
             return __awaiter(this, void 0, void 0, function () {
-                var requestConfig, response, entities;
+                var requestConfig, axiosResponse;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
                             requestConfig = this.createConfig(config);
                             return [4 /*yield*/, this.axios.request(requestConfig)];
                         case 1:
-                            response = _a.sent();
-                            return [4 /*yield*/, this.persistResponseData(response, requestConfig)];
-                        case 2:
-                            entities = _a.sent();
-                            return [2 /*return*/, new Response(this.model, requestConfig, response, entities)];
+                            axiosResponse = _a.sent();
+                            return [2 /*return*/, this.createResponse(axiosResponse, requestConfig)];
                     }
                 });
             });
@@ -204,41 +262,27 @@
             return __assign(__assign(__assign(__assign({}, this.config), this.model.globalApiConfig), this.model.apiConfig), config);
         };
         /**
-         * Persist the response data to the vuex store.
+         * Create a new response instance by applying a few initialization processes.
+         * For example, it saves response data if `save` option id set to `true`.
          */
-        Request.prototype.persistResponseData = function (response, config) {
+        Request.prototype.createResponse = function (axiosResponse, config) {
             return __awaiter(this, void 0, void 0, function () {
+                var response;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
-                            if (!config.save) {
-                                return [2 /*return*/, null];
-                            }
+                            response = new Response(this.model, config, axiosResponse);
                             if (!(config.delete !== undefined)) return [3 /*break*/, 2];
-                            return [4 /*yield*/, this.model.delete(config.delete)];
+                            return [4 /*yield*/, response.delete()];
                         case 1:
                             _a.sent();
-                            return [2 /*return*/, null];
-                        case 2: return [2 /*return*/, this.model.insertOrUpdate({
-                                data: this.getDataFromResponse(response, config)
-                            })];
+                            return [2 /*return*/, response];
+                        case 2:
+                            config.save && response.save();
+                            return [2 /*return*/, response];
                     }
                 });
             });
-        };
-        /**
-         * Get data from the given response object. If the `dataTransformer` config is
-         * provided, it tries to execute the method with the response as param. If the
-         * `dataKey` config is provided, it tries to fetch the data at that key.
-         */
-        Request.prototype.getDataFromResponse = function (response, config) {
-            if (config.dataTransformer) {
-                return config.dataTransformer(response);
-            }
-            if (config.dataKey) {
-                return response.data[config.dataKey];
-            }
-            return response.data;
         };
         return Request;
     }());
