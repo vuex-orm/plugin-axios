@@ -41,9 +41,15 @@ export default class Response {
    * Save response data to the store.
    */
   async save (): Promise<void> {
-    this.entities = await this.model.insertOrUpdate({
-      data: this.getDataFromResponse()
-    })
+    const data = this.getDataFromResponse()
+
+    if (!this.validateData(data)) {
+      console.warn('[Vuex ORM Axios] The response data could not be saved to the store because it\'s not an object or an array. You might want to use `dataTransformer` option to handle non-array/object response before saving it to the store.')
+
+      return
+    }
+
+    this.entities = await this.model.insertOrUpdate({ data })
 
     this.isSaved = true
   }
@@ -74,5 +80,12 @@ export default class Response {
     }
 
     return this.response.data
+  }
+
+  /**
+   * Validate if the given data is insertable to Vuex ORM.
+   */
+  private validateData (data: any): data is Record | Record[] {
+    return data !== null && typeof data === 'object'
   }
 }
