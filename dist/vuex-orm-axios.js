@@ -89,14 +89,17 @@
          */
         Response.prototype.save = function () {
             return __awaiter(this, void 0, void 0, function () {
-                var _a;
+                var data, _a;
                 return __generator(this, function (_b) {
                     switch (_b.label) {
                         case 0:
+                            data = this.getDataFromResponse();
+                            if (!this.validateData(data)) {
+                                console.warn('[Vuex ORM Axios] The response data could not be saved to the store because it\'s not an object or an array. You might want to use `dataTransformer` option to handle non-array/object response before saving it to the store.');
+                                return [2 /*return*/];
+                            }
                             _a = this;
-                            return [4 /*yield*/, this.model.insertOrUpdate({
-                                    data: this.getDataFromResponse()
-                                })];
+                            return [4 /*yield*/, this.model.insertOrUpdate({ data: data })];
                         case 1:
                             _a.entities = _b.sent();
                             this.isSaved = true;
@@ -137,6 +140,12 @@
                 return this.response.data[this.config.dataKey];
             }
             return this.response.data;
+        };
+        /**
+         * Validate if the given data is insertable to Vuex ORM.
+         */
+        Response.prototype.validateData = function (data) {
+            return data !== null && typeof data === 'object';
         };
         return Response;
     }());
@@ -267,18 +276,24 @@
          */
         Request.prototype.createResponse = function (axiosResponse, config) {
             return __awaiter(this, void 0, void 0, function () {
-                var response;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
+                var response, _a;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
                         case 0:
                             response = new Response(this.model, config, axiosResponse);
                             if (!(config.delete !== undefined)) return [3 /*break*/, 2];
                             return [4 /*yield*/, response.delete()];
                         case 1:
-                            _a.sent();
+                            _b.sent();
                             return [2 /*return*/, response];
                         case 2:
-                            config.save && response.save();
+                            _a = config.save;
+                            if (!_a) return [3 /*break*/, 4];
+                            return [4 /*yield*/, response.save()];
+                        case 3:
+                            _a = (_b.sent());
+                            _b.label = 4;
+                        case 4:
                             return [2 /*return*/, response];
                     }
                 });
