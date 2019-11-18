@@ -148,7 +148,7 @@ export default class Request {
       return response
     }
 
-    config.save && response.save()
+    config.save && await response.save()
 
     return response
   }

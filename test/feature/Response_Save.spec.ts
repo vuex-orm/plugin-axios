@@ -20,6 +20,25 @@ describe('Feature - Response - Save', () => {
   beforeEach(() => { mock = new MockAdapter(axios) })
   afterEach(() => { mock.reset() })
 
+  it('warns the user if the response data is not insertable', async () => {
+    const spy = jest.spyOn(console, 'warn')
+
+    spy.mockImplementation(x => x)
+
+    createStore([User])
+
+    mock.onGet('/api/users').reply(200, null)
+    await User.api().get('/api/users')
+
+    mock.onGet('/api/users').reply(200, 1)
+    await User.api().get('/api/users')
+
+    expect(console.warn).toHaveBeenCalledTimes(2)
+
+    spy.mockReset()
+    spy.mockRestore()
+  })
+
   it('can save response data afterword', async () => {
     mock.onGet('/api/users').reply(200, { id: 1, name: 'John Doe' })
 
