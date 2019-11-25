@@ -1,6 +1,6 @@
 {
   "name": "@vuex-orm/plugin-axios",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "Vuex ORM plugin for adding smooth integration with axios.",
   "main": "dist/vuex-orm-axios.common.js",
   "module": "dist/vuex-orm-axios.esm.js",
