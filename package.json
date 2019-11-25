@@ -40,12 +40,15 @@
   "bugs": {
     "url": "https://github.com/vuex-orm/plugin-axios/issues"
   },
+  "peerDependencies": {
+    "@vuex-orm/core": ">=0.34.0"
+  },
   "dependencies": {
-    "@vuex-orm/core": "^0.33.0",
     "axios": "^0.19.0"
   },
   "devDependencies": {
     "@types/jest": "^24.0.23",
+    "@vuex-orm/core": "^0.34.0",
     "axios-mock-adapter": "^1.17.0",
     "codecov": "^3.5.0",
     "jest": "^24.8.0",

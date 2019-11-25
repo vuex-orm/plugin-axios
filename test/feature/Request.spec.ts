@@ -32,8 +32,8 @@ describe('Feature - Request', () => {
 
     const expected = createState({
       users: {
-        1: { $id: 1, id: 1, name: 'John Doe' },
-        2: { $id: 2, id: 2, name: 'Jane Doe' }
+        1: { $id: '1', id: 1, name: 'John Doe' },
+        2: { $id: '2', id: 2, name: 'Jane Doe' }
       }
     })
 
@@ -54,8 +54,8 @@ describe('Feature - Request', () => {
 
     const expected = createState({
       users: {
-        1: { $id: 1, id: 1, name: 'John Doe' },
-        2: { $id: 2, id: 2, name: 'Jane Doe' }
+        1: { $id: '1', id: 1, name: 'John Doe' },
+        2: { $id: '2', id: 2, name: 'Jane Doe' }
       }
     })
 
@@ -74,8 +74,8 @@ describe('Feature - Request', () => {
 
     const expected = createState({
       users: {
-        1: { $id: 1, id: 1, name: 'John Doe' },
-        2: { $id: 2, id: 2, name: 'Jane Doe' }
+        1: { $id: '1', id: 1, name: 'John Doe' },
+        2: { $id: '2', id: 2, name: 'Jane Doe' }
       }
     })
 
@@ -96,8 +96,8 @@ describe('Feature - Request', () => {
 
     const expected = createState({
       users: {
-        1: { $id: 1, id: 1, name: 'John Doe' },
-        2: { $id: 2, id: 2, name: 'Jane Doe' }
+        1: { $id: '1', id: 1, name: 'John Doe' },
+        2: { $id: '2', id: 2, name: 'Jane Doe' }
       }
     })
 
@@ -116,8 +116,8 @@ describe('Feature - Request', () => {
 
     const expected = createState({
       users: {
-        1: { $id: 1, id: 1, name: 'John Doe' },
-        2: { $id: 2, id: 2, name: 'Jane Doe' }
+        1: { $id: '1', id: 1, name: 'John Doe' },
+        2: { $id: '2', id: 2, name: 'Jane Doe' }
       }
     })
 
@@ -138,8 +138,8 @@ describe('Feature - Request', () => {
 
     const expected = createState({
       users: {
-        1: { $id: 1, id: 1, name: 'John Doe' },
-        2: { $id: 2, id: 2, name: 'Jane Doe' }
+        1: { $id: '1', id: 1, name: 'John Doe' },
+        2: { $id: '2', id: 2, name: 'Jane Doe' }
       }
     })
 
@@ -158,8 +158,8 @@ describe('Feature - Request', () => {
 
     const expected = createState({
       users: {
-        1: { $id: 1, id: 1, name: 'John Doe' },
-        2: { $id: 2, id: 2, name: 'Jane Doe' }
+        1: { $id: '1', id: 1, name: 'John Doe' },
+        2: { $id: '2', id: 2, name: 'Jane Doe' }
       }
     })
 
@@ -180,8 +180,8 @@ describe('Feature - Request', () => {
 
     const expected = createState({
       users: {
-        1: { $id: 1, id: 1, name: 'John Doe' },
-        2: { $id: 2, id: 2, name: 'Jane Doe' }
+        1: { $id: '1', id: 1, name: 'John Doe' },
+        2: { $id: '2', id: 2, name: 'Jane Doe' }
       }
     })
 
@@ -200,8 +200,8 @@ describe('Feature - Request', () => {
 
     const expected = createState({
       users: {
-        1: { $id: 1, id: 1, name: 'John Doe' },
-        2: { $id: 2, id: 2, name: 'Jane Doe' }
+        1: { $id: '1', id: 1, name: 'John Doe' },
+        2: { $id: '2', id: 2, name: 'Jane Doe' }
       }
     })
 
@@ -222,8 +222,8 @@ describe('Feature - Request', () => {
 
     const expected = createState({
       users: {
-        1: { $id: 1, id: 1, name: 'John Doe' },
-        2: { $id: 2, id: 2, name: 'Jane Doe' }
+        1: { $id: '1', id: 1, name: 'John Doe' },
+        2: { $id: '2', id: 2, name: 'Jane Doe' }
       }
     })
 

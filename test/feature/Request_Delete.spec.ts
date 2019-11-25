@@ -38,7 +38,7 @@ describe('Feature - Request - Delete', () => {
 
     const expected = createState({
       users: {
-        2: { $id: 2, id: 2, name: 'Jane' }
+        2: { $id: '2', id: 2, name: 'Jane' }
       }
     })
 

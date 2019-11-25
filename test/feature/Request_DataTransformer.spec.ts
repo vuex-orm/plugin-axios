@@ -34,7 +34,7 @@ describe('Feature - Request - Data Transformer', () => {
 
     const expected = createState({
       users: {
-        1: { $id: 1, id: 1, name: 'John Doe' }
+        1: { $id: '1', id: 1, name: 'John Doe' }
       }
     })
 

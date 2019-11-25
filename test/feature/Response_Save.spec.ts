@@ -56,7 +56,7 @@ describe('Feature - Response - Save', () => {
 
     const expected2 = createState({
       users: {
-        1: { $id: 1, id: 1, name: 'John Doe' }
+        1: { $id: '1', id: 1, name: 'John Doe' }
       }
     })
 

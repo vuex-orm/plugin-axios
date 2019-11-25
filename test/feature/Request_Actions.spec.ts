@@ -37,7 +37,7 @@ describe('Feature - Request - Actions', () => {
 
     const expected = createState({
       users: {
-        1: { $id: 1, id: 1, name: 'John' }
+        1: { $id: '1', id: 1, name: 'John' }
       }
     })
 
@@ -72,7 +72,7 @@ describe('Feature - Request - Actions', () => {
 
     const expected = createState({
       users: {
-        1: { $id: 1, id: 1, name: 'John' }
+        1: { $id: '1', id: 1, name: 'John' }
       }
     })
 
