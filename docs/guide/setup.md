@@ -16,7 +16,7 @@ Here is a more realistic example that shows how to install Vuex ORM to Vuex alon
 
 ```js
 import axios from 'axios'
-import Veux from 'vuex'
+import Vuex from 'vuex'
 import VuexORM from '@vuex-orm/core'
 import VuexORMAxios from '@vuex-orm/plugin-axios'
 import User from '@/models/User'
