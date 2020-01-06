@@ -75,7 +75,7 @@ class User extends Model {
 }
 ```
 
-Well of crouse in this case, you must call that method from Model and not from `api()` method.
+In this case, you must call the method from Model and not from `api()`.
 
 ```js
 User.fetchById(1)
