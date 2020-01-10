@@ -1,5 +1,8 @@
 import { AxiosInstance, AxiosResponse } from 'axios'
 import { Model } from '@vuex-orm/core'
+import _merge from 'lodash.merge'
+import _omitBy from 'lodash.omitby'
+import _isNil from 'lodash.isnil'
 import Config from '../contracts/Config'
 import Response from './Response'
 
@@ -124,15 +127,16 @@ export default class Request {
 
   /**
    * Create a new config by merging the global config, the model config,
-   * and the given config.
+   * and the given config. Any value that is null after the merge will
+   * have the entire entry removed.
    */
   private createConfig (config: Config): Config {
-    return {
-      ...this.config,
-      ...this.model.globalApiConfig,
-      ...this.model.apiConfig,
-      ...config
-    }
+    return _omitBy(_merge({},
+      this.config,
+      this.model.globalApiConfig,
+      this.model.apiConfig,
+      config
+    ), _isNil)
   }
 
   /**
