@@ -41,7 +41,7 @@ First, leave `axios` option empty at the plugin installation part.
 ```js
 // store/index.js
 
-import Veux from 'vuex'
+import Vuex from 'vuex'
 import VuexORM from '@vuex-orm/core'
 import VuexORMAxios from '@vuex-orm/plugin-axios'
 import User from '@/models/User'
