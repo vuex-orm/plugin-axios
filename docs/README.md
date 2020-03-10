@@ -48,16 +48,16 @@ Vuex ORM is sponsored by awesome folks. Big love to all of them from the whole V
 ## Table of Contents
 
 - Guide
-    - [Installation](/guide/installation)
-    - [Setup](/guide/setup)
-    - [Usage](/guide/usage)
-    - [Configurations](/guide/configurations)
-    - [Custom Actions](/guide/custom-actions)
+    - [Installation](/guide/installation.md)
+    - [Setup](/guide/setup.md)
+    - [Usage](/guide/usage.md)
+    - [Configurations](/guide/configurations.md)
+    - [Custom Actions](/guide/custom-actions.md)
     - [Sponsors](/guide/sponsors)
 - API
-    - [Model](/api/model)
-    - [Request](/api/request)
-    - [Response](/api/response)
+    - [Model](/api/model.md)
+    - [Request](/api/request.md)
+    - [Response](/api/response.md)
 
 ## Questions & Discussions
 
