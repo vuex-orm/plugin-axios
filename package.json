@@ -47,24 +47,24 @@
     "axios": "^0.19.2"
   },
   "devDependencies": {
-    "@types/jest": "^25.1.3",
-    "@vuex-orm/core": "^0.35.2",
+    "@types/jest": "^25.1.4",
+    "@vuex-orm/core": "^0.36.2",
     "axios-mock-adapter": "^1.17.0",
-    "codecov": "^3.5.0",
+    "codecov": "^3.6.5",
     "jest": "^25.1.0",
-    "rollup": "^1.31.1",
-    "rollup-plugin-commonjs": "^10.0.1",
+    "rollup": "^2.0.3",
+    "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "ts-jest": "^25.2.1",
     "tslint": "^6.0.0",
     "tslint-config-standard": "^9.0.0",
-    "typescript": "^3.8.2",
+    "typescript": "^3.8.3",
     "uglify-js": "^3.8.0",
     "vue": "^2.6.11",
     "vue-server-renderer": "^2.6.11",
     "vuepress": "^1.3.1",
     "vuepress-theme-vue": "^1.1.0",
-    "vuex": "^3.1.2"
+    "vuex": "^3.1.3"
   },
   "jest": {
     "moduleFileExtensions": [
