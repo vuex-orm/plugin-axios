@@ -40,7 +40,7 @@ module.exports = {
     nav: [
       {
         text: 'Guide',
-        link: '/guide/'
+        link: '/guide/installation'
       },
       {
         text: 'API Reference',
