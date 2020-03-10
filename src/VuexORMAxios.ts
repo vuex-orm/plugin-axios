@@ -17,7 +17,7 @@ export default class VuexORMAxios {
   /**
    * Create a new Vuex ORM Axios instance.
    */
-  constructor (components: Components, config: GlobalConfig) {
+  constructor(components: Components, config: GlobalConfig) {
     this.model = components.Model
     this.config = config
   }
@@ -25,7 +25,7 @@ export default class VuexORMAxios {
   /**
    * Plug in features.
    */
-  plugin (): void {
+  plugin(): void {
     ModelMixin(this.model, this.config)
   }
 }

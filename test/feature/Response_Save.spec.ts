@@ -9,7 +9,7 @@ describe('Feature - Response - Save', () => {
   class User extends Model {
     static entity = 'users'
 
-    static fields (): Fields {
+    static fields(): Fields {
       return {
         id: this.attr(null),
         name: this.attr('')
@@ -17,13 +17,17 @@ describe('Feature - Response - Save', () => {
     }
   }
 
-  beforeEach(() => { mock = new MockAdapter(axios) })
-  afterEach(() => { mock.reset() })
+  beforeEach(() => {
+    mock = new MockAdapter(axios)
+  })
+  afterEach(() => {
+    mock.reset()
+  })
 
-  it('warns the user if the response data is not insertable', async () => {
+  it('warns the user if the response data cannot be inserted', async () => {
     const spy = jest.spyOn(console, 'warn')
 
-    spy.mockImplementation(x => x)
+    spy.mockImplementation((x) => x)
 
     createStore([User])
 
