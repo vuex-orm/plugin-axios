@@ -47,14 +47,14 @@
     "axios": "^0.19.2"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^11.0.2",
+    "@rollup/plugin-node-resolve": "^7.1.1",
     "@types/jest": "^25.1.4",
     "@vuex-orm/core": "^0.36.2",
     "axios-mock-adapter": "^1.17.0",
     "codecov": "^3.6.5",
     "jest": "^25.1.0",
     "rollup": "^2.0.3",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-node-resolve": "^5.2.0",
     "ts-jest": "^25.2.1",
     "tslint": "^6.0.0",
     "tslint-config-standard": "^9.0.0",
