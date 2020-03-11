@@ -9,7 +9,7 @@ describe('Feature - Request - Delete', () => {
   class User extends Model {
     static entity = 'users'
 
-    static fields (): Fields {
+    static fields(): Fields {
       return {
         id: this.attr(null),
         name: this.attr('')
@@ -17,18 +17,24 @@ describe('Feature - Request - Delete', () => {
     }
   }
 
-  beforeEach(() => { mock = new MockAdapter(axios) })
-  afterEach(() => { mock.reset() })
+  beforeEach(() => {
+    mock = new MockAdapter(axios)
+  })
+  afterEach(() => {
+    mock.reset()
+  })
 
   it('can delete record after the api call', async () => {
     mock.onDelete('/users/1').reply(200, { ok: true })
 
     const store = createStore([User])
 
-    await User.insert({ data: [
-      { id: 1, name: 'John' },
-      { id: 2, name: 'Jane' }
-    ]})
+    await User.insert({
+      data: [
+        { id: 1, name: 'John' },
+        { id: 2, name: 'Jane' }
+      ]
+    })
 
     await User.api().request({
       method: 'delete',

@@ -9,7 +9,7 @@ describe('Feature - Response - Save', () => {
   class User extends Model {
     static entity = 'users'
 
-    static fields (): Fields {
+    static fields(): Fields {
       return {
         id: this.attr(null),
         name: this.attr('')
@@ -17,8 +17,12 @@ describe('Feature - Response - Save', () => {
     }
   }
 
-  beforeEach(() => { mock = new MockAdapter(axios) })
-  afterEach(() => { mock.reset() })
+  beforeEach(() => {
+    mock = new MockAdapter(axios)
+  })
+  afterEach(() => {
+    mock.reset()
+  })
 
   it('can save response data afterword', async () => {
     mock.onGet('/api/users').reply(200, { id: 1, name: 'John Doe' })
@@ -56,7 +60,9 @@ describe('Feature - Response - Save', () => {
     try {
       await response.delete()
     } catch (e) {
-      expect(e.message).toBe('[Vuex ORM Axios] Could not delete records because the `delete` option is not set.')
+      expect(e.message).toBe(
+        '[Vuex ORM Axios] Could not delete records because the `delete` option is not set.'
+      )
 
       return
     }

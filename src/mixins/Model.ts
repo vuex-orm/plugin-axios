@@ -3,7 +3,10 @@ import { Model as BaseModel } from '@vuex-orm/core'
 import GlobalConfig from '../contracts/GlobalConfig'
 import Request from '../api/Request'
 
-export default function Model (model: typeof BaseModel, config: GlobalConfig): void {
+export default function Model(
+  model: typeof BaseModel,
+  config: GlobalConfig
+): void {
   /**
    * The api client.
    */
@@ -22,14 +25,14 @@ export default function Model (model: typeof BaseModel, config: GlobalConfig): v
   /**
    * Set the given api client.
    */
-  model.setAxios = function (axios: AxiosInstance): void {
+  model.setAxios = function(axios: AxiosInstance): void {
     this.axios = axios
   }
 
   /**
    * Get the api instance.
    */
-  model.api = function (): Request {
+  model.api = function(): Request {
     return new Request(this)
   }
 }

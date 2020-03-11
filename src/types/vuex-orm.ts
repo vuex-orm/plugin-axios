@@ -23,11 +23,11 @@ declare module '@vuex-orm/core' {
     /**
      * Set the given axios instance.
      */
-    export function setAxios (axios: AxiosInstance): void
+    export function setAxios(axios: AxiosInstance): void
 
     /**
      * Get the api instance.
      */
-    export function api (): Request
+    export function api(): Request
   }
 }

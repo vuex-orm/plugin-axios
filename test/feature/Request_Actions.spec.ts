@@ -8,14 +8,18 @@ import Response from '@/api/Response'
 describe('Feature - Request - Actions', () => {
   let mock: MockAdapter
 
-  beforeEach(() => { mock = new MockAdapter(axios) })
-  afterEach(() => { mock.reset() })
+  beforeEach(() => {
+    mock = new MockAdapter(axios)
+  })
+  afterEach(() => {
+    mock.reset()
+  })
 
   it('can define a custom action', async () => {
     class User extends Model {
       static entity = 'users'
 
-      static fields (): Fields {
+      static fields(): Fields {
         return {
           id: this.attr(null),
           name: this.attr('')
@@ -48,7 +52,7 @@ describe('Feature - Request - Actions', () => {
     class User extends Model {
       static entity = 'users'
 
-      static fields (): Fields {
+      static fields(): Fields {
         return {
           id: this.attr(null),
           name: this.attr('')
@@ -57,7 +61,7 @@ describe('Feature - Request - Actions', () => {
 
       static apiConfig = {
         actions: {
-          fetch (this: Request, url: string): Promise<Response> {
+          fetch(this: Request, url: string): Promise<Response> {
             return this.get(url)
           }
         }

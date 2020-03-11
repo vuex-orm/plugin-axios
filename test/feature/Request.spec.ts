@@ -9,7 +9,7 @@ describe('Feature - Request', () => {
   class User extends Model {
     static entity = 'users'
 
-    static fields (): Fields {
+    static fields(): Fields {
       return {
         id: this.attr(null),
         name: this.attr('')
@@ -17,8 +17,12 @@ describe('Feature - Request', () => {
     }
   }
 
-  beforeEach(() => { mock = new MockAdapter(axios) })
-  afterEach(() => { mock.reset() })
+  beforeEach(() => {
+    mock = new MockAdapter(axios)
+  })
+  afterEach(() => {
+    mock.reset()
+  })
 
   it('`get` can perform a get request', async () => {
     mock.onGet('/api/users').reply(200, [

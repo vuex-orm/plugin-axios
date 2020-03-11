@@ -9,7 +9,7 @@ describe('Feature - Request - Data Transformer', () => {
   class User extends Model {
     static entity = 'users'
 
-    static fields (): Fields {
+    static fields(): Fields {
       return {
         id: this.attr(null),
         name: this.attr('')
@@ -17,8 +17,12 @@ describe('Feature - Request - Data Transformer', () => {
     }
   }
 
-  beforeEach(() => { mock = new MockAdapter(axios) })
-  afterEach(() => { mock.reset() })
+  beforeEach(() => {
+    mock = new MockAdapter(axios)
+  })
+  afterEach(() => {
+    mock.reset()
+  })
 
   it('can specify callback to transform the response', async () => {
     mock.onGet('/users').reply(200, {
