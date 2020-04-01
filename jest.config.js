@@ -1,13 +1,16 @@
 module.exports = {
   preset: 'ts-jest',
-  coverageDirectory: 'coverage',
-  coverageReporters: ['json', 'lcov', 'text-summary', 'clover'],
-  collectCoverageFrom: ['src/**/*.ts', '!src/index.cjs.ts'],
+  rootDir: __dirname,
+  globals: {
+    __DEV__: true
+  },
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
     '^test/(.*)$': '<rootDir>/test/$1'
   },
-  rootDir: __dirname,
-  testMatch: ['<rootDir>/test/**/*.spec.ts?(x)'],
-  testPathIgnorePatterns: ['/node_modules/']
+  testMatch: ['<rootDir>/test/**/*.spec.ts'],
+  testPathIgnorePatterns: ['/node_modules/'],
+  coverageDirectory: 'coverage',
+  coverageReporters: ['json', 'lcov', 'text-summary', 'clover'],
+  collectCoverageFrom: ['src/**/*.ts', '!src/index.cjs.ts']
 }
