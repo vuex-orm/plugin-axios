@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="192" src="https://github.com/vuex-orm/plugin-axios/raw/master/logo-vuex-orm.png" alt="Vuex ORM">
+  <img width="192" src="https://github.com/vuex-orm/vuex-orm/raw/master/logo-vuex-orm.png" alt="Vuex ORM">
 </p>
 
 <h1 align="center">Vuex ORM Plugin: Axios</h1>
