@@ -1,7 +1,8 @@
 {
+  "arrowParens": "always",
+  "endOfLine": "lf",
+  "printWidth": 80,
   "semi": false,
   "singleQuote": true,
-  "arrowParens": "always",
-  "printWidth": 80,
-  "endOfLine": "lf"
+  "trailingComma": "none"
 }
