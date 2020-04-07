@@ -37,7 +37,7 @@ const store = new Vuex({
 })
 ```
 
-## Nuxt Integration
+## Nuxt.js Integration
 
 Configuring the plugin with [Nuxt.js](https://nuxtjs.org/) requires the [Axios Module](https://axios.nuxtjs.org/) to be installed. The plugin also does not require an axios instance to be configured during plugin installation. Instead, you must register axios by creating a plugin.
 
