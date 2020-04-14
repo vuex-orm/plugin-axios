@@ -1,6 +1,6 @@
 # Usage
 
-Vuex ORM Axios adds an asynchronous method `api()` to all models which, when called, instantiates a new axios request for a model. From these requests, you're able to persist data to the store automatically.
+Vuex ORM Axios adds an asynchronous method `api()` to all models which, when called, instantiates a new axios request for a model. From these requests, models are able to persist data to the store automatically.
 
 For example, a `User` model may typically want to fetch all users and persist the response to the store. Vuex ORM Axios can achieve this by performing a simple request:
 
@@ -11,7 +11,7 @@ await User.api().get('https://example.com/api/users')
 
 ## Performing Requests
 
-Vuex ORM Axios supports the most commonly used [axios request methods](https://github.com/axios/axios#request-method-aliases). These methods accept the same argument signature as axios request methods with the exception that the config can be expanded with additional plugin [configurations](./configurations.md).
+Vuex ORM Axios supports the most commonly used [axios request methods](https://github.com/axios/axios#request-method-aliases). These methods accept the same argument signature as their axios counterparts with the exception that the config can be expanded with additional plugin [options](./configurations.md).
 
 
 ### Supported Methods
@@ -34,9 +34,31 @@ Arguments given are passed on to the corresponding axios request method.
 - `config` is the plugin [config options](./configurations.md) and also any valid [axios request config](https://github.com/axios/axios#request-config) options.
 
 
-### Persisting the Response
+### Request Configuration
 
-By default, the response data from a request is automatically saved to the store – corresponding to the model the request is made on.
+You can pass any of the plugin's options together with any axios request options for a request method.
+
+For example, let's configure the following `get` request:
+
+```js
+User.api().get('/api/users', {
+  baseURL: 'https://example.com/',
+  dataKey: 'result'
+})
+```
+
+The [`baseURL`](https://github.com/axios/axios#request-config) is an axios request option which will be prepended to the request URL (unless the URL is absolute).
+
+The [`dataKey`](./configurations.md#datakey) is a plugin option which informs the plugin of the resource key your elements may be nested under in the response body.
+
+> Please refer to the list of [supported request methods](#supported-methods) above to determine where the `config` argument can be given in the corresponding request method.
+
+**See also**: [Configurations](./configurations.md)
+
+
+### Persisting Response Data
+
+By default, the response data from a request is automatically saved to the store corresponding to the model the request is made on.
 
 For example, let's perform a basic `get` request on a `User` model:
 
@@ -44,7 +66,7 @@ For example, let's perform a basic `get` request on a `User` model:
 User.api().get('https://example.com/api/users')
 ```
 
-The response body of the request may look like:
+The response body of the request may look like the following:
 
 ```json
 [
@@ -61,7 +83,7 @@ The response body of the request may look like:
 ]
 ```
 
-Vuex ORM Axios will automatically save this data to the store, and the users entity in the store may now look like:
+Vuex ORM Axios will automatically save this data to the store, and the users entity in the store may now look like the following:
 
 ```js
 {
@@ -84,35 +106,13 @@ If you do not want to persist response data automatically, you can defer persist
 - [Vuex ORM - Insert or Update](https://vuex-orm.org/guide/data/inserting-and-updating.html#insert-or-update)
 
 
-### Request Configuration
-
-You can pass any of the plugin's configuration options together with any axios request options for a given request method.
-
-For example, let's configure the following `get` request:
-
-```js
-User.api().get('/api/users', {
-  baseURL: 'https://example.com/',
-  dataKey: 'result'
-})
-```
-
-The [`baseURL`](https://github.com/axios/axios#request-config) is an axios request option which will be prepended to the request URL (unless the URL is absolute).
-
-The [`dataKey`](./configurations.md#datakey) is a plugin configuration option which informs the plugin of the resource key your elements may be nested under in the response body.
-
-> Please refer to the list of [supported request methods](#supported-methods) above to determine where the `config` argument can be given in the corresponding request method.
-
-**See also**: [Configurations](./configurations.md)
-
-
 ### Delete Requests
 
 ::: warning
 When performing a `delete` request, the plugin will not remove the corresponding entities from the store. It is not always possible to determine which record is to be deleted and often HTTP DELETE requests are performed on a resource URL.
 :::
 
-If you want to delete a record from the store after performing a delete request, you must pass the `delete` configuration option.
+If you want to delete a record from the store after performing a delete request, you must pass the `delete` option.
 
 ```js
 User.api().delete('/api/users/1'), {
@@ -147,9 +147,20 @@ result.entities // { users: [{ ... }] }
 **See also**: [API Reference - Response](../api/response.md)
 
 
+### Transforming Data
+
+You can configure the plugin to perform transformation on the response data, using the `dataTransformer` configuration option, before it is persisted to the store.
+
+For example, your API response may conform to the [JSON:API](https://jsonapi.org/) specification but may not match the schema for your `User` model. In such cases you may want to reformat the response data in a manner in which Vuex ORM can normalize.
+
+The `dataTransformer` method can also be used to hook into response data before it is persisted to the store, allowing you to access other response properties such as response headers, as well as manipulate the data as you see fit.
+
+**See also**: [Configurations - dataTransformer](./configurations.md#datatransformer)
+
+
 ### Deferring Persistence
 
-By default, the response data from a request is automatically saved to the store but sometimes this may not always be desired.
+By default, the response data from a request is automatically saved to the store but this may not always be desired.
 
 To prevent persisting data to the store, define and set the `save` option to `false`. The `Response` object conveniently provides `save()` method which allows you to persist the data at any time.
 
