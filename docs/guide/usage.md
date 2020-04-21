@@ -11,7 +11,7 @@ await User.api().get('https://example.com/api/users')
 
 ## Performing Requests
 
-Vuex ORM Axios supports the most commonly used [axios request methods](https://github.com/axios/axios#request-method-aliases). These methods accept the same argument signature as their axios counterparts with the exception that the config can be expanded with additional plugin [options](./configurations.md).
+Vuex ORM Axios supports the most commonly used [axios request methods](https://github.com/axios/axios#request-method-aliases). These methods accept the same argument signature as their axios counterparts with the exception that the config can be expanded with additional plugin [options](configurations).
 
 
 ### Supported Methods
@@ -31,7 +31,7 @@ Arguments given are passed on to the corresponding axios request method.
 
 - `url` is the server URL that will be used for the request.
 - `data` is the data to be sent as the request body (where applicable).
-- `config` is the plugin [config options](./configurations.md) and also any valid [axios request config](https://github.com/axios/axios#request-config) options.
+- `config` is the plugin [config options](configurations) and also any valid [axios request config](https://github.com/axios/axios#request-config) options.
 
 
 ### Request Configuration
@@ -49,11 +49,11 @@ User.api().get('/api/users', {
 
 The [`baseURL`](https://github.com/axios/axios#request-config) is an axios request option which will be prepended to the request URL (unless the URL is absolute).
 
-The [`dataKey`](./configurations.md#datakey) is a plugin option which informs the plugin of the resource key your elements may be nested under in the response body.
+The [`dataKey`](configurations.md#datakey) is a plugin option which informs the plugin of the resource key your elements may be nested under in the response body.
 
 > Please refer to the list of [supported request methods](#supported-methods) above to determine where the `config` argument can be given in the corresponding request method.
 
-**See also**: [Configurations](./configurations.md)
+**See also**: [Configurations](configurations)
 
 
 ### Persisting Response Data
@@ -120,7 +120,7 @@ User.api().delete('/api/users/1'), {
 })
 ```
 
-**See also**: [Configurations - delete](./configurations.md#delete)
+**See also**: [Configurations - delete](configurations.md#delete)
 
 
 ## Handling Responses
@@ -155,7 +155,29 @@ For example, your API response may conform to the [JSON:API](https://jsonapi.org
 
 The `dataTransformer` method can also be used to hook into response data before it is persisted to the store, allowing you to access other response properties such as response headers, as well as manipulate the data as you see fit.
 
-**See also**: [Configurations - dataTransformer](./configurations.md#datatransformer)
+To demonstrate how you may use this option, let's assume your response body looks like this:
+
+```js
+{
+  ok: true,
+  record: {
+    id: 1,
+    name: 'John Doe'
+  }
+}
+```
+
+The following example intercepts the response using a `dataTransformer` method to extract the data to be persisted from the nested property.
+
+```js
+User.api().get('/api/users', {
+  dataTransformer: (response) => {
+    return response.data.record
+  }
+})
+```
+
+**See also**: [Configurations - dataTransformer](configurations.md#datatransformer)
 
 
 ### Deferring Persistence
@@ -197,6 +219,6 @@ result.isSaved // true
 
 **See also**:
 
-- [Configurations - save](./configurations.md#save)
+- [Configurations - save](configurations.md#save)
 - [API Reference - Response - save()](../api/response.md#save)
 - [API Reference - Response - isSaved](../api/response.md#issaved)

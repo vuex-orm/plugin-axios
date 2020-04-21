@@ -1,12 +1,18 @@
 # Configurations
 
-You may configure many options in Vuex ORM Axios and its underlining Axios instance. There are 3 places to set options.
+Vuex ORM Axios plugin comes with a wealth of options to control request behavior. These options can be configured in three common places:
 
-- Global Configuration
-- Model Configuration
-- Request Configuration
+- **Globally** - options can defined during installation
+- **Model** - options can be defined on a per-model basis
+- **Request** - options can be defined on a per-request basis
 
-Global Configuration can be defined at the installation process by passing the option as the second argument of `VuexORM.use` method.
+Any axios options are permitted alongside any plugin options. Options are inherited in the same order, i.e. Global configuration is merged and preceded by Model configuration which is then merged and preceded by any Request configuration.
+
+### Global Configuration
+
+Options can be defined during plugin installation by passing an object as the second argument of the Vuex ORM `use()` method. At minimum, the axios instance is required while any other option is entirely optional.
+
+The following example configures the plugin with an axios instance (required), the `baseURL` option, and some common `headers` that all requests will inherit:
 
 ```js
 import axios from 'axios'
@@ -20,7 +26,11 @@ VuexORM.use(VuexORMAxios, {
 })
 ```
 
-You may define configuration at the Model level too. To do so, define `static apiConfig` property to the Model.
+### Model Configuration
+
+Options can be defined on models by setting the static `apiConfig` property. This is an object where you may configure model-level request configuration.
+
+The following example configures a model with common `headers` and `baseURL` options:
 
 ```js
 import { Model } from '@vuex-orm/core'
@@ -42,7 +52,11 @@ class User extends Model {
 }
 ```
 
-Finally, you can pass configuration when making the api call.
+### Request Configuration
+
+Options can be defined on a per-request basis. These options will inherit any global and model configurations which are subsequently passed on to the request.
+
+The following example configures a request with common `headers` and `baseURL` options:
 
 ```js
 User.api().get('/api/users', {
@@ -51,17 +65,21 @@ User.api().get('/api/users', {
 })
 ```
 
-The lower level configuration will overwrite a higher level of configs. Which means that the Request Config will overwrite Model Config, and Model Config will overwrite Global Config.
+Request configurations vary depending on the type of request being made. Please refer to the [Usage Guide](usage) to read more.
+
 
 ## Available Options
 
-All Axios configurations are available. For those, please refer to [the Axios documentation](https://github.com/axios/axios#request-config). In addition to Axios options, Vuex ORM Axios takes few more options specific to the plugin usage.
+In addition to [axios request options](https://github.com/axios/axios#request-config), the plugin can be configured with the following options:
 
-### dataKey
+### `dataKey`
 
-- **`dataKey?: string | null`**
+- **Type**: `string`
+- **Default**: `undefined`
 
-  This option will define which key to look for when persisting response data. Let's say your response from the server looks like below.
+  This option will inform the plugin of the resource key your elements may be nested under in the response body.
+
+  For example, your response body may be nested under a resource key called `data`:
 
   ```js
   {
@@ -72,10 +90,8 @@ All Axios configurations are available. For those, please refer to [the Axios do
     }
   }
   ```
-
-  In this case, data persistent to the store will probably fail, since actual data is inside the `data` key, but Vuex ORM Axios is going to insert whole object including `ok` property.
-
-  For these situations, you can use `dataKey` property to specify which key to look for data.
+  
+  The following example sets the `dataKey` to `data` as this is the resource key which contains the required data for the model schema.
 
   ```js
   User.api().get('/api/users', {
@@ -83,41 +99,24 @@ All Axios configurations are available. For those, please refer to [the Axios do
   })
   ```
 
-  With the above config, the data inside `data` key will be inserted to the store.
+  The plugin will pass all the data within the data object to Vuex ORM which can then be successfully persisted to the store.
 
-  > **NOTE:** When `dataTransformer` key is set, this option will be ignored.
+  ::: warning
+  This option is ignored when using the `dataTransformer` option.
+  :::
 
-### dataTransformer
+### `dataTransformer`
 
-- **`dataTransformer?: ((response: AxiosResponse) => Record | Record[])`**
+- **Type**: `(response: AxiosResponse) => Array | Object`
+- **Default**: `undefined`
 
-  This option will let you transform the response before persisting it to the store. Let's say your response from the server looks like below.
+  This option will let you intercept and transform the response before persisting it to the store.
+  
+  The method will receive a [Response](usage.md#handling-responses) object allowing you to access response properties such as response headers, as well as manipulate the data as you see fit.
 
-  ```js
-  {
-    ok: true,
-    record: {
-      id: 1,
-      name: 'John Doe'
-    }
-  }
-  ```
+  Any method defined must return data to pass on to Vuex ORM.
 
-  You can use `dataTransform` property to specify how you want to transform the data. The whole Axios response will be passed as callback argument.
-
-  ```js
-  User.api().get('/api/users', {
-    dataTransformer: (response) => {
-      return response.data.record
-    }
-  })
-  ```
-
-  With the above config, the data inside `record` key will be inserted to the store.
-
-  It is very useful when you need to transform a given response to be handle by Vuex ORM. For instance, if you format your response with the [JSON:API specs](https://jsonapi.org/), you can transform your response with this callback.
-
-  You can always use object destructuring to get specific properties from the response object too.
+  You can also use object destructuring to get specific properties from the response object.
 
   ```js
   User.api().get('/api/users', {
@@ -130,38 +129,39 @@ All Axios configurations are available. For those, please refer to [the Axios do
   })
   ```
 
-  > **NOTE:** When `dataTransformer` key is set, `dataKey` option will be ignored.
+  ::: warning
+  Using the `dataTransformer` option will ignore any `dataKey` option.
+  :::
 
-### save
+- **See also**: [Transforming Data](usage.md#transforming-data)
 
-- **`save: boolean = true`**
+### `save`
 
-  This option will determine whether to store the response data to the store or not. If you set this value to `false`, the response data will not be persisted to the store. In that case, the `entities` property at the Response object will become null.
+- **Type**: `boolean`
+- **Default**: `true`
 
-  ```js
-  User.api().get('/api/users', {
-    save: false
-  })
-  ```
+  This option will determine whether Vuex ORM should persist the response data to the store or not.
+  
+  By setting this option to `false`, the response data will not be persisted and you will have to handle persistence alternatively. The `entities` property in the [Response](usage.md#handling-responses) object will also be `null` since it will no longer be persisting data automatically.
 
-### delete
+- **See also**: [Deferring Persistence](usage.md#deferring-persistence)
 
-- **`delete?: string | number | (model: Model) => boolean`**
+### `delete`
 
-  When this option is defined, the matching record will be deleted from the store after the api call. Usually, you need to set this when calling api to delete a record. When this option is set, the response data will not be persisted even if the `save` option is set to true.
+- **Type**: `string | number | (model: Model) => boolean`
+- **Default**: `undefined`
 
-  ```js
-  User.api().delete('/api/users', {
-    delete: 42
-  })
-  ```
+  This option is primarily used with delete requests. It's argument signature is identical to the [Vuex ORM delete](https://vuex-orm.org/guide/data/deleting) method by which a primary key can be set as the value, or passing a predicate function. The corresponding record will be removed from the store after the request is made.
 
-  Well, you may wonder having to manually specify what record to be deleted is a bit redundant. However, without this option, Vuex ORM Axios wouldn't know what records should be deleted because it can't rely on the response data.
+  Setting this option will ignore any `save` options you may have set and therefore persistence is not possible when using this option. 
 
-  We're open to any suggestions and recommendations to improve the "delete" functionality. Please feel free to open an issue on GitHub!
+- **See also**: [Delete Requests](usage.md#delete-requests)
 
-### actions
+### `actions`
 
-- **`actions?: { [name: string]: ActionObject | ActionFunction }`**
+- **Type**: `Object`
+- **Default**: `{}`
 
-  You can define custom actions in here. Please refer to the [Custom Actions](custom-actions) page to learn more about it.
+  This option allows for your own predefined api methods.
+
+  Please refer to the [Custom Actions](custom-actions) documentation to learn more.
