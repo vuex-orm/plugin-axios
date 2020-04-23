@@ -1,6 +1,6 @@
 # Setup
 
-The Axios plugin can be installed with Vuex ORM using the `VuexORM.use` plugin install method.
+Vuex ORM Axios plugin can be installed with Vuex ORM using the `VuexORM.use` plugin install method.
 
 An instance of axios must be configured during installation for the plugin to work.
 

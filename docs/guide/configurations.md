@@ -1,6 +1,6 @@
 # Configurations
 
-Vuex ORM Axios plugin comes with a wealth of options to control request behavior. These options can be configured in three common places:
+Vuex ORM Axios plugin comes with various options to control request behavior. These options can be configured in three common places:
 
 - **Globally** - options can defined during installation
 - **Model** - options can be defined on a per-model basis

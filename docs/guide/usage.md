@@ -96,7 +96,7 @@ Vuex ORM Axios will automatically save this data to the store, and the users ent
 }
 ```
 
-Under the hood, the plugin will persist data to the store by determining which records require inserting and which require updating. To accomplish this, the plugin passes data to Vuex ORM's `insertOrUpdate` model method. Therefore, only valid model attributes will be persisted to the store.
+Under the hood, the plugin will persist data to the store by determining which records require inserting and which require updating. To accomplish this, the plugin passes data to the Vuex ORM `insertOrUpdate` model method. Therefore, only valid model attributes will be persisted to the store.
 
 If you do not want to persist response data automatically, you can defer persistence by configuring the request with the `{ save: false }` option.
 
