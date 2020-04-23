@@ -1,16 +1,22 @@
 # Usage
 
-After setting up Vuex ORM Axios, you may use `Model.api` method to perform api call.
+Vuex ORM Axios adds an asynchronous method `api()` to all models which, when called, instantiates a new axios request for a model. From these requests, models are able to persist data to the store automatically.
+
+For example, a `User` model may typically want to fetch all users and persist the response to the store. Vuex ORM Axios can achieve this by performing a simple request:
 
 ```js
-User.api().get('/api/users')
+await User.api().get('https://example.com/api/users')
 ```
 
-## Request
 
-Vuex ORM Axios can perform all basic Axios requests, which is `get`, `post`, `put`, `patch`, `delete`, and `request`. These methods take the same arguments as Axios and perform exactly as same as Axios, except it's going to store response data to the store corresponding to the Model that is calling the api.
+## Performing Requests
 
-Available methods and the argument pattern is listed below. Remember, the argument is the same as the corresponding Axios methods. The `data` or `config` will be passed directly to the underlining Axios instance.
+Vuex ORM Axios supports the most commonly used [axios request methods](https://github.com/axios/axios#request-method-aliases). These methods accept the same argument signature as their axios counterparts with the exception that the config can be expanded with additional plugin [options](configurations).
+
+
+### Supported Methods
+
+Here is a list of supported request methods:
 
 ```js
 User.api().get(url, config)
@@ -21,113 +27,198 @@ User.api().delete(url, config)
 User.api().request(config)
 ```
 
-When calling any of the above methods, Vuex ORM Axios will persist the response data to the store. Let's say your api response is as follows.
+Arguments given are passed on to the corresponding axios request method.
+
+- `url` is the server URL that will be used for the request.
+- `data` is the data to be sent as the request body (where applicable).
+- `config` is the plugin [config options](configurations) and also any valid [axios request config](https://github.com/axios/axios#request-config) options.
+
+
+### Request Configuration
+
+You can pass any of the plugin's options together with any axios request options for a request method.
+
+For example, let's configure the following `get` request:
 
 ```js
-// Response body data.
-
-{
-  "id": 1,
-  "name": "John Doe",
-  "age": 24
-}
+User.api().get('/api/users', {
+  baseURL: 'https://example.com/',
+  dataKey: 'result'
+})
 ```
 
-And if you call api from User Model, the above data will be inserted as User records to the store.
+The [`baseURL`](https://github.com/axios/axios#request-config) is an axios request option which will be prepended to the request URL (unless the URL is absolute).
+
+The [`dataKey`](configurations.md#datakey) is a plugin option which informs the plugin of the resource key your elements may be nested under in the response body.
+
+> Please refer to the list of [supported request methods](#supported-methods) above to determine where the `config` argument can be given in the corresponding request method.
+
+**See also**: [Configurations](configurations)
+
+
+### Persisting Response Data
+
+By default, the response data from a request is automatically saved to the store corresponding to the model the request is made on.
+
+For example, let's perform a basic `get` request on a `User` model:
 
 ```js
-// Call api from User Model.
-User.api().get('/api/users')
+User.api().get('https://example.com/api/users')
+```
 
-// Then, inside Vuex Store.
+The response body of the request may look like the following:
+
+```json
+[
+  {
+    "id": 1,
+    "name": "John Doe",
+    "age": 24
+  },
+  {
+    "id": 2,
+    "name": "Jane Doe",
+    "age": 21
+  }
+]
+```
+
+Vuex ORM Axios will automatically save this data to the store, and the users entity in the store may now look like the following:
+
+```js
 {
   users: {
     data: {
-      1: { id: 1, name: 'John Doe', age: 24 }
+      1: { id: 1, name: 'John Doe', age: 24 },
+      2: { id: 2, name: 'Jane Doe', age: 21 }
     }
   }
 }
 ```
 
-Now, remember that Vuex ORM Axios will try to insert any response data to the store. For example, if you call the same API from Post Model, it's going to try to insert the response as Post records. So be aware of what Model to call the API from.
+Under the hood, the plugin will persist data to the store by determining which records require inserting and which require updating. To accomplish this, the plugin passes data to Vuex ORM's `insertOrUpdate` model method. Therefore, only valid model attributes will be persisted to the store.
 
-Also, note that these methods can take the same configuration as Axios.
+If you do not want to persist response data automatically, you can defer persistence by configuring the request with the `{ save: false }` option.
+
+**See also**:
+
+- [Deferring Persistence](#deferring-persistence)
+- [Vuex ORM - Insert or Update](https://vuex-orm.org/guide/data/inserting-and-updating.html#insert-or-update)
+
+
+### Delete Requests
+
+::: warning
+When performing a `delete` request, the plugin will not remove the corresponding entities from the store. It is not always possible to determine which record is to be deleted and often HTTP DELETE requests are performed on a resource URL.
+:::
+
+If you want to delete a record from the store after performing a delete request, you must pass the `delete` option.
 
 ```js
-User.api().get('users', {
-  baseURL: 'https://example.com/api/'
-})
-```
-
-There're additional configuration specific to Vuex ORM Axios as well. Please check out [Configurations page](configurations) for more.
-
-### Note on Delete Method
-
-Even when you call `delete` method, it will not delete records from the store. It just means that it will perform HTTP DELETE request. If you want to delete the record after calling the API, you must define `delete` option.
-
-```js
-User.api().delete('/api/users/1', {
+User.api().delete('/api/users/1'), {
   delete: 1
 })
 ```
 
-The above example will delete the user record with an id of 1. Please check out [Configurations page](configurations) for more.
+**See also**: [Configurations - delete](configurations.md#delete)
 
-## Response
 
-The response object is a bit different from Axios response and contains 2 properties. One is `response`, which is the pure Axios response object, and the second one is the `entities`, which holds Vuex ORM persistent result.
+## Handling Responses
+
+Every request performed will return a `Response` object as the resolved value. This object is responsible for carrying and handling the response body and ultimately executing actions such as persisting data to the store.
+
+The `Response` object contains two noteworthy properties:
+
+- `entities` is the list of entities persisted to the store by Vuex ORM.
+- `response` is the original [axios response schema](https://github.com/axios/axios#response-schema).
+
+You may access these properties through the returned value:
 
 ```js
 const result = await User.api().get('/api/users')
 
-// You may access Axios response object like this.
-result.response.status // <- 200
+// Retrieving the response status.
+result.response.status // 200
 
-// And Vuex ORM persisted entities like so.
-result.entities // <- { users: [{ ... }] }
+// Entities persisted to the store from the response body.
+result.entities // { users: [{ ... }] }
 ```
 
-### Saving Data Afterwards
+**See also**: [API Reference - Response](../api/response.md)
 
-When setting the [save option](./configurations#available-options) to false, you can persist response data afterwards via `save` method on response object.
+
+### Transforming Data
+
+You can configure the plugin to perform transformation on the response data, using the `dataTransformer` configuration option, before it is persisted to the store.
+
+For example, your API response may conform to the [JSON:API](https://jsonapi.org/) specification but may not match the schema for your `User` model. In such cases you may want to reformat the response data in a manner in which Vuex ORM can normalize.
+
+The `dataTransformer` method can also be used to hook into response data before it is persisted to the store, allowing you to access other response properties such as response headers, as well as manipulate the data as you see fit.
+
+To demonstrate how you may use this option, let's assume your response body looks like this:
 
 ```js
-// Don't save response data when calling API.
+{
+  ok: true,
+  record: {
+    id: 1,
+    name: 'John Doe'
+  }
+}
+```
+
+The following example intercepts the response using a `dataTransformer` method to extract the data to be persisted from the nested property.
+
+```js
+User.api().get('/api/users', {
+  dataTransformer: (response) => {
+    return response.data.record
+  }
+})
+```
+
+**See also**: [Configurations - dataTransformer](configurations.md#datatransformer)
+
+
+### Deferring Persistence
+
+By default, the response data from a request is automatically saved to the store but this may not always be desired.
+
+To prevent persisting data to the store, define and set the `save` option to `false`. The `Response` object conveniently provides `save()` method which allows you to persist the data at any time.
+
+For example, you might want to check if the response contains any errors:
+
+```js
+// Prevent persisting response data to the store.
 const result = await User.api().get('/api/users', {
   save: false
 })
 
-// Save data afterwards.
-result.save()
-````
-
-This can be useful when you want to check the response data before persisting it to the store. For example, you might check if the response contains any errors or not.
-
-```js
-// Don't save response data when calling API.
-const result = await User.api().get('/api/users', {
-  save: false
-})
-
-// If the response data contains any error, don't persist in the store.
+// Throw an error.
 if (result.response.data.error) {
   throw new Error('Something is wrong.')
 }
 
-// Persist in the store otherwise.
+// Otherwise continue to persist to the store.
 result.save()
-````
+```
 
-You can check to see if the response data is already stored in the store or not with `isSaved` property.
+When deferring persistence you can also determine whether the response data has been persisted to the store using the convenient `isSaved` property:
 
 ```js
 const result = await User.api().get('/api/users', {
   save: false
 })
 
-result.isSaved // <- false
+result.isSaved // false
 
-result.save()
+await result.save()
 
-result.isSaved // <- true
+result.isSaved // true
 ```
+
+**See also**:
+
+- [Configurations - save](configurations.md#save)
+- [API Reference - Response - save()](../api/response.md#save)
+- [API Reference - Response - isSaved](../api/response.md#issaved)

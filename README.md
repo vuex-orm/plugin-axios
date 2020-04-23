@@ -21,8 +21,10 @@
 
 Vuex ORM Axios plugin adds smooth integration between API requests and [Vuex ORM](https://github.com/vuex-orm/vuex-orm) data persistence through the awesome [axios](https://github.com/axios/axios).
 
+If you use axios with Vuex ORM, you may find handling requests can become an arduous and repetitive process. This plugin bridges Vuex ORM and axios and brings a unified process to perform requests and persist response data with ease.
+
 ```js
-// Model API request...
+// Example usage: fetch users and persist to store.
 User.api().get('/api/users')
 ```
 

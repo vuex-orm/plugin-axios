@@ -1,8 +1,8 @@
 # Setup
 
-At first, Vuex ORM Axios requires manually passing Axios instance during the setup process. Please make sure you have axios installed to your app.
+The Axios plugin can be installed with Vuex ORM using the `VuexORM.use` plugin install method.
 
-To install Vuex ORM Axios to Vuex ORM, pass Vuex ORM Axios to the `VuexORM.use` method. Here, you should pass your axios instance as an option.
+An instance of axios must be configured during installation for the plugin to work.
 
 ```js
 import axios from 'axios'
@@ -12,7 +12,12 @@ import VuexORMAxios from '@vuex-orm/plugin-axios'
 VuexORM.use(VuexORMAxios, { axios })
 ```
 
-Here is a more realistic example that shows how to install Vuex ORM to Vuex along with Vuex ORM Axios.
+You may also configure additional options during installation. See all available [Configurations](./configurations.md).
+
+### Example
+
+Here is an example that demonstrates a typical setup of Vuex ORM together with the plugin.
+
 
 ```js
 import axios from 'axios'
@@ -28,15 +33,15 @@ const database = new VuexORM.Database()
 database.register(User)
 
 const store = new Vuex({
-  Plugins: [VuexORM.install(database)]
+  plugins: [VuexORM.install(database)]
 })
 ```
 
 ## Nuxt.js Integration
 
-When using Vuex ORM Axios with Nuxt.js Axios Module, you can’t pass Axios instance directly from `store/index.js` file. Hence you must create a Nuxt.js plugin. Let's work through the process of setting up Vuex ORM Axios with Nuxt.js.
+Configuring the plugin with [Nuxt.js](https://nuxtjs.org/) requires the [Axios Module](https://axios.nuxtjs.org/) to be installed. The plugin also does not require an axios instance to be configured during plugin installation. Instead, you must register axios by creating a plugin.
 
-First, leave `axios` option empty at the plugin installation part.
+First, leave `axios` option empty during plugin installation.
 
 ```js
 // store/index.js
@@ -55,7 +60,7 @@ database.register(User)
 export const plugins = [VuexORM.install(database)]
 ```
 
-Next, create a plugin to set Axios instance to Vuex ORM Model directly.
+Next, create a plugin where you must configure the axios instance on models globally.
 
 ```js
 // plugins/vuex-orm-axios.js
@@ -67,16 +72,13 @@ export default ({ $axios }) => {
 }
 ```
 
-Finally, don’t forget to register the plugin to `nuxt.config.js`.
+Finally, register the plugin you just created in your `nuxt.config.js` file.
 
 ```js
 // nuxt.config.js
 
 export default {
-  // …
-
   modules: ['@nuxtjs/axios'],
-
   plugins: ['@/plugins/vuex-orm-axios']
 }
 ```

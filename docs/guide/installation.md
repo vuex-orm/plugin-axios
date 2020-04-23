@@ -1,41 +1,66 @@
 # Installation
 
-You can install Vuex ORM Axios via NPM, Yarn, or download it directly. Remember since Vuex ORM Axios is a plugin of [Vuex ORM](https://github.com/vuex-orm/vuex-orm), you need to install Vuex ORM and Vuex alongside with Vuex ORM Axios. Also, Vuex ORM Axios requires manually passing Axios Instance. Don't forget to install Axios as well.
+You can install Vuex ORM Axios via NPM, Yarn, or download it directly. This is a plugin for Vuex ORM, therefore you must ensure [Vuex ORM](https://vuex-orm.org/guide/prologue/installation) and [axios](https://github.com/axios/axios#installing) are installed.
 
 ## NPM
 
-```console
-$ npm install axios vue vuex @vuex-orm/core @vuex-orm/plugin-axios --save
+```bash
+npm install @vuex-orm/plugin-axios --save
 ```
 
 ## Yarn
 
-```console
-$ yarn add axios vue vuex @vuex-orm/core @vuex-orm/plugin-axios
+```bash
+yarn add @vuex-orm/plugin-axios
 ```
 
 ## Direct Download / CDN
 
-[https://unpkg.com/@vuex-orm/plugin-axios](https://unpkg.com/@vuex-orm/plugin-axios)
+[](https://unpkg.com/@vuex-orm/plugin-axios)
 
-[Unpkg.com](https://unpkg.com) provides NPM-based CDN links. The above link always points to the latest release on NPM. You can also use a specific version/tag via URLs like `https://unpkg.com/@vuex-orm/plugin-axios`.
+[Unpkg.com](https://unpkg.com) provides NPM-based CDN links. Simply download and include with a script tag.
 
-Include Vuex ORM Axios from an HTML script.
+For development environments, testing and learning purposes, you can use the latest uncompressed version with:
 
 ```html
 <script src="https://unpkg.com/@vuex-orm/plugin-axios"></script>
-
-<!-- For the minified version -->
-<script src="https://unpkg.com/@vuex-orm/plugin-axios/dist/vuex-orm.min.js"></script>
 ```
+
+For production, it's recommended to link to a specific version number and build to avoid unexpected breakage from newer versions:
+
+```html
+<script src="https://unpkg.com/@vuex-orm/plugin-axios@0.9.2/dist/vuex-orm-axios.min.js"></script>
+
+```
+
+See [Release Notes](https://github.com/vuex-orm/plugin-axios/releases) for available versions.
+
+If you are using native ES Modules, there is also an ESM compatible build:
+
+```html
+<script type="module">
+  import VuexORMAxios from 'https://unpkg.com/@vuex-orm/plugin-axios/dist/vuex-orm-axios.esm.js'
+</script>
+```
+
+### Build Variants
+
+In the `dist/` directory of the NPM package you will find many different builds. Each of them have their use depending on your build environment and may help to reduce bundle sizes.
+
+|                            | URL                                                                                                                  |
+|----------------------------|:---------------------------------------------------------------------------------------------------------------------|
+| Development (uncompressed) | [vuex-orm-axios.js](https://unpkg.com/@vuex-orm/plugin-axios)                                            |
+| Production (compressed)    | [vuex-orm-axios.min.js](https://unpkg.com/@vuex-orm/plugin-axios/dist/vuex-orm-axios.min.js)       |
+| CommonJS                   | [vuex-orm-axios.common.js](https://unpkg.com/@vuex-orm/plugin-axios/dist/vuex-orm-axios.common.js) |
+| ES Module                  | [vuex-orm-axios.esm.js](https://unpkg.com/@vuex-orm/plugin-axios/dist/vuex-orm-axios.esm.js)       |
 
 ## Dev Build
 
-You have to clone directly from GitHub and build Vuex yourself if you want to use the latest dev build.
+The built files in `/dist` folder are only checked-in during releases. To use the latest source code on GitHub, you will have to run a build yourself.
 
-```console
-$ git clone https://github.com/vuex-orm/plugin-axios.git node_modules/@vuex-orm/plugin-axios
-$ cd node_modules/@vuex-orm/plugin-axios
-$ npm install
-$ npm run build
+```bash
+# cd /path/to/project
+git clone https://github.com/vuex-orm/plugin-axios.git node_modules/@vuex-orm/plugin-axios
+cd node_modules/@vuex-orm/plugin-axios
+yarn && yarn build
 ```
