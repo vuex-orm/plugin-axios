@@ -5,8 +5,8 @@ const { gzipSync } = require('zlib')
 const { compress } = require('brotli')
 
 const files = [
-  'dist/vuex-orm-axios.esm.js',
-  'dist/vuex-orm-axios.esm.prod.js',
+  'dist/vuex-orm-axios.esm-browser.js',
+  'dist/vuex-orm-axios.esm-browser.prod.js',
   'dist/vuex-orm-axios.esm-bundler.js',
   'dist/vuex-orm-axios.global.js',
   'dist/vuex-orm-axios.global.prod.js',
@@ -16,6 +16,7 @@ const files = [
 async function run() {
   await build()
   checkAllSizes()
+  generateApiDocs()
 }
 
 async function build() {
@@ -42,6 +43,10 @@ function checkSize(file) {
       chalk.bold(file)
     )} size:${minSize} / gzip:${gzippedSize} / brotli:${compressedSize}`
   )
+}
+
+async function generateApiDocs() {
+  await execa('yarn', ['build:dts'], { stdio: 'inherit' })
 }
 
 run()

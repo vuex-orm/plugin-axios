@@ -3,23 +3,27 @@
   "version": "0.9.2",
   "description": "Vuex ORM plugin for adding smooth integration with axios.",
   "main": "dist/vuex-orm-axios.cjs.js",
-  "browser": "dist/vuex-orm-axios.esm.js",
+  "browser": "dist/vuex-orm-axios.esm-browser.js",
   "module": "dist/vuex-orm-axios.esm-bundler.js",
   "unpkg": "dist/vuex-orm-axios.global.js",
+  "jsdelivr": "dist/vuex-orm-axios.global.js",
   "typings": "dist/src/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
     "build": "node scripts/build.js",
-    "clean": "rm -rf dist coverage .nyc_output .tmp",
-    "lint": "prettier --write --parser typescript \"{src,test}/**/*.ts\"",
+    "build:dts": "api-extractor run --local --verbose",
+    "clean": "rm -rf dist coverage temp .nyc_output .tmp",
+    "lint": "prettier --check --write --parser typescript \"{src,test}/**/*.ts\"",
     "lint:fail": "prettier --check --parser typescript \"{src,test}/**/*.ts\"",
     "test": "jest",
     "test:watch": "jest --watch",
     "coverage": "jest --collect-coverage",
     "docs": "vuepress dev docs",
-    "docs:build": "vuepress build docs",
+    "docs:build": "yarn docs:build:guide && yarn docs:build:api",
+    "docs:build:guide": "vuepress build docs",
+    "docs:build:api": "yarn build && api-documenter markdown --input-folder temp --output-folder docs-api",
     "docs:deploy": "bash ./docs/deploy.sh",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "release": "node scripts/release.js"
@@ -48,6 +52,8 @@
     "axios": "^0.19.2"
   },
   "devDependencies": {
+    "@microsoft/api-documenter": "^7.7.18",
+    "@microsoft/api-extractor": "^7.7.13",
     "@rollup/plugin-commonjs": "^11.0.2",
     "@rollup/plugin-node-resolve": "^7.1.1",
     "@rollup/plugin-replace": "^2.3.1",
