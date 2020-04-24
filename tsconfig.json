@@ -10,8 +10,9 @@
     "baseUrl": ".",
     "rootDir": ".",
     "outDir": "dist",
-    "declaration": true,
     "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
     "removeComments": false,
     "noImplicitAny": true,
     "noImplicitReturns": true,
@@ -20,13 +21,30 @@
     "noUnusedParameters": true,
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
-    "types": ["node", "jest"],
-    "lib": ["esnext", "dom", "es2017"],
+
+    "lib": [
+      "esnext",
+      "dom",
+      "es2017"
+    ],
+
     "paths": {
       "@/*": ["src/*"],
       "test/*": ["test/*"]
-    }
+    },
+
+    "types": [
+      "node",
+      "jest"
+    ]
   },
-  "include": ["src", "test"],
-  "exclude": ["node_modules"]
+
+  "include": [
+    "src",
+    "test"
+  ],
+
+  "exclude": [
+    "node_modules"
+  ]
 }
