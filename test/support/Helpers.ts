@@ -7,9 +7,15 @@ import VuexORMAxios from '@/index'
 Vue.use(Vuex)
 
 interface Entities {
-  [name: string]: {
-    [id: string]: Record<string, any>
-  }
+  [name: string]: Elements
+}
+
+interface State {
+  data: Elements
+}
+
+interface Elements {
+  [id: string]: Record<string, any>
 }
 
 export function createStore(models: typeof Model[]): Store<any> {
@@ -47,4 +53,15 @@ export function createState(entities: Entities): any {
 
 export function assertState(store: Store<any>, entities: Entities): void {
   expect(store.state.entities).toEqual(createState(entities))
+}
+
+export function fillState(store: Store<any>, entities: Entities): void {
+  for (const entity in entities) {
+    store.commit(`entities/$mutate`, {
+      entity,
+      callback: (state: State) => {
+        state.data = entities[entity]
+      }
+    })
+  }
 }

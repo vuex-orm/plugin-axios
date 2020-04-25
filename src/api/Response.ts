@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios'
 import { Model, Record, Collections } from '@vuex-orm/core'
-import Config from '../contracts/Config'
+import Config, { PersistOption } from '../contracts/Config'
 
 export default class Response {
   /**
@@ -51,7 +51,21 @@ export default class Response {
       return
     }
 
-    this.entities = await this.model.insertOrUpdate({ data })
+    let persistMethod: PersistOption = 'insertOrUpdate'
+
+    if (typeof this.config.save === 'string') {
+      if (!this.validatePersistOption(this.config.save)) {
+        console.warn(
+          '[Vuex ORM Axios] The "save" option provided is not a recognized value. Must be either "create", "insert" or "insertOrUpdate".'
+        )
+
+        return
+      }
+
+      persistMethod = this.config.save
+    }
+
+    this.entities = await this.model[persistMethod]({ data })
 
     this.isSaved = true
   }
@@ -74,7 +88,7 @@ export default class Response {
    * provided, it tries to execute the method with the response as param. If the
    * `dataKey` config is provided, it tries to fetch the data at that key.
    */
-  private getDataFromResponse(): Record | Record[] {
+  getDataFromResponse(): Record | Record[] {
     if (this.config.dataTransformer) {
       return this.config.dataTransformer(this.response)
     }
@@ -91,5 +105,13 @@ export default class Response {
    */
   private validateData(data: any): data is Record | Record[] {
     return data !== null && typeof data === 'object'
+  }
+
+  /**
+   * Validate the given string as to ensure it correlates with the available
+   * Vuex ORM persist methods.
+   */
+  private validatePersistOption(method: string): method is PersistOption {
+    return ['create', 'insert', 'insertOrUpdate'].includes(method)
   }
 }
