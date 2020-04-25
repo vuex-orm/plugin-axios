@@ -1,7 +1,7 @@
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
-import { createStore, createState } from 'test/support/Helpers'
-import { Model, Fields } from '@vuex-orm/core'
+import { createStore, assertState } from 'test/support/Helpers'
+import { Model } from '@vuex-orm/core'
 
 describe('Feature - Response - Save', () => {
   let mock: MockAdapter
@@ -9,7 +9,7 @@ describe('Feature - Response - Save', () => {
   class User extends Model {
     static entity = 'users'
 
-    static fields(): Fields {
+    static fields() {
       return {
         id: this.attr(null),
         name: this.attr('')
@@ -43,28 +43,22 @@ describe('Feature - Response - Save', () => {
     spy.mockRestore()
   })
 
-  it('can save response data afterword', async () => {
+  it('can save response data manually', async () => {
     mock.onGet('/api/users').reply(200, { id: 1, name: 'John Doe' })
 
     const store = createStore([User])
 
     const response = await User.api().get('/api/users', { save: false })
 
-    const expected1 = createState({
-      users: {}
-    })
-
-    expect(store.state.entities).toEqual(expected1)
+    assertState(store, { users: {} })
 
     await response.save()
 
-    const expected2 = createState({
+    assertState(store, {
       users: {
         1: { $id: '1', id: 1, name: 'John Doe' }
       }
     })
-
-    expect(store.state.entities).toEqual(expected2)
   })
 
   it('sets `isSaved` flag', async () => {
@@ -74,10 +68,10 @@ describe('Feature - Response - Save', () => {
 
     const response = await User.api().get('/api/users', { save: false })
 
-    expect(response.isSaved).toEqual(false)
+    expect(response.isSaved).toBe(false)
 
     await response.save()
 
-    expect(response.isSaved).toEqual(true)
+    expect(response.isSaved).toBe(true)
   })
 })

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
-import { createStore, createState } from 'test/support/Helpers'
-import { Model, Fields } from '@vuex-orm/core'
+import { createStore, assertState } from 'test/support/Helpers'
+import { Model } from '@vuex-orm/core'
 
 describe('Feature - Request - Save', () => {
   let mock: MockAdapter
@@ -9,7 +9,7 @@ describe('Feature - Request - Save', () => {
   class User extends Model {
     static entity = 'users'
 
-    static fields(): Fields {
+    static fields() {
       return {
         id: this.attr(null),
         name: this.attr('')
@@ -24,7 +24,7 @@ describe('Feature - Request - Save', () => {
     mock.reset()
   })
 
-  it('can stop persisting response data to the store', async () => {
+  it('can prevent persisting response data to the store', async () => {
     mock.onGet('/users').reply(200, {
       data: { id: 1, name: 'John Doe' }
     })
@@ -38,10 +38,6 @@ describe('Feature - Request - Save', () => {
 
     expect(result.entities).toBe(null)
 
-    const expected = createState({
-      users: {}
-    })
-
-    expect(store.state.entities).toEqual(expected)
+    assertState(store, { users: {} })
   })
 })
