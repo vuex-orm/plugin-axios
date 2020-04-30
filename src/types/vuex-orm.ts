@@ -1,7 +1,6 @@
 import { AxiosInstance } from 'axios'
-import GlobalConfig from '../contracts/GlobalConfig'
-import Config from '../contracts/Config'
-import Request from '../api/Request'
+import { Config, GlobalConfig } from '../contracts/Config'
+import { Request } from '../api/Request'
 
 declare module '@vuex-orm/core' {
   namespace Model {

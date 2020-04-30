@@ -1,16 +1,18 @@
-import { AxiosRequestConfig, AxiosResponse } from 'axios'
+import { AxiosRequestConfig, AxiosInstance, AxiosResponse } from 'axios'
 import { Model, Record } from '@vuex-orm/core'
 
-export type PersistOption = 'create' | 'insert' | 'insertOrUpdate'
+export type PersistMethods = 'create' | 'insert' | 'update' | 'insertOrUpdate'
 
 export interface Config extends AxiosRequestConfig {
   dataKey?: string
   dataTransformer?: (response: AxiosResponse) => Record | Record[]
-  save?: boolean | PersistOption
+  save?: boolean | PersistMethods
   delete?: string | number | ((model: Model) => boolean)
   actions?: {
     [name: string]: any
   }
 }
 
-export default Config
+export interface GlobalConfig extends Config {
+  axios?: AxiosInstance
+}

@@ -102,6 +102,26 @@ describe('Feature - Response - Save', () => {
     })
   })
 
+  it('can persist using "update" as `save` option', async () => {
+    mock.onGet('/api/users').reply(200, { id: 1, name: 'Johnny Doe' })
+
+    const store = createStore([User])
+
+    fillState(store, {
+      users: {
+        1: { $id: '1', id: 1, name: 'John Doe' }
+      }
+    })
+
+    await User.api().get('/api/users', { save: 'update' })
+
+    assertState(store, {
+      users: {
+        1: { $id: '1', id: 1, name: 'Johnny Doe' }
+      }
+    })
+  })
+
   it('can persist using "insertOrUpdate" as `save` option', async () => {
     mock.onGet('/api/users').reply(200, [
       { id: 1, name: 'Johnny Doe' },
@@ -136,7 +156,7 @@ describe('Feature - Response - Save', () => {
     mock.onGet('/api/users').reply(200, {})
     await User.api().get('/api/users', { save: 'invalid' as any })
 
-    expect(console.warn).toHaveBeenCalled()
+    expect(console.warn).toHaveBeenCalledTimes(1)
 
     spy.mockReset()
     spy.mockRestore()

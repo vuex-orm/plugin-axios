@@ -1,8 +1,8 @@
 import { AxiosResponse } from 'axios'
 import { Model, Record, Collections } from '@vuex-orm/core'
-import Config, { PersistOption } from '../contracts/Config'
+import { Config, PersistMethods } from '../contracts/Config'
 
-export default class Response {
+export class Response {
   /**
    * The model that called the request.
    */
@@ -51,27 +51,44 @@ export default class Response {
       return
     }
 
-    let persistMethod: PersistOption = 'insertOrUpdate'
+    let method: PersistMethods = 'insertOrUpdate'
 
     if (typeof this.config.save === 'string') {
-      if (!this.validatePersistOption(this.config.save)) {
+      if (!this.validatePersistMethod(this.config.save)) {
         console.warn(
-          '[Vuex ORM Axios] The "save" option provided is not a recognized value. Must be either "create", "insert" or "insertOrUpdate".'
+          '[Vuex ORM Axios] The "save" option provided is not a recognized ' +
+            'value. Must be either "create", "insert", "update" or "insertOrUpdate".'
         )
 
         return
       }
 
-      persistMethod = this.config.save
+      method = this.config.save
     }
 
-    this.entities = await this.model[persistMethod]({ data })
+    this.entities = await this.persist(method, { data })
 
     this.isSaved = true
   }
 
   /**
-   * Delete store record depending on `delete` option.
+   * Determine the method to be used to persist the payload to the store.
+   */
+  persist(method: PersistMethods, payload: any): Promise<Collections> {
+    switch (method) {
+      case 'create':
+        return this.model.create(payload)
+      case 'insert':
+        return this.model.insert(payload)
+      case 'update':
+        return this.model.update(payload)
+      case 'insertOrUpdate':
+        return this.model.insertOrUpdate(payload)
+    }
+  }
+
+  /**
+   * Delete the entity record where the `delete` option is configured.
    */
   async delete(): Promise<void> {
     if (this.config.delete === undefined) {
@@ -84,9 +101,10 @@ export default class Response {
   }
 
   /**
-   * Get data from the given response object. If the `dataTransformer` config is
-   * provided, it tries to execute the method with the response as param. If the
-   * `dataKey` config is provided, it tries to fetch the data at that key.
+   * Get the response data from the axios response object. If a `dataTransformer`
+   * option is configured, it will be applied to the response object. If the
+   * `dataKey` option is configured, it will return the data from the given
+   * property within the response body.
    */
   getDataFromResponse(): Record | Record[] {
     if (this.config.dataTransformer) {
@@ -101,7 +119,7 @@ export default class Response {
   }
 
   /**
-   * Validate if Vuex ORM can insert the given data.
+   * Validate the given data to ensure the Vuex ORM persist methods accept it.
    */
   private validateData(data: any): data is Record | Record[] {
     return data !== null && typeof data === 'object'
@@ -111,7 +129,7 @@ export default class Response {
    * Validate the given string as to ensure it correlates with the available
    * Vuex ORM persist methods.
    */
-  private validatePersistOption(method: string): method is PersistOption {
-    return ['create', 'insert', 'insertOrUpdate'].includes(method)
+  private validatePersistMethod(method: string): method is PersistMethods {
+    return ['create', 'insert', 'update', 'insertOrUpdate'].includes(method)
   }
 }
