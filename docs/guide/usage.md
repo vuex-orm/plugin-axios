@@ -8,11 +8,9 @@ For example, a `User` model may typically want to fetch all users and persist th
 await User.api().get('https://example.com/api/users')
 ```
 
-
 ## Performing Requests
 
 Vuex ORM Axios supports the most commonly used [axios request methods](https://github.com/axios/axios#request-method-aliases). These methods accept the same argument signature as their axios counterparts with the exception that the config can be expanded with additional plugin [options](configurations).
-
 
 ### Supported Methods
 
@@ -32,7 +30,6 @@ Arguments given are passed on to the corresponding axios request method.
 - `url` is the server URL that will be used for the request.
 - `data` is the data to be sent as the request body (where applicable).
 - `config` is the plugin [config options](configurations) and also any valid [axios request config](https://github.com/axios/axios#request-config) options.
-
 
 ### Request Configuration
 
@@ -54,7 +51,6 @@ The [`dataKey`](configurations.md#datakey) is a plugin option which informs the 
 > Please refer to the list of [supported request methods](#supported-methods) above to determine where the `config` argument can be given in the corresponding request method.
 
 **See also**: [Configurations](configurations)
-
 
 ### Persisting Response Data
 
@@ -105,7 +101,6 @@ If you do not want to persist response data automatically, you can defer persist
 - [Deferring Persistence](#deferring-persistence)
 - [Vuex ORM - Insert or Update](https://vuex-orm.org/guide/data/inserting-and-updating.html#insert-or-update)
 
-
 ### Delete Requests
 
 ::: warning
@@ -121,7 +116,6 @@ User.api().delete('/api/users/1'), {
 ```
 
 **See also**: [Configurations - delete](configurations.md#delete)
-
 
 ## Handling Responses
 
@@ -145,7 +139,6 @@ result.entities // { users: [{ ... }] }
 ```
 
 **See also**: [API Reference - Response](../api/response.md)
-
 
 ### Transforming Data
 
@@ -178,7 +171,6 @@ User.api().get('/api/users', {
 ```
 
 **See also**: [Configurations - dataTransformer](configurations.md#datatransformer)
-
 
 ### Deferring Persistence
 

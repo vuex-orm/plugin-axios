@@ -18,7 +18,6 @@ You may also configure additional options during installation. See all available
 
 Here is an example that demonstrates a typical setup of Vuex ORM together with the plugin.
 
-
 ```js
 import axios from 'axios'
 import Vuex from 'vuex'
