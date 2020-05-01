@@ -1,12 +1,9 @@
 import { AxiosInstance } from 'axios'
 import { Model as BaseModel } from '@vuex-orm/core'
-import GlobalConfig from '../contracts/GlobalConfig'
-import Request from '../api/Request'
+import { GlobalConfig } from '../contracts/Config'
+import { Request } from '../api/Request'
 
-export default function Model(
-  model: typeof BaseModel,
-  config: GlobalConfig
-): void {
+export function Model(model: typeof BaseModel, config: GlobalConfig): void {
   /**
    * The api client.
    */

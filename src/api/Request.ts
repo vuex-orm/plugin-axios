@@ -1,9 +1,9 @@
 import { AxiosInstance, AxiosResponse } from 'axios'
 import { Model } from '@vuex-orm/core'
-import Config from '../contracts/Config'
-import Response from './Response'
+import { Config } from '../contracts/Config'
+import { Response } from './Response'
 
-export default class Request {
+export class Request {
   /**
    * The model class.
    */
@@ -13,7 +13,8 @@ export default class Request {
    * The default config.
    */
   config: Config = {
-    save: true
+    save: true,
+    persistBy: 'insertOrUpdate'
   }
 
   /**
