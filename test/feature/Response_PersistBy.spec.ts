@@ -3,7 +3,7 @@ import MockAdapter from 'axios-mock-adapter'
 import { createStore, assertState, fillState } from 'test/support/Helpers'
 import { Model } from '@vuex-orm/core'
 
-describe('Feature - Response - PersistBy', () => {
+describe('Feature - Response - Persist By', () => {
   let mock: MockAdapter
 
   class User extends Model {
@@ -109,7 +109,7 @@ describe('Feature - Response - PersistBy', () => {
     })
   })
 
-  it('warns the user of an invalid `save` option value', async () => {
+  it('warns the user of an invalid option value', async () => {
     const spy = jest.spyOn(console, 'warn')
 
     spy.mockImplementation((x) => x)
@@ -123,19 +123,5 @@ describe('Feature - Response - PersistBy', () => {
 
     spy.mockReset()
     spy.mockRestore()
-  })
-
-  it('sets `isSaved` flag', async () => {
-    mock.onGet('/api/users').reply(200, { id: 1, name: 'John Doe' })
-
-    createStore([User])
-
-    const response = await User.api().get('/api/users', { save: false })
-
-    expect(response.isSaved).toBe(false)
-
-    await response.save()
-
-    expect(response.isSaved).toBe(true)
   })
 })
