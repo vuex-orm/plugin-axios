@@ -133,7 +133,7 @@ In addition to [axios request options](https://github.com/axios/axios#request-co
   Using the `dataTransformer` option will ignore any `dataKey` option.
   :::
 
-- **See also**: [Transforming Data](usage.md#transforming-data)
+  **See also**: [Transforming Data](usage.md#transforming-data)
 
 ### `save`
 
@@ -144,7 +144,7 @@ In addition to [axios request options](https://github.com/axios/axios#request-co
   
   By setting this option to `false`, the response data will not be persisted and you will have to handle persistence alternatively. The `entities` property in the [Response](usage.md#handling-responses) object will also be `null` since it will no longer be persisting data automatically.
 
-- **See also**: [Deferring Persistence](usage.md#deferring-persistence)
+  **See also**: [Deferring Persistence](usage.md#deferring-persistence)
 
 ### `delete`
 
@@ -155,7 +155,7 @@ In addition to [axios request options](https://github.com/axios/axios#request-co
 
   Setting this option will ignore any `save` options you may have set and therefore persistence is not possible when using this option. 
 
-- **See also**: [Delete Requests](usage.md#delete-requests)
+  **See also**: [Delete Requests](usage.md#delete-requests)
 
 ### `actions`
 
