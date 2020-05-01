@@ -16,7 +16,7 @@ const versionIncrements = [
   'prerelease'
 ]
 
-const inc = (i) => semver.inc(currentVersion, i, 'beta')
+const inc = (i) => semver.inc(currentVersion, i, 'draft')
 const bin = (name) => path.resolve(__dirname, `../node_modules/.bin/${name}`)
 const run = (bin, args, opts = {}) => execa(bin, args, { stdio: 'inherit', ...opts })
 const step = (msg) => console.log(chalk.cyan(msg))
@@ -81,7 +81,7 @@ async function main() {
 
   // Publish the package.
   step('\nPublishing the package...')
-  await run('npm', ['publish'])
+  await run('yarn', ['publish'])
 
   // Push to GitHub.
   step('\nPushing to GitHub...')
