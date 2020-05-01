@@ -4,42 +4,49 @@ sidebarDepth: 2
 
 # Model
 
-Vuex ORM Axios adds a few properties and methods to the Model object.
+Vuex ORM Axios adds supporting properties and methods to the `Model` object.
 
 ## Static Properties
 
-### axios
+### `axios`
 
-- **`static axios: AxiosInstance | null`**
+- **Type**: `AxiosInstance | null`
 
-  The axios isntance which was installed during the plugin installation process. Vuex ORM Axios adds a few properties and methods to the Model object. Vuex ORM Axios will use this Axios instance to perform any HTTP request.
+  The axios instance which was either set during plugin installation or set using the [`setAxios`](#setaxios) method. Vuex ORM Axios will use this axios instance to perform requests.
 
-  Usually, this property will not become `null`. However, there's a case where you may need to add Axios instance manually, for example, when using Vuex ORM Axios with Nuxt.js. In that case, this property will temporarily be `null`.
+### `apiConfig`
 
-### globalApiConfig
+- **Type**: `Object`
+- **Default**: `{}`
 
-- **`globalApiConfig: GlobalConfig`**
+  The property that holds the model configuration for requests.
 
-  The property that holds global configuration. The value will be set automatically during the plugin installation process. **Do not mutate this property manually**.
+### `globalApiConfig`
 
-- **`apiConfig: Config | null`**
+- **Type**: `Object`
 
-  The property that defines the Model configuration for the API call.
+  The property that holds the global configuration. The value will be set automatically during the plugin installation process.
+
+::: warning WARNING
+Do not mutate this property programmatically.
+:::
 
 ## Static Methods
 
-### setAxios
+### `api`
 
-- **`static setAxios(axios: AxiosInstance): void`**
+- `api(): Request`
 
-  The method to set the Axios instance manually. Usually, you don't have to call this method yourself; however, you might need to use this method to set Axios instance properly in some situations. Please [refer here](../guide/getting-started.html#nuxt-js-integration) for more detail.
+  Return a newly created [Request](request) instance.
 
-### api
+### `setAxios`
 
-- **`static api(): Request`**
+- `setAxios(axios: AxiosInstance): void`
 
-  This method is going to return a new Request instance. A request instance is the wrapper for Axios, and it's used to perform any API request.
+  Set the axios instance manually. Typical setups will configure the axios instance during installation. However, in some cases (mostly with Nuxt), you may need to set the axios instance at a later stage.
 
-  ```js
-  User.api().get('/api/users')
-  ```
+  ::: warning IMPORTANT
+  If you omit the axios instance during installation, it's important that one is set using `setAxios` before any attempt to make an API request.
+  :::
+
+  **See also**: [Nuxt.js Integration](../guide/setup.md#nuxt-js-integration)

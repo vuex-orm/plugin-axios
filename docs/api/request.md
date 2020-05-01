@@ -4,74 +4,82 @@ sidebarDepth: 2
 
 # Request
 
-The Request object is the foundation for the Vuex ORM Axios, and you can call many methods to perform an api request. You can obtain a Request instance by `api` method on the Model.
+The Request object is returned when calling the `api()` method on a model. This object is the foundation for Vuex ORM Axios and enables you to call many of the supported axios methods to perform an API request. Any [Custom Actions](../guide/custom-actions) will also be defined on the Request object.
 
 ```js
 const request = User.api()
 ```
 
-Usually, you could just call Request methods directly by method chaining.
+You can call request methods directly through chaining.
 
 ```js
-User.api().get()
+const response = User.api().get()
 ```
 
 ## Constructor
 
-- **``constructor(model: typeof Model)``**
+- `constructor(model: typeof Model)`
 
-  Request instances require the Model class to be passed to the constructor. It's automatically done when obtaining the Request object through `Model.api()` method. Alternatively,  you could manually construct Request object your self.
+  By default, calling the `api()` method on a model will attach the model class to the Request object.
+
+  You may also create a Request instance by passing a model as the constructors only param.
 
   ```js
-  // This is equivalent to...
-  const request = new Request(User)
+  import { Request } from '@vuex-orm/plugin-axios'
 
-  // This.
-  const request = User.api()
+  const request = new Request(User)
   ```
 
 ## Instance Properties
 
-### model
+### `model`
 
-- **`model: typeof Model`**
+- **Type**: `typeof Model`
 
-  The Model class that is attached to the Request instance.
+  The model class that is attached to the Request instance.
 
-### axios
+### `axios`
 
-- **`axios: AxiosInstance`**
+- **Type**: `AxiosInstance`
 
-  The Axios instance that will be used to perform the request.
+  The axios instance that will be used to perform the request.
 
 ## Instance Methods
 
-### get
+### `get`
 
-- **`get(url: string, config: Config = {}): Promise<Response>`**
+- `get(url: string, config: Config = {}): Promise<Response>`
 
-  Performs a `GET` request. It takes the same argument as Axios's `get` method.
+  Performs a `GET` request. It takes the same arguments as the axios `get` method.
 
-### post
+### `post`
 
-- **`post(url: string, data: any = {}, config: Config = {}): Promise<Response>`**
+- `post(url: string, data: any = {}, config: Config = {}): Promise<Response>`
 
-  Performs a `POST` request. It takes the same argument as Axios's `post` method.
+  Performs a `POST` request. It takes the same arguments as the axios `post` method.
 
-### put
+### `put`
 
-- **`put(url: string, data: any = {}, config: Config = {}): Promise<Response>`**
+- `put(url: string, data: any = {}, config: Config = {}): Promise<Response>`
 
-  Performs a `PUT` request. It takes the same argument as Axios's `put` method.
+  Performs a `PUT` request. It takes the same arguments as the axios `put` method.
 
-### patch
+### `patch`
 
-- **`patch(url: string, data: any = {}, config: Config = {}): Promise<Response>`**
+- `patch(url: string, data: any = {}, config: Config = {}): Promise<Response>`
 
-  Performs a `PATCH` request. It takes the same argument as Axios's `patch` method.
+  Performs a `PATCH` request. It takes the same arguments as the axios `patch` method.
 
-### delete
+### `delete`
 
-- **`delete(url: string, config: Config = {}): Promise<Response>`**
+- `delete(url: string, config: Config = {}): Promise<Response>`
 
-  Performs a `DELETE` request. It takes the same argument as Axios's `delete` method.
+  Performs a `DELETE` request. It takes the same arguments as the axios `delete` method.
+
+### `request`
+
+- `request(config: Config): Promise<Response>`
+
+  Performs a request with the given config options. Requests will default to `GET` if the `method` option is not specified.
+
+  All request aliases call this method by merging the relevant configs. You may use this method if you are more familiar with using the axios API in favour of alias methods.
