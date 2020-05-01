@@ -4,50 +4,56 @@ sidebarDepth: 2
 
 # Response
 
-The Response object is what gets returned when you make API call via Request object.
+API requests return a Response object. This is responsible for carrying and handling the response body and ultimately executing actions such as persisting data to the store.
 
 ## Instance Properties
 
-### response
+### `response`
 
-- **`response: AxiosResponse`**
+- **Type**: `Object`
 
-  Please refer to the [Axios documentation](https://github.com/axios/axios#response-schema) for more details.
+  The axios response schema. Please refer to the [axios documentation](https://github.com/axios/axios#response-schema) for more details.
 
-### entities
+### `entities`
 
-- **`entities: Collections | null`**
+- **Type**: `Array | null`
 
-  The result of Vuex ORM persistent method.
+  The return value from the Vuex ORM persist method.
 
-### isSaved
+  **See also**: [Configurations - save](../guide/configurations.md#save)
 
-- **`isSaved: boolean`**
+### `isSaved`
 
-  Whether the response data is persisted to the store or not.
+- **Type**: `boolean`
 
-### model
+  Set to `true` when response data has persisted to the store.
 
-- **`model: typeof Model`**
+### `model`
 
-  The Model class that was attached to the Request instance when making an API call.
+- **Type**: `typeof Model`
 
-### config
+  The model class that initially made the request.
 
-- **`config: Config`**
+### `config`
 
-  The configuration which was passed to the Request instance.
+- **Type**: `Object`
+
+  The configuration which was passed to the [Request](request) instance.
 
 ## Instance Methods
 
-### save
+### `save`
 
-- **`save (): Promise<void>`**
+- `save(): Promise<void>`
 
   Save response data to the store.
 
-### delete
+  **See also**: [Deferring Persistence](../guide/usage.md#deferring-persistence)
 
-- **`delete (): Promise<void>`**
+### `delete`
 
-  Delete store record depending on `delete` option. If the `delete` option is not specified at the config, it will throw an error.
+- `delete(): Promise<void>`
+
+  Delete record from the store after a request has completed. This method relies on the `delete` option and will throw an error if it is not set.
+
+  **See also**: [Delete Requests](../guide/usage.md#delete-requests)
