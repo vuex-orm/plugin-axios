@@ -1,6 +1,6 @@
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
-import { createStore, assertState, fillState } from 'test/support/Helpers'
+import { createStore, assertState } from 'test/support/Helpers'
 import { Model } from '@vuex-orm/core'
 
 describe('Feature - Response - Save', () => {
@@ -59,107 +59,6 @@ describe('Feature - Response - Save', () => {
         1: { $id: '1', id: 1, name: 'John Doe' }
       }
     })
-  })
-
-  it('can persist using "create" as `save` option', async () => {
-    mock.onGet('/api/users').reply(200, { id: 2, name: 'Jane Doe' })
-
-    const store = createStore([User])
-
-    fillState(store, {
-      users: {
-        1: { $id: '1', id: 1, name: 'John Doe' }
-      }
-    })
-
-    await User.api().get('/api/users', { save: 'create' })
-
-    assertState(store, {
-      users: {
-        2: { $id: '2', id: 2, name: 'Jane Doe' }
-      }
-    })
-  })
-
-  it('can persist using "insert" as `save` option', async () => {
-    mock.onGet('/api/users').reply(200, { id: 2, name: 'Jane Doe' })
-
-    const store = createStore([User])
-
-    fillState(store, {
-      users: {
-        1: { $id: '1', id: 1, name: 'John Doe' }
-      }
-    })
-
-    await User.api().get('/api/users', { save: 'insert' })
-
-    assertState(store, {
-      users: {
-        1: { $id: '1', id: 1, name: 'John Doe' },
-        2: { $id: '2', id: 2, name: 'Jane Doe' }
-      }
-    })
-  })
-
-  it('can persist using "update" as `save` option', async () => {
-    mock.onGet('/api/users').reply(200, { id: 1, name: 'Johnny Doe' })
-
-    const store = createStore([User])
-
-    fillState(store, {
-      users: {
-        1: { $id: '1', id: 1, name: 'John Doe' }
-      }
-    })
-
-    await User.api().get('/api/users', { save: 'update' })
-
-    assertState(store, {
-      users: {
-        1: { $id: '1', id: 1, name: 'Johnny Doe' }
-      }
-    })
-  })
-
-  it('can persist using "insertOrUpdate" as `save` option', async () => {
-    mock.onGet('/api/users').reply(200, [
-      { id: 1, name: 'Johnny Doe' },
-      { id: 2, name: 'Jane Doe' }
-    ])
-
-    const store = createStore([User])
-
-    fillState(store, {
-      users: {
-        1: { $id: '1', id: 1, name: 'John Doe' }
-      }
-    })
-
-    await User.api().get('/api/users', { save: 'insertOrUpdate' })
-
-    assertState(store, {
-      users: {
-        1: { $id: '1', id: 1, name: 'Johnny Doe' },
-        2: { $id: '2', id: 2, name: 'Jane Doe' }
-      }
-    })
-  })
-
-  it('warns the user of an invalid `save` option value', async () => {
-    const spy = jest.spyOn(console, 'warn')
-
-    spy.mockImplementation((x) => x)
-
-    createStore([User])
-
-    mock.onGet('/api/users').reply(200, {})
-    await User.api().get('/api/users', { save: 'invalid' as any })
-
-    expect(console.warn).toHaveBeenCalledTimes(1)
-
-    spy.mockReset()
-    spy.mockRestore()
   })
 
   it('sets `isSaved` flag', async () => {

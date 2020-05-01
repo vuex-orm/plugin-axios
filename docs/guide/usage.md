@@ -94,12 +94,19 @@ Vuex ORM Axios will automatically save this data to the store, and the users ent
 
 Under the hood, the plugin will persist data to the store by determining which records require inserting and which require updating. To accomplish this, the plugin passes data to the Vuex ORM `insertOrUpdate` model method. Therefore, only valid model attributes will be persisted to the store.
 
+As of 0.9.3+ you may configure Vuex ORM Axios to persist data using an alternative Vuex ORM persist method other than the default `insertOrUpdate`. For example, you can refresh entities by passing the `persistBy` option as `'create'` which will persist data using the model's `create` method:
+
+```js
+User.api().get('url', { persistBy: 'create' })
+```
+
 If you do not want to persist response data automatically, you can defer persistence by configuring the request with the `{ save: false }` option.
 
 **See also**:
 
 - [Deferring Persistence](#deferring-persistence)
-- [Vuex ORM - Insert or Update](https://vuex-orm.org/guide/data/inserting-and-updating.html#insert-or-update)
+- [Configurations - persistBy](configurations.md#persistby)
+- [Vuex ORM - Data - Inserting & Updating](https://vuex-orm.org/guide/data/inserting-and-updating.html#insert-or-update)
 
 ### Delete Requests
 

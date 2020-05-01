@@ -6,7 +6,8 @@ export type PersistMethods = 'create' | 'insert' | 'update' | 'insertOrUpdate'
 export interface Config extends AxiosRequestConfig {
   dataKey?: string
   dataTransformer?: (response: AxiosResponse) => Record | Record[]
-  save?: boolean | PersistMethods
+  save?: boolean
+  persistBy?: PersistMethods
   delete?: string | number | ((model: Model) => boolean)
   actions?: {
     [name: string]: any

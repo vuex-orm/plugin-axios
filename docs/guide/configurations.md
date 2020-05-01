@@ -135,6 +135,22 @@ In addition to [axios request options](https://github.com/axios/axios#request-co
 
   **See also**: [Transforming Data](usage.md#transforming-data)
 
+### `persistBy`
+
+- **Type**: `string`
+- **Default**: `'insertOrUpdate'`
+
+  > Since 0.9.3+
+
+  This option determines which Vuex ORM persist method should be called when Vuex ORM Axios attempts to save the response data to the store.
+
+  You can set this option to any one of the following string values:
+
+  - `create`
+  - `insert`
+  - `update`
+  - `insertOrUpdate` (default)
+
 ### `save`
 
 - **Type**: `boolean`

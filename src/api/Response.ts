@@ -45,25 +45,25 @@ export class Response {
 
     if (!this.validateData(data)) {
       console.warn(
-        '[Vuex ORM Axios] The response data could not be saved to the store because it is not an object or an array. You might want to use `dataTransformer` option to handle non-array/object response before saving it to the store.'
+        '[Vuex ORM Axios] The response data could not be saved to the store ' +
+          'because it is not an object or an array. You might want to use ' +
+          '`dataTransformer` option to handle non-array/object response ' +
+          'before saving it to the store.'
       )
 
       return
     }
 
-    let method: PersistMethods = 'insertOrUpdate'
+    let method = this.config.persistBy as PersistMethods
 
-    if (typeof this.config.save === 'string') {
-      if (!this.validatePersistMethod(this.config.save)) {
-        console.warn(
-          '[Vuex ORM Axios] The "save" option provided is not a recognized ' +
-            'value. Must be either "create", "insert", "update" or "insertOrUpdate".'
-        )
+    if (!this.validatePersistMethod(method)) {
+      console.warn(
+        '[Vuex ORM Axios] The "persistBy" option configured is not a ' +
+          'recognized value. Response data will be persisted by the ' +
+          'default `insertOrUpdate` method.'
+      )
 
-        return
-      }
-
-      method = this.config.save
+      method = 'insertOrUpdate'
     }
 
     this.entities = await this.persist(method, { data })

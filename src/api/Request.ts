@@ -13,7 +13,8 @@ export class Request {
    * The default config.
    */
   config: Config = {
-    save: true
+    save: true,
+    persistBy: 'insertOrUpdate'
   }
 
   /**
