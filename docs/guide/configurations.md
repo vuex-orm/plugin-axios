@@ -137,10 +137,10 @@ In addition to [axios request options](https://github.com/axios/axios#request-co
 
 ### `persistBy`
 
+  > Since 0.9.3+
+
 - **Type**: `string`
 - **Default**: `'insertOrUpdate'`
-
-  > Since 0.9.3+
 
   This option determines which Vuex ORM persist method should be called when Vuex ORM Axios attempts to save the response data to the store.
 
@@ -150,6 +150,28 @@ In addition to [axios request options](https://github.com/axios/axios#request-co
   - `insert`
   - `update`
   - `insertOrUpdate` (default)
+
+### `persistOptions`
+
+  > Since 0.9.3+
+
+- **Type**: `Object`
+
+  This option can be configured to control the persistence of relational data. Persist options are passed on to the persist method in the same manner Vuex ORM handles these options.
+  
+  It's particularly useful when used together with the [`persistBy`](#persistby) option:
+
+  ```js
+  User.api().get('/api/users', {
+    persistBy: 'create',
+    persistOptions: {
+      insert: ['posts'],
+      insertOrUpdate: ['roles']
+    }
+  })
+  ```
+
+  **See also**: [Vuex ORM - Insert Method for Relationships](https://vuex-orm.org/guide/data/inserting-and-updating.html#insert-method-for-relationships)
 
 ### `save`
 
