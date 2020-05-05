@@ -12,5 +12,8 @@ module.exports = {
   testPathIgnorePatterns: ['/node_modules/'],
   coverageDirectory: 'coverage',
   coverageReporters: ['json', 'lcov', 'text-summary', 'clover'],
-  collectCoverageFrom: ['src/**/*.ts', '!src/index.cjs.ts']
+  collectCoverageFrom: [
+    'src/**/*.ts',
+    '!src/index.cjs.ts'
+  ]
 }
