@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios'
 import { Model, Record, Collections } from '@vuex-orm/core'
-import { Config, PersistMethods } from '../contracts/Config'
+import { Config, PersistMethods, PersistOptions } from '../contracts/Config'
 
 export class Response {
   /**
@@ -54,9 +54,9 @@ export class Response {
       return
     }
 
-    let method = this.config.persistBy as PersistMethods
+    let method: PersistMethods = this.config.persistBy || 'insertOrUpdate'
 
-    if (!this.validatePersistMethod(method)) {
+    if (!this.validatePersistAction(method)) {
       console.warn(
         '[Vuex ORM Axios] The "persistBy" option configured is not a ' +
           'recognized value. Response data will be persisted by the ' +
@@ -66,25 +66,11 @@ export class Response {
       method = 'insertOrUpdate'
     }
 
-    this.entities = await this.persist(method, { data })
+    const options = this.getPersistOptions()
+
+    this.entities = await this.model[method as string]({ data, ...options })
 
     this.isSaved = true
-  }
-
-  /**
-   * Determine the method to be used to persist the payload to the store.
-   */
-  persist(method: PersistMethods, payload: any): Promise<Collections> {
-    switch (method) {
-      case 'create':
-        return this.model.create(payload)
-      case 'insert':
-        return this.model.insert(payload)
-      case 'update':
-        return this.model.update(payload)
-      case 'insertOrUpdate':
-        return this.model.insertOrUpdate(payload)
-    }
   }
 
   /**
@@ -119,9 +105,27 @@ export class Response {
   }
 
   /**
+   * Get persist options if any set in config.
+   */
+  protected getPersistOptions(): PersistOptions | undefined {
+    const persistOptions = this.config.persistOptions
+
+    if (!persistOptions || typeof persistOptions !== 'object') {
+      return
+    }
+
+    return Object.keys(persistOptions)
+      .filter(this.validatePersistAction) // Filter to avoid polluting the payload.
+      .reduce((carry, key) => {
+        carry[key] = persistOptions[key]
+        return carry
+      }, {})
+  }
+
+  /**
    * Validate the given data to ensure the Vuex ORM persist methods accept it.
    */
-  private validateData(data: any): data is Record | Record[] {
+  protected validateData(data: any): data is Record | Record[] {
     return data !== null && typeof data === 'object'
   }
 
@@ -129,7 +133,7 @@ export class Response {
    * Validate the given string as to ensure it correlates with the available
    * Vuex ORM persist methods.
    */
-  private validatePersistMethod(method: string): method is PersistMethods {
-    return ['create', 'insert', 'update', 'insertOrUpdate'].includes(method)
+  protected validatePersistAction(action: string): action is PersistMethods {
+    return ['create', 'insert', 'update', 'insertOrUpdate'].includes(action)
   }
 }
