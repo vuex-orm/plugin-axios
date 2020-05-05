@@ -28,16 +28,18 @@ async function main() {
     type: 'select',
     name: 'release',
     message: 'Select release type',
-    choices: versionIncrements.map(i => `${i} (${inc(i)})`).concat(['custom'])
+    choices: versionIncrements.map((i) => `${i} (${inc(i)})`).concat(['custom'])
   })
 
   if (release === 'custom') {
-    targetVersion = (await prompt({
-      type: 'input',
-      name: 'version',
-      message: 'Input custom version',
-      initial: currentVersion
-    })).version
+    targetVersion = (
+      await prompt({
+        type: 'input',
+        name: 'version',
+        message: 'Input custom version',
+        initial: currentVersion
+      })
+    ).version
   } else {
     targetVersion = release.match(/\((.*)\)/)[1]
   }
@@ -81,7 +83,10 @@ async function main() {
 
   // Publish the package.
   step('\nPublishing the package...')
-  await run('yarn', ['publish'])
+  await run('yarn', ['publish',
+    '--new-version', targetVersion,
+    '--no-commit-hooks', '--no-git-tag-version'
+  ])
 
   // Push to GitHub.
   step('\nPushing to GitHub...')
