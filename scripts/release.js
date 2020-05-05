@@ -83,10 +83,7 @@ async function main() {
 
   // Publish the package.
   step('\nPublishing the package...')
-  await run('yarn', ['publish',
-    '--new-version', targetVersion,
-    '--no-commit-hooks', '--no-git-tag-version'
-  ])
+  await run('yarn', ['publish', '--new-version', targetVersion])
 
   // Push to GitHub.
   step('\nPushing to GitHub...')
