@@ -1,3 +1,13 @@
+## [0.9.3](https://github.com/vuex-orm/plugin-axios/compare/v0.9.2...v0.9.3) (2020-05-07)
+
+
+### Features
+
+* add `persistOptions` to handle relation persistence ([#121](https://github.com/vuex-orm/plugin-axios/issues/121)) ([4345c98](https://github.com/vuex-orm/plugin-axios/commit/4345c98c3002c01924f2e0672d1874b7d746524a))
+* add configurable `persistBy` option ([#119](https://github.com/vuex-orm/plugin-axios/issues/119)) ([2110528](https://github.com/vuex-orm/plugin-axios/commit/2110528c99e2b3171536f9ba2c5d4c4701a26bb0))
+
+
+
 ## [0.9.2](https://github.com/vuex-orm/plugin-axios/compare/v0.9.1...v0.9.2) (2019-11-25)
 
 
