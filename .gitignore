@@ -4,6 +4,7 @@
 /dist
 /docs/.vuepress/dist
 /docs/node_modules
+/docs-api
 /node_modules
 /temp
 .idea/*
