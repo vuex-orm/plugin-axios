@@ -32,6 +32,12 @@ Vuex ORM is sponsored by awesome folks. Big love to all of them from the whole V
 <a href="https://github.com/cuebit">
   <img src="https://avatars0.githubusercontent.com/u/1493221?s=460&v=4" alt="Cue" width="64" style="border-radius: 8px;">
 </a>
+<a href="https://github.com/kazupon">
+  <img src="https://avatars0.githubusercontent.com/u/72989?s=400&v=4" alt="Kazuya Kawaguchi" width="64" style="border-radius: 8px;">
+</a>
+<a href="https://github.com/jShaf">
+  <img src="https://avatars3.githubusercontent.com/u/30289?s=400&v=4" alt="jShaf" width="64" style="border-radius: 8px;">
+</a>
 
 #### A Love Sponsors
 
@@ -44,5 +50,8 @@ Vuex ORM is sponsored by awesome folks. Big love to all of them from the whole V
   <img src="https://avatars3.githubusercontent.com/u/22938625?s=460&v=4" alt="bpuig" width="48" style="border-radius: 8px;">
 </a>
 <a href="https://github.com/robokozo">
-  <img src="https://avatars2.githubusercontent.com/u/1719221?s=400&u=b5739798ee9a3d713f5ca3bd3d6a086c13d229a3&v=4" alt="John" width="48" style="border-radius: 8px;">
+  <img src="https://avatars2.githubusercontent.com/u/1719221?s=400&v=4" alt="John" width="48" style="border-radius: 8px;">
+</a>
+<a href="https://github.com/mean-cj">
+  <img src="https://avatars3.githubusercontent.com/u/1191385?s=400&v=4" alt="mean-cj" width="48" style="border-radius: 8px;">
 </a>
