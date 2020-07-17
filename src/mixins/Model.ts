@@ -22,14 +22,14 @@ export function Model(model: typeof BaseModel, config: GlobalConfig): void {
   /**
    * Set the given api client.
    */
-  model.setAxios = function(axios: AxiosInstance): void {
+  model.setAxios = function (axios: AxiosInstance): void {
     this.axios = axios
   }
 
   /**
    * Get the api instance.
    */
-  model.api = function(): Request {
+  model.api = function (): Request {
     return new Request(this)
   }
 }
