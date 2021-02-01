@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Setup | Vuex ORM Axios</title>
+    <meta name="generator" content="VuePress 1.8.0">
+    
+    <meta name="description" content="Vuex ORM persistence plugin to sync the store against a RESTful API.">
+    
+    <link rel="preload" href="/plugin-axios/assets/css/0.styles.5705f684.css" as="style"><link rel="preload" href="/plugin-axios/assets/js/app.297610d2.js" as="script"><link rel="preload" href="/plugin-axios/assets/js/2.bbd49be7.js" as="script"><link rel="preload" href="/plugin-axios/assets/js/14.d1c34dff.js" as="script"><link rel="prefetch" href="/plugin-axios/assets/js/10.2aaec77c.js"><link rel="prefetch" href="/plugin-axios/assets/js/11.6512680b.js"><link rel="prefetch" href="/plugin-axios/assets/js/12.1d7d9e49.js"><link rel="prefetch" href="/plugin-axios/assets/js/13.77c2f924.js"><link rel="prefetch" href="/plugin-axios/assets/js/15.4171e3bd.js"><link rel="prefetch" href="/plugin-axios/assets/js/16.e8e74599.js"><link rel="prefetch" href="/plugin-axios/assets/js/3.72b62dc0.js"><link rel="prefetch" href="/plugin-axios/assets/js/4.865692a8.js"><link rel="prefetch" href="/plugin-axios/assets/js/5.81254301.js"><link rel="prefetch" href="/plugin-axios/assets/js/6.6e8c67be.js"><link rel="prefetch" href="/plugin-axios/assets/js/7.a44c7adb.js"><link rel="prefetch" href="/plugin-axios/assets/js/8.dc5bd92a.js"><link rel="prefetch" href="/plugin-axios/assets/js/9.2dc10f3a.js">
+    <link rel="stylesheet" href="/plugin-axios/assets/css/0.styles.5705f684.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/plugin-axios/" class="home-link router-link-active"><!----> <span class="site-name">Vuex ORM Axios</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/plugin-axios/guide/installation.html" class="nav-link">
+  Guide
+</a></div><div class="nav-item"><a href="/plugin-axios/api/model.html" class="nav-link">
+  API Reference
+</a></div><div class="nav-item"><a href="https://github.com/vuex-orm/plugin-axios/releases" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Release Notes
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <a href="https://github.com/vuex-orm/plugin-axios" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/plugin-axios/guide/installation.html" class="nav-link">
+  Guide
+</a></div><div class="nav-item"><a href="/plugin-axios/api/model.html" class="nav-link">
+  API Reference
+</a></div><div class="nav-item"><a href="https://github.com/vuex-orm/plugin-axios/releases" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Release Notes
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <a href="https://github.com/vuex-orm/plugin-axios" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>Guide</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/plugin-axios/guide/installation.html" class="sidebar-link">Installation</a></li><li><a href="/plugin-axios/guide/setup.html" aria-current="page" class="active sidebar-link">Setup</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/plugin-axios/guide/setup.html#nuxt-js-integration" class="sidebar-link">Nuxt.js Integration</a></li></ul></li><li><a href="/plugin-axios/guide/usage.html" class="sidebar-link">Usage</a></li><li><a href="/plugin-axios/guide/configurations.html" class="sidebar-link">Configurations</a></li><li><a href="/plugin-axios/guide/custom-actions.html" class="sidebar-link">Custom Actions</a></li><li><a href="/plugin-axios/guide/sponsors.html" class="sidebar-link">Sponsors</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="setup"><a href="#setup" class="header-anchor">#</a> Setup</h1> <p>Vuex ORM Axios plugin can be installed with Vuex ORM using the <code>VuexORM.use</code> plugin install method.</p> <p>An instance of axios must be configured during installation for the plugin to work.</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> axios <span class="token keyword">from</span> <span class="token string">'axios'</span>
+<span class="token keyword">import</span> VuexORM <span class="token keyword">from</span> <span class="token string">'@vuex-orm/core'</span>
+<span class="token keyword">import</span> VuexORMAxios <span class="token keyword">from</span> <span class="token string">'@vuex-orm/plugin-axios'</span>
+
+VuexORM<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>VuexORMAxios<span class="token punctuation">,</span> <span class="token punctuation">{</span> axios <span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre></div><p>You may also configure additional options during installation. See all available <a href="/plugin-axios/guide/configurations.html">Configurations</a>.</p> <h3 id="example"><a href="#example" class="header-anchor">#</a> Example</h3> <p>Here is an example that demonstrates a typical setup of Vuex ORM together with the plugin.</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> axios <span class="token keyword">from</span> <span class="token string">'axios'</span>
+<span class="token keyword">import</span> Vuex <span class="token keyword">from</span> <span class="token string">'vuex'</span>
+<span class="token keyword">import</span> VuexORM <span class="token keyword">from</span> <span class="token string">'@vuex-orm/core'</span>
+<span class="token keyword">import</span> VuexORMAxios <span class="token keyword">from</span> <span class="token string">'@vuex-orm/plugin-axios'</span>
+<span class="token keyword">import</span> User <span class="token keyword">from</span> <span class="token string">'@/models/User'</span>
+
+VuexORM<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>VuexORMAxios<span class="token punctuation">,</span> <span class="token punctuation">{</span> axios <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> database <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">VuexORM<span class="token punctuation">.</span>Database</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+database<span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span>User<span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> store <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vuex</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  plugins<span class="token operator">:</span> <span class="token punctuation">[</span>VuexORM<span class="token punctuation">.</span><span class="token function">install</span><span class="token punctuation">(</span>database<span class="token punctuation">)</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre></div><h2 id="nuxt-js-integration"><a href="#nuxt-js-integration" class="header-anchor">#</a> Nuxt.js Integration</h2> <p>Configuring the plugin with <a href="https://nuxtjs.org/" target="_blank" rel="noopener noreferrer">Nuxt.js<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> requires the <a href="https://axios.nuxtjs.org/" target="_blank" rel="noopener noreferrer">Axios Module<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> to be installed. The plugin also does not require an axios instance to be configured during plugin installation. Instead, you must register axios by creating a plugin.</p> <p>First, leave <code>axios</code> option empty during plugin installation.</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// store/index.js</span>
+
+<span class="token keyword">import</span> Vuex <span class="token keyword">from</span> <span class="token string">'vuex'</span>
+<span class="token keyword">import</span> VuexORM <span class="token keyword">from</span> <span class="token string">'@vuex-orm/core'</span>
+<span class="token keyword">import</span> VuexORMAxios <span class="token keyword">from</span> <span class="token string">'@vuex-orm/plugin-axios'</span>
+<span class="token keyword">import</span> User <span class="token keyword">from</span> <span class="token string">'@/models/User'</span>
+
+VuexORM<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>VuexORMAxios<span class="token punctuation">)</span> <span class="token comment">// &lt;- No axios option.</span>
+
+<span class="token keyword">const</span> database <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">VuexORM<span class="token punctuation">.</span>Database</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+database<span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span>User<span class="token punctuation">)</span>
+
+<span class="token keyword">export</span> <span class="token keyword">const</span> plugins <span class="token operator">=</span> <span class="token punctuation">[</span>VuexORM<span class="token punctuation">.</span><span class="token function">install</span><span class="token punctuation">(</span>database<span class="token punctuation">)</span><span class="token punctuation">]</span>
+</code></pre></div><p>Next, create a plugin where you must configure the axios instance on models globally.</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// plugins/vuex-orm-axios.js</span>
+
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Model <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@vuex-orm/core'</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> $axios <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  Model<span class="token punctuation">.</span><span class="token function">setAxios</span><span class="token punctuation">(</span>$axios<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>Finally, register the plugin you just created in your <code>nuxt.config.js</code> file.</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// nuxt.config.js</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  modules<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'@nuxtjs/axios'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  plugins<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'@/plugins/vuex-orm-axios'</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/plugin-axios/guide/installation.html" class="prev">
+        Installation
+      </a></span> <span class="next"><a href="/plugin-axios/guide/usage.html">
+        Usage
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/plugin-axios/assets/js/app.297610d2.js" defer></script><script src="/plugin-axios/assets/js/2.bbd49be7.js" defer></script><script src="/plugin-axios/assets/js/14.d1c34dff.js" defer></script>
+  </body>
+</html>
