@@ -1,3 +1,12 @@
+## [0.9.4](https://github.com/vuex-orm/plugin-axios/compare/v0.9.3...v0.9.4) (2021-02-01)
+
+
+### Bug Fixes
+
+* axios dependency remediation ([2c897a9](https://github.com/vuex-orm/plugin-axios/commit/2c897a94ce90514b1878e4c5767fd86a58530c4e))
+
+
+
 ## [0.9.3](https://github.com/vuex-orm/plugin-axios/compare/v0.9.2...v0.9.3) (2020-05-07)
 
 
