@@ -1,8 +1,0 @@
-/build
-/coverage
-/test
-.*
-logo-vuex-orm.png
-tsconfig.build.json
-tsconfig.json
-tslint.json

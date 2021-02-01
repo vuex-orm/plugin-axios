@@ -46,7 +46,7 @@ function createEntry(config) {
       : config.env !== 'production'
   }))
 
-  c.plugins.push(resolve())
+  c.plugins.push(resolve({ browser: true }))
   c.plugins.push(commonjs())
 
   c.plugins.push(ts({
