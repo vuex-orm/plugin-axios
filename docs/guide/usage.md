@@ -126,7 +126,7 @@ When performing a `delete` request, the plugin will not remove the corresponding
 If you want to delete a record from the store after performing a delete request, you must pass the `delete` option.
 
 ```js
-User.api().delete('/api/users/1'), {
+User.api().delete('/api/users/1', {
   delete: 1
 })
 ```
