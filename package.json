@@ -49,7 +49,7 @@
     "@vuex-orm/core": ">=0.34.0"
   },
   "dependencies": {
-    "axios": "^0.21.1"
+    "axios": "^0.21.2"
   },
   "devDependencies": {
     "@microsoft/api-documenter": "^7.8.21",
