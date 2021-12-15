@@ -1,8 +1,8 @@
-const fs = require('fs-extra')
-const chalk = require('chalk')
-const execa = require('execa')
-const { gzipSync } = require('zlib')
-const { compress } = require('brotli')
+import fs from 'fs-extra'
+import chalk from 'chalk'
+import { execa } from 'execa'
+import { gzipSync } from 'zlib'
+import { compress } from 'brotli'
 
 const files = [
   'dist/vuex-orm-axios.esm-browser.js',
@@ -16,7 +16,6 @@ const files = [
 async function run() {
   await build()
   checkAllSizes()
-  generateApiDocs()
 }
 
 async function build() {
@@ -43,10 +42,6 @@ function checkSize(file) {
       chalk.bold(file)
     )} size:${minSize} / gzip:${gzippedSize} / brotli:${compressedSize}`
   )
-}
-
-async function generateApiDocs() {
-  await execa('yarn', ['build:dts'], { stdio: 'inherit' })
 }
 
 run()
