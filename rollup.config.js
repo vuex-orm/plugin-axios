@@ -24,10 +24,7 @@ function createEntry(config) {
     plugins: [],
     output: {
       file: config.file,
-      format: config.format,
-      globals: {
-        vue: 'Vue'
-      }
+      format: config.format
     },
     onwarn: (msg, warn) => {
       if (!/Circular/.test(msg)) {
@@ -43,7 +40,8 @@ function createEntry(config) {
   c.plugins.push(replace({
     __DEV__: config.format === 'es' && !config.browser
       ? `(process.env.NODE_ENV !== 'production')`
-      : config.env !== 'production'
+      : config.env !== 'production',
+    preventAssignment: true
   }))
 
   c.plugins.push(resolve({ browser: true }))
